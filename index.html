@@ -1,0 +1,3554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#F5F1EB" />
+<title>Imprint by Alan Geleff — Brand Identity Studio</title>
+<meta name="description" content="Brand identity origination for founders and creators. Naming, visual identity, and brand systems — built to last." />
+<link rel="canonical" href="https://byimprint.studio/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://byimprint.studio/" />
+<meta property="og:title" content="Imprint by Alan Geleff — Brand Identity Studio" />
+<meta property="og:description" content="Brand identity origination for founders and creators. Naming, visual identity, and brand systems — built to last." />
+<meta property="og:image" content="https://byimprint.studio/art/imprint-og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Imprint" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Imprint by Alan Geleff — Brand Identity Studio" />
+<meta name="twitter:description" content="Brand identity origination for founders and creators. Naming, visual identity, and brand systems — built to last." />
+<meta name="twitter:image" content="https://byimprint.studio/art/imprint-og.png" />
+
+<link rel="icon" type="image/svg+xml" href="/art/imprint-mark.svg" />
+<link rel="manifest" href="/manifest.json" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ---------------- Imprint design tokens ----------------
+     Cream-dominant brand. Ink for text, Warm Brown as accent.
+     Soft warm gray (#D6CFC6) used for card surfaces & dividers.
+     Surface white (#FFFFFF) for the lightest card lifts only. */
+  :root {
+    --cream: #F5F1EB;
+    --cream-2: #EDE7DD;          /* slightly deeper cream for alt sections */
+    --surface: #FFFFFF;
+    --warm-gray: #D6CFC6;        /* card surfaces, dividers */
+    --warm-gray-2: #C3BBB0;      /* hover/active borders */
+    --ink: #1A1714;
+    --ink-2: #3D3833;            /* softer body text */
+    --ink-3: #6E6862;            /* tertiary/meta */
+    --brown: #8C7355;            /* primary accent */
+    --brown-2: #A38A6B;          /* hover accent */
+    --brown-soft: rgba(140, 115, 85, 0.10);
+    --rule: rgba(26, 23, 20, 0.10);
+    --rule-2: rgba(26, 23, 20, 0.18);
+    --serif: "Lora", "Times New Roman", serif;
+    --sans: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  body { min-height: 100vh; }
+  ::selection { background: var(--brown); color: var(--cream); }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  button { font-family: inherit; }
+
+  /* ---------------- layout ---------------- */
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  @media (max-width: 640px) { .wrap { padding: 0 20px; } }
+
+  section { position: relative; padding: 120px 0; }
+  @media (max-width: 720px) { section { padding: 88px 0; } }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brown);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px; height: 1px;
+    background: var(--brown);
+    opacity: 0.7;
+  }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.01em; margin: 0; color: var(--ink); }
+  h2 { font-size: clamp(36px, 5vw, 64px); line-height: 1.08; }
+  h3 { font-size: clamp(22px, 2.4vw, 28px); line-height: 1.25; }
+  p { color: var(--ink-2); }
+  em.brown { color: var(--brown); font-style: italic; }
+
+  /* ---------------- top nav ---------------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    backdrop-filter: blur(14px) saturate(110%);
+    -webkit-backdrop-filter: blur(14px) saturate(110%);
+    background: rgba(245, 241, 235, 0.78);
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.3s var(--ease);
+  }
+  .nav-inner {
+    max-width: 1180px; margin: 0 auto;
+    padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px;
+  }
+  /* Nav lockup — mark + wordmark sized and spaced so they read as a
+     single unit (mirrors the brand-guide lockup proportions). */
+  .nav-mark {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    color: var(--ink);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .nav-mark .nav-mark-img {
+    width: 48px; height: 48px;
+    display: block;
+    flex-shrink: 0;
+  }
+  .nav-links { display: flex; gap: 30px; align-items: center; }
+  .nav-links a {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    color: var(--ink-2);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: color 0.2s var(--ease);
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--brown); }
+  .nav-cta {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--cream) !important;
+    border: 1px solid var(--ink);
+    transition: all 0.2s var(--ease);
+  }
+  .nav-cta:hover { background: var(--brown); border-color: var(--brown); color: var(--cream) !important; }
+  @media (max-width: 720px) { .nav-links { display: none; } .nav-inner { padding: 14px 20px; } }
+
+  /* ---------------- buttons ---------------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--sans); font-weight: 500;
+    font-size: 14px; letter-spacing: 0.02em;
+    padding: 14px 24px;
+    border-radius: 999px;
+    border: 1px solid var(--rule-2);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.25s var(--ease);
+  }
+  .btn:hover { background: var(--brown-soft); border-color: var(--brown); color: var(--brown); }
+  .btn.primary {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+  .btn.primary:hover { background: var(--brown); border-color: var(--brown); color: var(--cream); }
+  .btn .ic { width: 16px; height: 16px; }
+
+  /* ---------------- hero ---------------- */
+  .imprint-hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding-top: 140px; padding-bottom: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .hero-mark {
+    width: 160px; height: 160px;
+    margin: 0 auto 32px;
+    display: block;
+    opacity: 0;
+    animation: heroFadeUp 1.1s var(--ease) 0.05s forwards;
+    filter: drop-shadow(0 24px 54px rgba(26, 23, 20, 0.15));
+  }
+  @media (max-width: 640px) {
+    .hero-mark { width: 130px; height: 130px; margin-bottom: 28px; }
+  }
+  .hero-mark img {
+    width: 100%; height: 100%;
+    display: block;
+  }
+  .hero-eyebrow {
+    margin-bottom: 22px;
+    opacity: 0;
+    animation: heroFadeUp 1.1s var(--ease) 0.2s forwards;
+  }
+  .hero-h1 {
+    font-family: var(--serif);
+    font-size: clamp(48px, 7.6vw, 96px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 26px 0;
+    max-width: 14ch;
+    opacity: 0;
+    animation: heroFadeUp 1.2s var(--ease) 0.35s forwards;
+  }
+  .hero-h1 em {
+    color: var(--brown);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .hero-sub {
+    font-family: var(--sans);
+    font-size: clamp(17px, 1.8vw, 21px);
+    color: var(--ink-2);
+    max-width: 56ch;
+    margin: 0 auto 42px;
+    line-height: 1.6;
+    font-weight: 400;
+    opacity: 0;
+    animation: heroFadeUp 1.2s var(--ease) 0.5s forwards;
+  }
+  .hero-ctas {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    align-items: center; justify-content: center;
+    opacity: 0;
+    animation: heroFadeUp 1.2s var(--ease) 0.65s forwards;
+  }
+  .hero-attribution {
+    margin-top: 64px;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+    opacity: 0;
+    animation: heroFadeUp 1.2s var(--ease) 0.85s forwards;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-attribution::before,
+  .hero-attribution::after {
+    content: "";
+    width: 22px; height: 1px;
+    background: var(--ink-3);
+    opacity: 0.5;
+  }
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-mark, .hero-eyebrow, .hero-h1, .hero-sub, .hero-ctas, .hero-attribution {
+      animation: none; opacity: 1; transform: none;
+    }
+  }
+
+  /* ---------------- intro quote band ---------------- */
+  .quote-band {
+    background: var(--cream-2);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 96px 0;
+    text-align: center;
+  }
+  .quote-band blockquote {
+    margin: 0 auto;
+    max-width: 880px;
+    padding: 0 28px;
+  }
+  .quote-band .quote-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.25;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin: 0 0 28px;
+  }
+  .quote-band .quote-text::before { content: "“"; color: var(--brown); padding-right: 4px; }
+  .quote-band .quote-text::after  { content: "”"; color: var(--brown); padding-left: 4px; }
+  .quote-band .quote-attr {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brown);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .quote-band .quote-attr::before {
+    content: "";
+    width: 28px; height: 1px;
+    background: var(--brown);
+    opacity: 0.7;
+  }
+
+  /* ---------------- showcase ---------------- */
+  .showcase-header {
+    margin-bottom: 56px;
+    max-width: 760px;
+  }
+  .showcase-header h2 { margin-top: 18px; }
+  .showcase-header h2 em { color: var(--brown); font-style: italic; font-weight: 500; }
+  .showcase-header .lede {
+    margin-top: 22px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-2);
+    font-size: clamp(18px, 1.8vw, 22px);
+    line-height: 1.55;
+    max-width: 60ch;
+  }
+
+  /* Marquee carousels — replaces the prior 3-col grid.
+     Two horizontally scrolling rows (Active + Concept) with a slow,
+     ambient loop. Items are JS-cloned on load so the loop is seamless. */
+  .marquee-section { margin-top: 36px; }
+  .marquee-section + .marquee-section { margin-top: 56px; }
+  .marquee-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    opacity: 0.72;
+    margin: 0 0 16px;
+    padding-left: 2px;
+  }
+  .marquee {
+    position: relative;
+  }
+  .marquee-viewport {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    animation: marqueeScroll 90s linear infinite;
+    will-change: transform;
+  }
+  .marquee--concept .marquee-track { animation-duration: 130s; }
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track { animation-play-state: paused; }
+  @keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  /* Marquee tile sizing — explicit dimensions on desktop so every
+     visual area is exactly 320×320 (matches the 1:1 phantom SVG
+     aspect ratio). With box geometry locked square, object-fit:
+     contain produces zero letterbox at the visual edges, and every
+     tile type (PV / BP / Hana Olu / Pua Aloha / concepts) has the
+     same visual height regardless of how meta content varies. */
+  .marquee .tile,
+  .marquee .tile-concept {
+    width: 320px;
+    height: 555px;
+    flex-shrink: 0;
+    aspect-ratio: auto;
+  }
+  .marquee .tile .tile-visual,
+  .marquee .tile-concept .concept-art {
+    height: 320px;
+    flex: 0 0 320px;
+  }
+  .marquee .tile-pv .tile-visual,
+  .marquee .tile-bp .tile-visual {
+    height: 320px;
+    flex: 0 0 320px;
+  }
+  .marquee .tile-meta {
+    flex: 1;
+    min-height: 215px;
+    /* Belt and suspenders — keep meta a flex column so the palette-cta
+       margin-top:auto trick works on every tile type (PV/BP/concept).
+       overflow: hidden guards against any future content overrun
+       pushing past the fixed meta box. */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  /* Pin the swatches + CTA row to the bottom of the meta section on
+     every card so they all sit at the same y-position regardless of
+     how desc/tagline wrap above. Higher specificity than the base
+     .tile-meta .palette-cta rule (which already sets margin-top:auto)
+     to guarantee it wins on every tile variant. */
+  .marquee .tile-meta .palette-cta {
+    margin-top: auto;
+  }
+  @media (max-width: 600px) {
+    .marquee .tile,
+    .marquee .tile-concept { width: 260px; }
+    .marquee-track { gap: 16px; }
+    /* Mobile tile geometry — explicit fixed tile + visual heights so
+       every card has the same square 260×260 visual area. The meta
+       section flex-grows into the remaining 260px so swatches and
+       CTA always have room (3-line desc clamp already truncates the
+       only variable-height text). The .marquee prefix bumps
+       specificity over base rules (.tile-visual flex:1, .concept-art
+       flex:1) that would otherwise win on source order. */
+    .marquee .tile,
+    .marquee .tile-concept {
+      height: 540px;
+      aspect-ratio: auto;
+    }
+    .marquee .tile .tile-visual,
+    .marquee .tile-concept .concept-art {
+      height: 260px;
+      flex: 0 0 260px;
+    }
+    /* Explicit lock on PV/BP visuals — same 260×260 as concept tiles,
+       prevents any inherited flex:1 from stretching them. */
+    .marquee .tile-pv .tile-visual,
+    .marquee .tile-bp .tile-visual {
+      height: 260px;
+      flex: 0 0 260px;
+    }
+    .marquee .tile-meta {
+      flex: 1;
+      overflow: hidden;
+    }
+    /* Concept artwork fills the 260×260 visual cleanly. With slice
+       set on the phantom SVGs, cover (over contain) guarantees the
+       SVG bleeds to all four edges even if a future tweak changes
+       the visual aspect ratio. */
+    .marquee .tile-concept .concept-art img {
+      object-fit: cover;
+    }
+    /* PV/BP composed visuals — tighter padding + scaled-up inner
+       elements so the square area reads correctly. */
+    .tile-pv .tile-visual { padding: 22px 18px; }
+    .tile-pv canvas { width: 54%; }
+    .tile-pv .pv-wordmark { width: 88%; }
+    .tile-bp .tile-visual { padding: 20px 16px; }
+    .tile-bp .fiend-constellation { width: 52%; max-width: none; }
+    .tile-bp .bp-wordmark { width: 92%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+
+  /* Marquee controls — chevron arrows + drag cursor. Auto-scroll is
+     JS-driven once the controller boots; CSS animation above is the
+     no-JS fallback. */
+  .marquee-track {
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .marquee.is-dragging .marquee-track { cursor: grabbing; }
+  .marquee.is-dragging a { pointer-events: none; }
+  .marquee-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(26, 23, 20, 0.62);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #F5F1EB;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0;
+    transition: opacity 0.28s var(--ease), background 0.2s var(--ease), transform 0.2s var(--ease);
+    box-shadow: 0 8px 22px -10px rgba(26, 23, 20, 0.55);
+  }
+  .marquee-arrow svg { width: 16px; height: 16px; display: block; }
+  .marquee-arrow--prev { left: 10px; }
+  .marquee-arrow--next { right: 10px; }
+  .marquee-arrow:hover {
+    background: rgba(26, 23, 20, 0.82);
+    transform: translateY(-50%) scale(1.06);
+  }
+  .marquee-arrow:focus-visible {
+    outline: 2px solid var(--brown);
+    outline-offset: 3px;
+  }
+  @media (hover: hover) {
+    .marquee-section:hover .marquee-arrow { opacity: 1; }
+  }
+  @media (hover: none), (max-width: 600px) {
+    .marquee-arrow { display: none; }
+  }
+
+  /* Tile shell — cream surface card with warm gray border.
+     Each tile keeps its brand-specific palette via the per-brand classes
+     below; only the OUTER shell changes for Imprint. */
+  .tile {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    aspect-ratio: 3/5;
+    display: flex; flex-direction: column;
+    transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    box-shadow: 0 1px 0 rgba(26,23,20,0.04);
+  }
+  .tile:hover {
+    transform: translateY(-4px);
+    border-color: var(--brown);
+    box-shadow: 0 28px 60px -28px rgba(26,23,20,0.28);
+  }
+  .tile-visual {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: grid; place-items: center;
+    background: var(--warm-gray);
+  }
+  .tile-visual img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .tile-meta {
+    padding: 16px 20px 18px;
+    border-top: 1px solid var(--rule);
+    background: var(--surface);
+    display: flex; flex-direction: column;
+    min-height: 215px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .tile-meta .brand-badge {
+    position: absolute;
+    top: 14px; right: 18px;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    box-sizing: border-box;
+    filter: drop-shadow(0 4px 10px rgba(26,23,20,0.18));
+    z-index: 1;
+    pointer-events: none;
+  }
+  .tile-meta span.brand-badge { border-radius: 6px; }
+  .tile-meta span.brand-badge img {
+    width: 80%; height: 80%;
+    object-fit: contain;
+    display: block;
+  }
+  .tile-meta .kicker { padding-right: 42px; }
+  .tile-meta .kicker {
+    font-family: var(--sans); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--brown); font-weight: 600;
+    margin: 0 0 6px;
+  }
+  .tile-meta .name {
+    font-family: var(--serif); font-size: 22px;
+    font-weight: 600; letter-spacing: -0.01em;
+    color: var(--ink); margin: 0 0 5px;
+  }
+  .tile-meta .desc {
+    font-size: 12.5px; color: var(--ink-3); line-height: 1.5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    margin: 0 0 8px;
+    /* Reserve 3 lines on every card so the meta section + visual area
+       stay the same height across the row, regardless of desc length. */
+    min-height: 4.5em;
+  }
+  .tile-meta .tagline {
+    font-family: var(--serif); font-style: italic;
+    font-size: 13px; line-height: 1.4;
+    color: var(--ink-2); opacity: 0.85;
+    margin: 0 0 8px;
+  }
+  /* Each tile keeps its own palette for its tagline/cta — set per-brand below. */
+  .tile-meta .palette-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 16px;
+    gap: 12px;
+  }
+  .tile-meta .palette {
+    display: flex; gap: 6px;
+    flex-shrink: 0;
+  }
+  .tile-meta .palette span {
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 0;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.28),
+      0 0 0 1px rgba(26,23,20,0.32);
+  }
+  .tile-meta .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--sans);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--brown);
+    text-decoration: none;
+    transition: color 0.25s var(--ease), gap 0.25s var(--ease);
+    white-space: nowrap;
+  }
+  .tile-meta .cta svg {
+    width: 13px; height: 13px;
+    transition: transform 0.25s var(--ease);
+    flex-shrink: 0;
+  }
+  .tile:hover .tile-meta .cta { gap: 8px; color: var(--ink); }
+  .tile:hover .tile-meta .cta svg { transform: translateX(2px); }
+
+  /* PostVomit + Bad People keep their dark visual canvases.
+     The tile-meta itself stays on cream to match Imprint shell. */
+  .tile-pv .tile-visual,
+  .tile-bp .tile-visual {
+    background: #0f0f1a;
+  }
+  .tile-pv .tile-visual {
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 35%, rgba(200,251,80,0.32) 0%, rgba(200,251,80,0.10) 38%, transparent 70%),
+      linear-gradient(160deg, #14140a 0%, #060604 100%);
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 4px;
+    padding: 32px 24px;
+  }
+  .tile-pv canvas {
+    width: 42%; height: auto;
+    aspect-ratio: 1;
+    position: relative; z-index: 2;
+  }
+  .tile-pv .pv-wordmark {
+    width: 72%; max-width: 380px;
+    height: auto;
+    display: block;
+    position: relative; z-index: 2;
+  }
+
+  .tile-bp .tile-visual {
+    background:
+      radial-gradient(circle at 50% 32%, rgba(244,201,93,0.35) 0%, transparent 36%),
+      radial-gradient(ellipse 80% 45% at 50% 72%, rgba(220,38,38,0.30) 0%, rgba(220,38,38,0.08) 45%, transparent 70%),
+      radial-gradient(circle at 50% 50%, #221308 0%, #0a0816 82%);
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 4px;
+    padding: 28px 24px;
+  }
+  .tile-bp .fiend-constellation {
+    width: 38%;
+    max-width: 150px;
+    position: relative; z-index: 2;
+  }
+  .tile-bp .bp-wordmark {
+    width: 82%; max-width: 360px;
+    height: auto;
+    display: block;
+    position: relative; z-index: 2;
+  }
+
+  /* Founder chip — re-themed for cream. Anchored bottom-right of the
+     tile visual so it reads as a subtle indicator, not a header. */
+  .founder-chip {
+    position: absolute;
+    bottom: 10px; right: 10px;
+    z-index: 4;
+    padding: 4px 8px 4px 7px;
+    background: rgba(245, 241, 235, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 7.5px;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 18px -8px rgba(26,23,20,0.4);
+  }
+  .founder-chip .founder-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--brown);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 0 rgba(140,115,85,0.55);
+    animation: founderChipPulse 2.6s ease-in-out infinite;
+  }
+  @keyframes founderChipPulse {
+    0%, 100% { box-shadow: 0 0 0 0   rgba(140,115,85,0.55); }
+    50%      { box-shadow: 0 0 0 4px rgba(140,115,85,0);    }
+  }
+
+  /* Fiend constellation — verbatim from work.html, scoped here. */
+  .fiend-constellation {
+    position: relative;
+    aspect-ratio: 1;
+  }
+  .fiend-constellation::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(244,201,93,0.22) 0%, transparent 48%),
+      radial-gradient(circle at 50% 50%, rgba(244,201,93,0.10) 30%, transparent 65%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .fiend-constellation::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 78%; aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px dashed rgba(244,201,93,0.22);
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .fiend {
+    position: absolute;
+    display: grid; place-items: center;
+  }
+  .fiend img { width: 100%; height: 100%; display: block; user-select: none; -webkit-user-drag: none; }
+  .fiend.center {
+    top: 50%; left: 50%;
+    width: 44%; aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    filter:
+      drop-shadow(0 0 8px rgba(255,224,138,0.65))
+      drop-shadow(0 0 22px rgba(244,201,93,0.55))
+      drop-shadow(0 10px 26px rgba(244,201,93,0.34));
+  }
+  .fiend-orbit {
+    position: absolute;
+    width: 22%; aspect-ratio: 1;
+    z-index: 1;
+  }
+  .fiend-orbit > div {
+    width: 100%; height: 100%;
+    display: grid; place-items: center;
+    animation: fiendDrift 9s ease-in-out infinite alternate;
+  }
+  .fiend-orbit.top    { top: 0;        left: 50%; margin-left: -11%; }
+  .fiend-orbit.right  { top: 50%;      right: 0;  margin-top:  -11%; }
+  .fiend-orbit.bottom { bottom: 0;     left: 50%; margin-left: -11%; }
+  .fiend-orbit.left   { top: 50%;      left: 0;   margin-top:  -11%; }
+  .fiend-orbit.top    > div { animation-delay:  0s;    animation-duration: 9.2s; }
+  .fiend-orbit.right  > div { animation-delay: -2.3s;  animation-duration: 10.4s; }
+  .fiend-orbit.bottom > div { animation-delay: -4.6s;  animation-duration: 8.4s; }
+  .fiend-orbit.left   > div { animation-delay: -6.9s;  animation-duration: 9.7s; }
+  .fiend-orbit.top    > div {
+    filter:
+      drop-shadow(0 0 6px rgba(255,180,0,0.60))
+      drop-shadow(0 0 14px rgba(249,115,22,0.55))
+      drop-shadow(0 6px 16px rgba(220,38,38,0.40));
+  }
+  .fiend-orbit.right  > div {
+    filter:
+      drop-shadow(0 0 6px rgba(255,180,0,0.50))
+      drop-shadow(0 0 14px rgba(139,92,246,0.55))
+      drop-shadow(0 6px 16px rgba(91,33,182,0.45));
+  }
+  .fiend-orbit.bottom > div {
+    filter:
+      drop-shadow(0 0 6px rgba(134,255,171,0.70))
+      drop-shadow(0 0 14px rgba(94,252,141,0.55))
+      drop-shadow(0 6px 16px rgba(21,128,61,0.40));
+  }
+  .fiend-orbit.left   > div {
+    filter:
+      drop-shadow(0 0 6px rgba(192,192,192,0.55))
+      drop-shadow(0 0 14px rgba(176,224,230,0.45))
+      drop-shadow(0 6px 16px rgba(10,10,10,0.55));
+  }
+  @keyframes fiendDrift {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-5px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fiend-orbit > div { animation: none; }
+  }
+
+  /* Concept-brand tile shell (Pua Aloha, Hana Olu, Carbide, Ribbon, Felt,
+     Tower, Loam, Iterate). Each tile keeps its own brand palette in the
+     visual + tile-meta so the showcase reads like a portfolio of distinct
+     worlds. */
+  .tile-concept {
+    background: var(--brand-bg, var(--surface));
+    color: var(--brand-ink, var(--ink));
+    overflow: hidden;
+    aspect-ratio: 3/5;
+    display: flex; flex-direction: column;
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .tile-concept .concept-chip {
+    position: absolute;
+    bottom: 10px; right: 10px;
+    z-index: 4;
+    padding: 4px 8px;
+    background: rgba(245, 241, 235, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--ink-2);
+    font-family: var(--sans);
+    font-size: 7.5px;
+    font-weight: 600;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+  .tile-concept .concept-art {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    background: var(--brand-bg, var(--surface));
+  }
+  .tile-concept .concept-art img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  .tile-concept .tile-meta {
+    background: var(--brand-bg, var(--surface));
+    border-top: 1px solid var(--brand-rule, var(--rule));
+    color: var(--brand-ink, var(--ink));
+  }
+  .tile-concept .tile-meta .kicker {
+    color: var(--brand-ink, var(--brown));
+    opacity: 0.65;
+  }
+  .tile-concept .tile-meta .name {
+    color: var(--brand-ink, var(--ink));
+    font-family: var(--brand-font, var(--serif));
+    font-style: var(--brand-font-style, normal);
+    font-weight: var(--brand-font-weight, 600);
+    letter-spacing: var(--brand-tracking, -0.01em);
+  }
+  .tile-concept .tile-meta .desc {
+    color: var(--brand-ink, var(--ink-3));
+    opacity: 0.78;
+  }
+  .tile-concept .tile-meta .tagline {
+    color: var(--brand-ink, var(--ink-2));
+    opacity: 0.75;
+  }
+  .tile-concept .tile-meta .cta {
+    color: var(--brand-ink, var(--brown));
+  }
+
+  /* Per-brand vignettes — palette + typography. */
+  .tile-carbide {
+    --brand-bg: #1A1816;
+    --brand-ink: #B89045;
+    --brand-rule: rgba(184,144,69,0.22);
+    --brand-font: 'Playfair Display','Bodoni MT',Georgia,serif;
+    --brand-font-style: italic;
+    --brand-font-weight: 500;
+  }
+  .tile-ribbon {
+    --brand-bg: #FAFAFA;
+    --brand-ink: #2A2747;
+    --brand-rule: rgba(91,78,217,0.18);
+    --brand-font: 'Inter','Helvetica Neue',Arial,sans-serif;
+    --brand-font-style: normal;
+    --brand-font-weight: 500;
+    --brand-tracking: -0.01em;
+  }
+  .tile-felt {
+    --brand-bg: #FCE7E7;
+    --brand-ink: #C04A6E;
+    --brand-rule: rgba(192,74,110,0.22);
+    --brand-font: 'Avenir Next','Helvetica Neue Rounded','Quicksand','Comfortaa',var(--sans);
+    --brand-font-style: normal;
+    --brand-font-weight: 600;
+    --brand-tracking: -0.01em;
+  }
+  .tile-tower {
+    --brand-bg: #F0EAE0;
+    --brand-ink: #1A1715;
+    --brand-rule: rgba(26,23,21,0.18);
+    --brand-font: 'Playfair Display','Bodoni MT',Georgia,serif;
+    --brand-font-style: italic;
+  }
+  .tile-loam {
+    --brand-bg: #E8E2C9;
+    --brand-ink: #8A5634;
+    --brand-rule: rgba(184,110,75,0.22);
+    --brand-font: 'Playfair Display',Georgia,serif;
+    --brand-font-style: italic;
+  }
+  .tile-iterate {
+    --brand-bg: #0A1628;
+    --brand-ink: #66D4FF;
+    --brand-rule: rgba(102,212,255,0.22);
+    --brand-font: 'Inter','Helvetica Neue',Arial,sans-serif;
+    --brand-font-style: italic;
+    --brand-font-weight: 500;
+    --brand-tracking: -0.005em;
+  }
+  .tile-ho {
+    --brand-bg: #ECE9E4;
+    --brand-ink: #6E5D8F;
+    --brand-rule: rgba(110,93,143,0.18);
+  }
+  .tile-pa {
+    --brand-bg: #FBF4E6;
+    --brand-ink: #264D2E;
+    --brand-rule: rgba(38,77,46,0.18);
+  }
+  .tile-pa .tile-meta .tagline { color: #2C5535; opacity: 0.78; }
+  .tile-pa .tile-meta .cta { color: #2C5535; }
+  .tile-pa .tile-meta .kicker { color: #B86E4B; }
+  .tile-pa .tile-meta .name { color: #1F3D26; }
+  .tile-pa .tile-meta .desc { color: #4A6B52; }
+  /* Terrain Colorado — outdoor/adventure identity. Deep Colorado-flag
+     navy meta with warm gold accents, against the same navy phantom. */
+  .tile-terrain {
+    --brand-bg: #002868;
+    --brand-ink: #E8D9B6;
+    --brand-rule: rgba(196,169,122,0.24);
+  }
+  .tile-terrain .tile-meta .kicker { color: #C4A97A; opacity: 1; }
+  .tile-terrain .tile-meta .name { color: #F5ECD4; font-weight: 500; letter-spacing: 0.04em; }
+  .tile-terrain .tile-meta .desc { color: #C9D3E4; opacity: 0.86; }
+  .tile-terrain .tile-meta .tagline { color: #C4A97A; opacity: 0.92; }
+  .tile-terrain .tile-meta .cta { color: #C4A97A; }
+  .tile-terrain:hover .tile-meta .cta { color: #F5ECD4; }
+  .tile-terrain .tile-meta .palette span {
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.22),
+      0 0 0 1px rgba(196,169,122,0.45);
+  }
+  .tile-ho .tile-meta .tagline { color: #6E5D8F; opacity: 0.78; }
+  .tile-ho .tile-meta .cta { color: #6E5D8F; }
+  .tile-ho .tile-meta .kicker { color: #6E5D8F; opacity: 0.62; }
+  .tile-ho .tile-meta .name { color: #4A3F66; }
+  .tile-ho .tile-meta .desc {
+    color: #6E5D8F;
+    opacity: 0.74;
+    /* Hana Olu has a tagline AND a description, so it needs more
+       vertical real estate than other cards. Clamp to 2 lines (vs the
+       global 3) and shrink reserved min-height to 2 lines so the
+       tagline + palette-cta below still align with sibling tiles. */
+    -webkit-line-clamp: 2;
+    min-height: 3em;
+  }
+
+  /* Hana Olu launching-soon status pill. */
+  .tile-ho .status-cta { gap: 6px; }
+  .tile-ho .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    display: inline-block;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 0 rgba(110,93,143,0.55);
+    animation: hoCtaPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes hoCtaPulse {
+    0%, 100% { box-shadow: 0 0 0 0   rgba(110,93,143,0.50); }
+    50%      { box-shadow: 0 0 0 5px rgba(110,93,143,0);    }
+  }
+  /* Terrain launching-soon status pill — mirrors Hana Olu, gold halo. */
+  .tile-terrain .status-cta { gap: 6px; }
+  .tile-terrain .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    display: inline-block;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 0 rgba(196,169,122,0.55);
+    animation: terrainCtaPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes terrainCtaPulse {
+    0%, 100% { box-shadow: 0 0 0 0   rgba(196,169,122,0.50); }
+    50%      { box-shadow: 0 0 0 5px rgba(196,169,122,0);    }
+  }
+  .tile-ho .tile-meta .cta,
+  .tile-pa .tile-meta .cta {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: color 0.25s var(--ease), gap 0.25s var(--ease), text-decoration-color 0.25s var(--ease);
+  }
+  .tile-ho:hover .tile-meta .cta,
+  .tile-pa:hover .tile-meta .cta {
+    text-decoration-color: currentColor;
+  }
+
+  /* ---------------- services — alternating rows ---------------- */
+  .serv-section {
+    padding: 110px 0;
+    border-top: 1px solid var(--rule);
+    background: var(--cream);
+  }
+  .serv-section.alt {
+    background: var(--cream-2);
+  }
+  .serv-row {
+    display: grid;
+    grid-template-columns: 0.45fr 0.55fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .serv-row > .serv-visual,
+  .serv-row > .serv-content { min-width: 0; }
+  .serv-row.reverse { grid-template-columns: 0.55fr 0.45fr; }
+  .serv-row.reverse .serv-visual { order: 2; }
+  .serv-row.reverse .serv-content { order: 1; }
+
+  @media (max-width: 900px) {
+    .serv-section { padding: 72px 0; }
+    .serv-row, .serv-row.reverse {
+      grid-template-columns: 1fr; gap: 36px;
+    }
+    .serv-row .serv-visual,
+    .serv-row.reverse .serv-visual { order: 1; }
+    .serv-row .serv-content,
+    .serv-row.reverse .serv-content { order: 2; }
+  }
+
+  .serv-visual {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 280px;
+  }
+  .serv-content .eyebrow { margin-bottom: 22px; }
+  .serv-h2 {
+    font-family: var(--serif);
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 22px 0;
+  }
+  .serv-h2 em { color: var(--brown); font-style: italic; font-weight: 500; }
+  .serv-body {
+    color: var(--ink-2);
+    font-size: 17px;
+    line-height: 1.7;
+    margin: 0 0 22px 0;
+    max-width: 56ch;
+  }
+  .serv-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .serv-body .price {
+    color: var(--brown);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14.5px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .serv-ctas {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .serv-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--brown);
+    font-family: var(--sans);
+    font-size: 14px; font-weight: 600;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid rgba(140,115,85,0.4);
+    padding-bottom: 2px;
+    transition: all 0.2s var(--ease);
+  }
+  .serv-cta:hover { border-bottom-color: var(--brown); transform: translateX(2px); color: var(--ink); }
+  .serv-cta-secondary {
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 4px 0;
+    margin: 0;
+    cursor: pointer;
+    font-family: var(--sans);
+    color: var(--ink-2);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s var(--ease);
+  }
+  .serv-cta-secondary::after {
+    content: "→";
+    font-size: 14px;
+    transition: transform 0.2s var(--ease);
+  }
+  .serv-cta-secondary:hover { color: var(--brown); }
+  .serv-cta-secondary:hover::after { transform: translateX(3px); }
+  .serv-cta-secondary:focus-visible {
+    outline: 1px solid var(--brown);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* ---- service visuals — each a small CSS composition on cream ---- */
+
+  /* 1. Brand Identity Origination — concentric rings echo of the hero, in
+        warm brown. The signature visual. */
+  .sv-rings {
+    position: relative;
+    width: clamp(240px, 30vw, 320px);
+    aspect-ratio: 1;
+    overflow: visible;
+  }
+  .sv-rings .dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--brown);
+    transform: translate(-50%, -50%);
+    box-shadow:
+      0 0 0 2px rgba(140,115,85,0.18),
+      0 0 24px rgba(140,115,85,0.45);
+    z-index: 2;
+  }
+  .sv-rings .ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid var(--brown);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation-name: ringPulse;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+  }
+  .sv-rings .ring.r1 { animation-duration: 6.4s; animation-delay:  0s;    }
+  .sv-rings .ring.r2 { animation-duration: 6.9s; animation-delay: -1.6s;  }
+  .sv-rings .ring.r3 { animation-duration: 6.1s; animation-delay: -3.1s;  }
+  .sv-rings .ring.r4 { animation-duration: 7.2s; animation-delay: -4.7s;  }
+  @keyframes ringPulse {
+    0%   { transform: translate(-50%, -50%) scale(0);    opacity: 0;    border-width: 1.5px; }
+    10%  {                                                 opacity: 0.55; }
+    100% { transform: translate(-50%, -50%) scale(1.08); opacity: 0;    border-width: 0.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sv-rings .ring {
+      animation: none;
+      opacity: 0.25;
+      transform: translate(-50%, -50%) scale(0.7);
+    }
+  }
+
+  /* 2. Brand Website — wireframe card (cream paper, warm-gray bones). */
+  .sv-website {
+    width: clamp(260px, 30vw, 360px);
+    aspect-ratio: 3/4;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 22px 22px 28px;
+    box-shadow: 0 24px 50px -22px rgba(26,23,20,0.18);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .sv-website .dotrow { display: flex; gap: 6px; }
+  .sv-website .dotrow span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--warm-gray);
+  }
+  .sv-website .h {
+    height: 14px; width: 70%;
+    background: var(--brown);
+    border-radius: 4px;
+  }
+  .sv-website .h2 { height: 8px; width: 90%; background: var(--warm-gray); border-radius: 4px; }
+  .sv-website .h3 { height: 8px; width: 60%; background: var(--warm-gray); border-radius: 4px; }
+  .sv-website .pill {
+    height: 22px; width: 100px;
+    background: var(--ink); border-radius: 999px;
+    margin-top: 4px;
+  }
+  .sv-website .img {
+    flex: 1;
+    background: linear-gradient(135deg, var(--warm-gray) 0%, var(--cream-2) 100%);
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+
+  /* 4. Brand Guide — bound book with gold leaf. */
+  .sv-guide {
+    position: relative;
+    width: clamp(240px, 28vw, 320px);
+    aspect-ratio: 4/5;
+    perspective: 800px;
+  }
+  .sv-guide .book {
+    position: absolute;
+    inset: 0;
+    background: var(--cream-2);
+    border: 1px solid var(--rule-2);
+    border-radius: 4px 12px 12px 4px;
+    box-shadow:
+      -8px 0 0 0 var(--ink) inset,
+      0 30px 60px -22px rgba(26,23,20,0.35);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 32px 40px 50px;
+    gap: 16px;
+  }
+  .sv-guide .book .mono-mark {
+    width: 56px; height: 56px;
+    opacity: 0.9;
+  }
+  .sv-guide .book .title {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: center;
+    letter-spacing: -0.01em;
+  }
+  .sv-guide .book .sub {
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--brown);
+    font-weight: 600;
+  }
+  .sv-guide .book .divider {
+    width: 32px; height: 1px;
+    background: var(--brown);
+    opacity: 0.6;
+  }
+
+  /* ---------------- pwa callout (inside brand website) ---------------- */
+  .pwa-callout {
+    margin: 6px 0 26px;
+    padding: 14px 18px;
+    background: var(--brown-soft);
+    border-left: 2px solid var(--brown);
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    max-width: 56ch;
+  }
+  .pwa-callout strong { color: var(--ink); font-weight: 600; }
+  .pwa-callout .price {
+    color: var(--brown);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 13.5px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  /* ---------------- brand book callout (reframed from old brand guide) ---------------- */
+  .bb-reveal {
+    margin: 4px 0 24px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 56ch;
+  }
+  .bb-reveal .label {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color: var(--brown);
+    margin-bottom: 8px;
+  }
+  .bb-reveal strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------------- value bundle ---------------- */
+  .vb-section {
+    padding: 110px 0;
+    border-top: 1px solid var(--rule);
+    background: var(--cream-2);
+  }
+  @media (max-width: 720px) { .vb-section { padding: 80px 0; } }
+  .vb-header {
+    max-width: 760px;
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+  .vb-header .eyebrow { justify-content: center; }
+  .vb-header .eyebrow::before { display: none; }
+  .vb-header h2 {
+    margin: 18px 0 18px;
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.08;
+  }
+  .vb-header h2 em { color: var(--brown); font-style: italic; font-weight: 500; }
+  .vb-header .vb-subhead {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--brown);
+    font-size: clamp(18px, 1.9vw, 22px);
+    line-height: 1.4;
+    margin: 0 auto 22px;
+    max-width: 56ch;
+  }
+  .vb-header .lede {
+    color: var(--ink-2);
+    font-size: 17px;
+    line-height: 1.65;
+    max-width: 62ch;
+    margin: 0 auto;
+  }
+  .vb-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .vb-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .vb-grid { grid-template-columns: 1fr; } }
+  .vb-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 24px 22px 22px;
+    transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 14px;
+    row-gap: 12px;
+    align-items: center;
+    min-height: 168px;
+  }
+  .vb-card:hover { border-color: var(--brown); transform: translateY(-2px); }
+  .vb-icon {
+    grid-column: 1;
+    grid-row: 1;
+    width: 36px; height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--brown-soft);
+    color: var(--brown);
+    flex-shrink: 0;
+  }
+  .vb-icon svg { width: 18px; height: 18px; }
+  .vb-title {
+    grid-column: 2;
+    grid-row: 1;
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+  }
+  .vb-desc {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .vb-desc strong { color: var(--ink); font-weight: 600; }
+  .vb-desc a {
+    color: var(--brown);
+    border-bottom: 1px solid rgba(140,115,85,0.35);
+    padding-bottom: 1px;
+    transition: border-color 0.2s var(--ease);
+  }
+  .vb-desc a:hover { border-bottom-color: var(--brown); }
+
+  /* ---------------- modal tier bullet lists ---------------- */
+  .tier-desc .tier-intro {
+    margin: 0 0 10px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+  .tier-desc ul.tier-bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .tier-desc ul.tier-bullets li {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    padding: 4px 0 4px 18px;
+    position: relative;
+  }
+  .tier-desc ul.tier-bullets li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--brown);
+    font-size: 10px;
+  }
+  .tier-desc ul.tier-bullets li strong { color: var(--ink); font-weight: 600; }
+  .tier-desc .tier-plus {
+    font-family: var(--sans);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brown);
+    margin: 12px 0 6px;
+  }
+
+  /* ---------------- form section ---------------- */
+  .form-section {
+    padding: 120px 0 100px;
+    border-top: 1px solid var(--rule);
+    background: var(--cream-2);
+  }
+  .form-header { margin-bottom: 48px; max-width: 720px; }
+  .form-header h2 { margin-top: 18px; }
+  .form-header h2 em { color: var(--brown); font-style: italic; font-weight: 500; }
+  .form-header .sub {
+    margin-top: 22px; font-size: 17px; color: var(--ink-2);
+    max-width: 56ch; line-height: 1.6;
+  }
+
+  .intake-form {
+    max-width: 760px;
+    display: flex; flex-direction: column;
+    gap: 44px;
+  }
+  .field { display: flex; flex-direction: column; gap: 14px; }
+  .field-label {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brown);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .field-label::before {
+    content: "";
+    width: 20px; height: 1px; background: var(--brown); opacity: 0.7;
+  }
+  .field-label .req { color: var(--ink-3); font-weight: 500; letter-spacing: 0.04em; }
+  .field-label .req::before { content: " · "; }
+
+  .input, .textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--rule-2);
+    padding: 12px 2px;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: clamp(18px, 1.8vw, 22px);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+    resize: none;
+  }
+  .input:focus, .textarea:focus {
+    outline: none;
+    border-bottom-color: var(--brown);
+    background: linear-gradient(to top, rgba(140,115,85,0.05), transparent);
+  }
+  .textarea {
+    min-height: 92px;
+    line-height: 1.5;
+  }
+  .input::placeholder, .textarea::placeholder {
+    color: var(--ink-3); font-style: italic; opacity: 0.7;
+  }
+
+  .options { display: flex; flex-wrap: wrap; gap: 10px; }
+  .opt {
+    position: relative;
+    cursor: pointer;
+  }
+  .opt input {
+    position: absolute; opacity: 0; pointer-events: none;
+  }
+  .opt .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--rule-2);
+    color: var(--ink-2);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--surface);
+    transition: all 0.2s var(--ease);
+  }
+  .opt:hover .pill { color: var(--ink); border-color: var(--brown); background: var(--brown-soft); }
+  .opt input:focus-visible ~ .pill {
+    outline: 2px solid var(--brown);
+    outline-offset: 3px;
+  }
+  .opt input:checked ~ .pill {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+
+  .form-submit {
+    margin-top: 12px;
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .send-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    padding: 16px 34px;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--cream);
+    cursor: pointer;
+    transition: all 0.25s var(--ease);
+  }
+  .send-btn:hover {
+    background: var(--brown);
+    border-color: var(--brown);
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px -10px rgba(140,115,85,0.5);
+  }
+  .send-btn:disabled {
+    opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none;
+  }
+  .form-note {
+    font-family: var(--sans);
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+  }
+
+  .thank-you {
+    display: none;
+    padding: 56px 0 0;
+  }
+  .thank-you.show { display: block; }
+  .intake-form.hidden { display: none; }
+  .thank-you .ty-eyebrow {
+    color: var(--brown);
+    font-family: var(--sans);
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    font-weight: 600;
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 18px;
+  }
+  .thank-you .ty-eyebrow::before {
+    content: ""; width: 28px; height: 1px; background: var(--brown);
+  }
+  .thank-you h3 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.15; letter-spacing: -0.01em;
+    margin: 0 0 18px 0;
+    max-width: 24ch;
+  }
+  .thank-you h3 em { color: var(--brown); font-style: italic; font-weight: 500; }
+  .thank-you p {
+    color: var(--ink-2); font-size: 17px;
+    max-width: 56ch; margin: 0;
+  }
+
+  .form-err {
+    color: #B23A3A;
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+  }
+  .form-err.show { display: block; }
+
+  /* ---------------- footer ---------------- */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 56px 0 56px;
+    text-align: center;
+    background: var(--cream);
+  }
+  footer .footer-mark {
+    width: 96px; height: 96px;
+    margin: 0 auto 10px;
+    opacity: 0.9;
+  }
+  footer .footer-wordmark {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  footer .footer-attr {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-2);
+    margin-bottom: 22px;
+  }
+  footer .back {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--serif); font-style: italic;
+    font-size: 15px; color: var(--brown);
+    border-bottom: 1px solid rgba(140,115,85,0.4);
+    padding-bottom: 2px;
+    transition: all 0.25s var(--ease);
+  }
+  footer .back:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+    transform: translateX(-2px);
+  }
+  footer .meta {
+    margin-top: 22px; font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-3);
+    font-weight: 500;
+  }
+  footer .legal-links {
+    margin-top: 18px;
+    display: inline-flex;
+    gap: 18px;
+    align-items: center;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  footer .legal-links a {
+    color: var(--ink-3);
+    transition: color 0.2s var(--ease);
+  }
+  footer .legal-links a:hover { color: var(--brown); }
+  footer .legal-links .sep {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--ink-3);
+    opacity: 0.5;
+  }
+
+  /* ---------------- modal ---------------- */
+  body.modal-open { overflow: hidden; }
+
+  .tier-modal {
+    position: fixed; inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s var(--ease), visibility 0.28s var(--ease);
+  }
+  .tier-modal.open { opacity: 1; visibility: visible; }
+
+  .tier-modal-overlay {
+    position: absolute; inset: 0;
+    background: rgba(26, 23, 20, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .tier-modal-card {
+    position: relative;
+    background: var(--cream);
+    border: 1px solid var(--rule-2);
+    border-radius: 18px;
+    padding: 48px 44px 40px;
+    max-width: 620px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    box-shadow: 0 40px 100px -20px rgba(26,23,20,0.45);
+    transform: translateY(16px) scale(0.985);
+    transition: transform 0.32s var(--ease);
+  }
+  .tier-modal.open .tier-modal-card { transform: translateY(0) scale(1); }
+
+  @media (max-width: 640px) {
+    .tier-modal { padding: 16px; }
+    .tier-modal-card { padding: 40px 24px 28px; border-radius: 14px; }
+  }
+
+  .tier-modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    border: 1px solid var(--rule-2);
+    background: transparent;
+    border-radius: 50%;
+    color: var(--ink-2);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .tier-modal-close:hover { color: var(--ink); border-color: var(--brown); }
+  .tier-modal-close:focus-visible {
+    outline: 1px solid var(--brown);
+    outline-offset: 3px;
+  }
+
+  .tier-modal-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brown);
+    display: block;
+    margin-bottom: 14px;
+  }
+  .tier-modal-title {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.4vw, 34px);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+    margin: 0 0 28px;
+    color: var(--ink);
+  }
+
+  .tier-list {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .tier-list li {
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .tier-list li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .tier-name {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--brown);
+    letter-spacing: -0.005em;
+    margin: 0 0 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .tier-name .tier-tag {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--ink-3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .tier-desc {
+    font-family: var(--sans);
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .tier-note {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin: 24px 0 0;
+    padding-top: 20px;
+    border-top: 1px dashed var(--rule);
+    line-height: 1.6;
+  }
+
+  /* ---------------- kind words (Sanity social proof feed) ---------------- */
+  .kw-section {
+    padding: 110px 0;
+    border-top: 1px solid var(--rule);
+    background: var(--cream);
+  }
+  @media (max-width: 720px) { .kw-section { padding: 80px 0; } }
+
+  .kw-header {
+    max-width: 720px;
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+  .kw-header .eyebrow { justify-content: center; }
+  .kw-header .eyebrow::before { display: none; }
+  .kw-header h2 {
+    margin: 18px 0 14px;
+    font-size: clamp(34px, 4.4vw, 52px);
+    font-weight: 500;
+  }
+  .kw-header h2 em { color: var(--brown); font-style: italic; font-weight: 500; }
+  .kw-header .sub {
+    color: var(--ink-3);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .kw-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 22px;
+    align-items: start;
+  }
+
+  .kw-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 22px 22px 20px;
+    transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+    color: var(--ink-2);
+    overflow: hidden;
+  }
+  .kw-card:hover {
+    border-color: var(--brown);
+    transform: translateY(-2px);
+  }
+
+  .kw-platform-icon {
+    position: absolute;
+    top: 18px; right: 18px;
+    width: 18px; height: 18px;
+    color: var(--ink-3);
+    opacity: 0.7;
+    transition: opacity 0.25s var(--ease), color 0.25s var(--ease);
+  }
+  .kw-card:hover .kw-platform-icon { opacity: 1; color: var(--brown); }
+  .kw-platform-icon svg { width: 100%; height: 100%; display: block; }
+
+  .kw-card .kw-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 36px 14px 0;
+  }
+  .kw-card .kw-pfp {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--warm-gray);
+    border: 1px solid var(--rule);
+    flex-shrink: 0;
+  }
+  .kw-card .kw-pfp-fallback {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--warm-gray);
+    border: 1px solid var(--rule);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .kw-card .kw-name {
+    font-family: var(--sans);
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+  }
+  .kw-card .kw-handle {
+    font-family: var(--sans);
+    font-size: 12.5px;
+    color: var(--ink-3);
+    line-height: 1.3;
+    margin-top: 2px;
+  }
+  .kw-card .kw-body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    white-space: pre-wrap;
+    margin: 0 0 16px;
+    overflow-wrap: anywhere;
+  }
+  .kw-card .kw-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+  }
+  .kw-card .kw-date { color: var(--ink-3); }
+  .kw-card .kw-link {
+    color: var(--brown);
+    font-weight: 600;
+    border-bottom: 1px solid rgba(140,115,85,0.35);
+    padding-bottom: 1px;
+    transition: border-color 0.2s var(--ease);
+  }
+  .kw-card .kw-link:hover { border-bottom-color: var(--brown); }
+
+  .kw-card .kw-embed { margin: 0; }
+  .kw-card .kw-embed > * { max-width: 100% !important; margin: 0 !important; }
+  .kw-card .kw-embed iframe { max-width: 100% !important; }
+  .kw-card .kw-embed blockquote { background: transparent !important; border: none !important; }
+
+  /* ---------------- reveal on scroll ---------------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-mark" aria-label="Imprint — home">
+      <img class="nav-mark-img" src="/art/imprint-mark.svg" alt="" aria-hidden="true" />
+      <span>Imprint</span>
+    </a>
+    <div class="nav-links">
+      <a href="#work">The work</a>
+      <a href="#services">Services</a>
+      <a href="#kindwords">Kind words</a>
+      <a href="https://alang.studio">alang.studio</a>
+      <a href="#start" class="nav-cta">Start a project</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="imprint-hero" id="top">
+  <!-- Canvas sits behind everything — concentric ink rings breathe outward
+       from a fixed center, very low opacity. requestAnimationFrame loop. -->
+  <canvas class="hero-canvas" id="heroRingsCanvas" aria-hidden="true"></canvas>
+
+  <div class="hero-content">
+    <div class="hero-mark" aria-hidden="true">
+      <img src="/art/imprint-mark.svg" alt="" />
+    </div>
+    <span class="eyebrow hero-eyebrow">Brand Identity Studio</span>
+    <h1 class="hero-h1">Your vision. <em>Made visible.</em></h1>
+    <p class="hero-sub">
+      Imprint originates full brand identities for founders — name, mark, palette, voice, story, system. You bring the vision. I translate it into something the world can see, feel, and remember.
+    </p>
+    <div class="hero-ctas">
+      <a href="#start" class="btn primary">
+        Start a brand
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#work" class="btn">See the work</a>
+    </div>
+    <div class="hero-attribution">by Alan Geleff</div>
+  </div>
+</section>
+
+<!-- ============== QUOTE BAND ============== -->
+<aside class="quote-band">
+  <blockquote>
+    <p class="quote-text">That brand becomes my brand.</p>
+    <span class="quote-attr">Alan Geleff &middot; Founder, Imprint</span>
+  </blockquote>
+</aside>
+
+<!-- ============== SHOWCASE ============== -->
+<section id="work">
+  <div class="wrap">
+    <div class="showcase-header reveal">
+      <span class="eyebrow">The work</span>
+      <h2>Brand after brand. <em>Each one a different world.</em></h2>
+      <p class="lede">No templates. No generic copy. Instead, every Imprint identity gets its own visual logic. A look that fits the founder and the vision behind them.</p>
+    </div>
+
+    <div class="marquee-section reveal">
+      <div class="marquee-label">Active Projects</div>
+      <div class="marquee marquee--active">
+        <button type="button" class="marquee-arrow marquee-arrow--prev" aria-label="Previous active project">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="marquee-arrow marquee-arrow--next" aria-label="Next active project">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="marquee-viewport">
+        <div class="marquee-track">
+
+      <!-- PostVomit -->
+      <a class="tile tile-pv" href="https://postvomit.com" target="_blank" rel="noopener" aria-label="PostVomit — Alan's own brand and product">
+        <div class="tile-visual">
+          <span class="founder-chip" aria-label="Founder's own project"><span class="founder-dot" aria-hidden="true"></span>Founder's own</span>
+          <canvas class="peevy-canvas" id="pvCanvas"></canvas>
+          <img class="pv-wordmark" src="/art/postvomit-wordmark.png" alt="PostVomit wordmark with P icon" loading="lazy">
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand + product · Live</div>
+          <img class="brand-badge" src="/art/icons/postvomit-p.svg" alt="PostVomit P icon" loading="lazy">
+          <div class="name">PostVomit</div>
+          <div class="desc">Full brand identity, voice system, and product UI. Peevy the mascot, lime-on-dark.</div>
+          <p class="tagline">Posts that sound like you.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#C8FB50"></span>
+              <span style="background:#14140a"></span>
+              <span style="background:#0d0d18"></span>
+              <span style="background:#F0EFE4"></span>
+            </div>
+            <span class="cta">See it live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Bad People -->
+      <a class="tile tile-bp" href="https://badpeople.cards" target="_blank" rel="noopener" aria-label="Bad People — Alan's own game and brand">
+        <div class="tile-visual">
+          <span class="founder-chip" aria-label="Founder's own project"><span class="founder-dot" aria-hidden="true"></span>Founder's own</span>
+          <div class="fiend-constellation" aria-hidden="true">
+            <div class="fiend center"><img src="/art/fiends/devil-icon.svg" alt=""></div>
+            <div class="fiend-orbit top">    <div><img src="/art/fiends/phoenix-icon.svg" alt=""></div></div>
+            <div class="fiend-orbit right">  <div><img src="/art/fiends/oracle-icon.svg"  alt=""></div></div>
+            <div class="fiend-orbit bottom"> <div><img src="/art/fiends/imp-icon.svg"     alt=""></div></div>
+            <div class="fiend-orbit left">   <div><img src="/art/fiends/death-icon.svg"   alt=""></div></div>
+          </div>
+          <img class="bp-wordmark" src="/art/bad-people-wordmark-horizontal.png" alt="Bad People horizontal wordmark with devil horns above the A" loading="lazy">
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand + game · Live</div>
+          <img class="brand-badge" src="/art/icons/badpeople-devil.svg" alt="Bad People devil icon" loading="lazy">
+          <div class="name">Bad People</div>
+          <div class="desc">Full identity for an online card game. Fiends, gold-and-crimson, every screen.</div>
+          <p class="tagline">The night gets weird.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#E0B240"></span>
+              <span style="background:#A11D2C"></span>
+              <span style="background:#0D0D18"></span>
+              <span style="background:#F1E8D2"></span>
+            </div>
+            <span class="cta">See it live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Terrain -->
+      <a class="tile tile-concept tile-terrain" href="#start" aria-label="Terrain — Colorado lawn and snow services brand identity by Alan Geleff">
+        <div class="concept-art">
+          <img src="/art/phantoms/terrain.svg" alt="Terrain wordmark with concentric topographic mark in ivory and gold on Colorado-flag navy"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand identity</div>
+          <span class="brand-badge" style="background:rgba(255,255,255,0.12)"><img src="/art/icons/terrain-icon.svg" alt="Terrain topographic mark" loading="lazy"></span>
+          <div class="name">Terrain</div>
+          <div class="desc">Colorado lawn care and snow removal. Built the full system — mark, palette, typography, and voice.</div>
+          <p class="tagline">Year-round, on the ground.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#002868"></span>
+              <span style="background:#C4A97A"></span>
+              <span style="background:#BF0A30"></span>
+              <span style="background:#F5ECD4"></span>
+            </div>
+            <span class="cta status-cta"><span class="status-dot" aria-hidden="true"></span>Launching Soon <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Hana Olu -->
+      <a class="tile tile-concept tile-ho" href="https://hanaolu.com" target="_blank" rel="noopener noreferrer" aria-label="Hana Olu — Hawaiian and Japanese natural body care, launching soon (opens in new tab)">
+        <div class="concept-art">
+          <img src="/art/phantoms/hana-olu.svg" alt="Hana Olu master wordmark on cream &mdash; two cherry blossoms flanking a flowing cursive hana&middot;olu lockup"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand identity</div>
+          <span class="brand-badge" style="background:#ECE9E4"><img src="/art/icons/hana-olu-icon.svg" alt="Hana Olu sakura mark" loading="lazy"></span>
+          <div class="name">Hana Olu</div>
+          <div class="desc">Hawaiian + Japanese beauty brand. Naming, logo, packaging, and handcrafted body care.</div>
+          <p class="tagline">Where Hawaiian &amp; Japanese beauty meet nature.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#D79AB8"></span>
+              <span style="background:#A494BE"></span>
+              <span style="background:#ECE9E4"></span>
+              <span style="background:#6E5D8F"></span>
+            </div>
+            <span class="cta status-cta"><span class="status-dot" aria-hidden="true"></span>Launching Soon <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Pua Aloha -->
+      <a class="tile tile-concept tile-pa" href="https://www.instagram.com/puaaloha00_" target="_blank" rel="noopener noreferrer" aria-label="Pua Aloha — Hawaiian floral studio (view on Instagram, opens in new tab)">
+        <div class="concept-art">
+          <img src="/art/phantoms/pua-aloha.svg" alt="Pua Aloha — cream florist brand vignette with sprig, italic wordmark and FLORAL STUDIO subhead"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand identity</div>
+          <span class="brand-badge" style="background:#FBF4E6"><img src="/art/icons/pua-aloha-icon.svg" alt="Pua Aloha sprig" loading="lazy"></span>
+          <div class="name">Pua Aloha</div>
+          <div class="desc">Hawaiian floral studio. Naming, logo, voice — coral and forest, soft and certain.</div>
+          <p class="tagline">Coral and forest. Soft and certain.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#E8907A"></span>
+              <span style="background:#2C5535"></span>
+              <span style="background:#F6EFE3"></span>
+              <span style="background:#B86E4B"></span>
+            </div>
+            <span class="cta">View on Instagram <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- ==========================================================
+           ADD A NEW ACTIVE PROJECT CARD
+           Drop this block inside the Active Projects <div class="marquee-track">
+           (above this comment) once everything is filled in. Uncomment to enable.
+
+           Setup checklist before inserting:
+             1. /art/phantoms/XX.svg
+                  - viewBox="0 0 1000 1000"
+                  - preserveAspectRatio="xMidYMid slice"
+                  - Full-canvas <rect> in your brand bg color
+                  - Wordmark / artwork centered on top
+             2. /art/icons/XX-icon.svg  (small brand mark for the badge)
+             3. Per-brand class added near .tile-pa / .tile-ho in this file:
+                  .tile-XX {
+                    --brand-bg: #XXXXXX;
+                    --brand-ink: #XXXXXX;
+                    --brand-rule: rgba(X,X,X,0.18);
+                  }
+             4. The marquee JS auto-clones this row on load, so a new tile
+                appears in both the original and cloned set — no extra work.
+
+           Active vs Concept differences (this template = Active):
+             - kicker text: "Brand identity"
+             - href: real external URL (target="_blank" rel="noopener")
+             - cta text: "See it live" / "View on Instagram" / status pill
+           =========================================================== -->
+      <!--
+      <a class="tile tile-concept tile-XX" href="https://brand.com" target="_blank" rel="noopener" aria-label="BrandName — short description">
+        <div class="concept-art">
+          <img src="/art/phantoms/XX.svg" alt="BrandName — short visual description"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand identity</div>
+          <span class="brand-badge" style="background:#EEEEEE"><img src="/art/icons/XX-icon.svg" alt="BrandName mark" loading="lazy"></span>
+          <div class="name">BrandName</div>
+          <div class="desc">One or two short sentences. Auto-clamped to 3 lines on mobile.</div>
+          <p class="tagline">A short tagline in italic serif.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#AABBCC"></span>
+              <span style="background:#DDEEFF"></span>
+              <span style="background:#112233"></span>
+              <span style="background:#998877"></span>
+            </div>
+            <span class="cta">See it live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </div>
+      </a>
+      -->
+
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee-section reveal">
+      <div class="marquee-label">Concept Brands</div>
+      <div class="marquee marquee--concept">
+        <button type="button" class="marquee-arrow marquee-arrow--prev" aria-label="Previous concept brand">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="marquee-arrow marquee-arrow--next" aria-label="Next concept brand">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="marquee-viewport">
+        <div class="marquee-track">
+
+      <!-- Carbide -->
+      <a class="tile tile-concept tile-carbide" href="#start" aria-label="Carbide Coffee — concept brand">
+        <div class="concept-art">
+          <img src="/art/phantoms/carbide-coffee.svg" alt="Carbide Coffee — moody charcoal craft-roastery vignette"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand exploration</div>
+          <span class="brand-badge" style="background:rgba(255,255,255,0.12)"><img src="/art/icons/carbide-icon.svg" alt="Carbide C glyph" loading="lazy"></span>
+          <div class="name">Carbide Coffee</div>
+          <div class="desc">Single-origin coffee brand. Editorial dressing with a gold serif wordmark.</div>
+          <p class="tagline">Small batch. Honest darkness.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#1A1816"></span>
+              <span style="background:#B89045"></span>
+              <span style="background:#E8DDC8"></span>
+              <span style="background:#5C2D0E"></span>
+            </div>
+            <span class="cta">See exploration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Ribbon -->
+      <a class="tile tile-concept tile-ribbon" href="#start" aria-label="Ribbon — concept brand">
+        <div class="concept-art">
+          <img src="/art/phantoms/ribbon.svg" alt="Ribbon — minimal indigo B2B SaaS vignette"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand exploration</div>
+          <img class="brand-badge" src="/art/icons/ribbon-pill.svg" alt="Ribbon pill icon" loading="lazy">
+          <div class="name">Ribbon</div>
+          <div class="desc">Workflow automation identity. Mirrored pill tittle, indigo on bone.</div>
+          <p class="tagline">The thread between every tool you use.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#5824E8"></span>
+              <span style="background:#FCFBFC"></span>
+              <span style="background:#B5A5FF"></span>
+              <span style="background:#2A1C7A"></span>
+            </div>
+            <span class="cta">See exploration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Felt -->
+      <a class="tile tile-concept tile-felt" href="#start" aria-label="Felt — concept brand">
+        <div class="concept-art">
+          <img src="/art/phantoms/felt.svg" alt="Felt — warm character-forward pet brand vignette"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand exploration</div>
+          <span class="brand-badge" style="background:#FCE7E7"><img src="/art/icons/felt-icon.svg" alt="Felt f with cat ears" loading="lazy"></span>
+          <div class="name">Felt</div>
+          <div class="desc">Playful pet brand. Chunky display type with cat-ear and tail flourishes.</div>
+          <p class="tagline">Treats, toys &amp; tiny joys — delivered monthly.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#CD0B61"></span>
+              <span style="background:#FCE7E7"></span>
+              <span style="background:#F8B2BC"></span>
+              <span style="background:#5C0A30"></span>
+            </div>
+            <span class="cta">See exploration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Tower -->
+      <a class="tile tile-concept tile-tower" href="#start" aria-label="Tower — concept brand">
+        <div class="concept-art">
+          <img src="/art/phantoms/tower.svg" alt="Tower — bold editorial quarterly publication vignette"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand exploration</div>
+          <span class="brand-badge" style="background:#EAE1D0"><img src="/art/icons/tower-icon.svg" alt="Tower T with masthead bar" loading="lazy"></span>
+          <div class="name">Tower</div>
+          <div class="desc">Editorial magazine identity. Masthead-bar wordmark, red on cream.</div>
+          <p class="tagline">Money rewards the patient. So does the work.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#A41B1B"></span>
+              <span style="background:#EAE1D0"></span>
+              <span style="background:#1A1A1A"></span>
+              <span style="background:#7B5A22"></span>
+            </div>
+            <span class="cta">See exploration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Loam -->
+      <a class="tile tile-concept tile-loam" href="#start" aria-label="Loam — concept brand">
+        <div class="concept-art">
+          <img src="/art/phantoms/loam.svg" alt="Loam — earthy slow-living artisan food vignette"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand exploration</div>
+          <span class="brand-badge" style="background:#E8E2C9"><img src="/art/icons/loam-icon.svg" alt="Loam L with leaf" loading="lazy"></span>
+          <div class="name">Loam</div>
+          <div class="desc">Slow-food kitchen brand. Leaf-from-L, seed-in-o, terracotta on sage.</div>
+          <p class="tagline">Sourdough, ferments &amp; the dignity of slowness.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#964031"></span>
+              <span style="background:#E8E2C9"></span>
+              <span style="background:#3A4E2B"></span>
+              <span style="background:#B86E4B"></span>
+            </div>
+            <span class="cta">See exploration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Iterate -->
+      <a class="tile tile-concept tile-iterate" href="#start" aria-label="Iterate — concept brand">
+        <div class="concept-art">
+          <img src="/art/phantoms/iterate.svg" alt="Iterate — navy product-engineering vignette with concentric loop mark"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand exploration</div>
+          <span class="brand-badge" style="background:rgba(255,255,255,0.12)"><img src="/art/icons/iterate-icon.svg" alt="Iterate concentric orbit" loading="lazy"></span>
+          <div class="name">Iterate</div>
+          <div class="desc">Product engineering brand. Concentric loop mark, italic wordmark on navy.</div>
+          <p class="tagline">Every loop, sharper.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#0A1628"></span>
+              <span style="background:#66D4FF"></span>
+              <span style="background:#3A87E5"></span>
+              <span style="background:#061020"></span>
+            </div>
+            <span class="cta">See exploration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- ==========================================================
+           ADD A NEW CONCEPT BRAND CARD
+           Drop this block inside the Concept Brands <div class="marquee-track">
+           (above this comment) once everything is filled in. Uncomment to enable.
+
+           Setup checklist before inserting:
+             1. /art/phantoms/XX.svg
+                  - viewBox="0 0 1000 1000"
+                  - preserveAspectRatio="xMidYMid slice"
+                  - Full-canvas <rect> in your brand bg color
+                  - Wordmark / artwork centered on top
+             2. /art/icons/XX-icon.svg  (small brand mark for the badge)
+             3. Per-brand class added near .tile-carbide / .tile-iterate in this file:
+                  .tile-XX {
+                    --brand-bg: #XXXXXX;
+                    --brand-ink: #XXXXXX;
+                    --brand-rule: rgba(X,X,X,0.22);
+                    --brand-font: 'FontName', serif;       (optional)
+                    --brand-font-style: italic;            (optional)
+                    --brand-font-weight: 500;              (optional)
+                    --brand-tracking: -0.01em;             (optional)
+                  }
+             4. The marquee JS auto-clones this row on load, so a new tile
+                appears in both the original and cloned set — no extra work.
+
+           Concept vs Active differences (this template = Concept):
+             - kicker text: "Brand exploration"
+             - href: "#start" (links to the intake form anchor)
+             - cta text: "See exploration" with arrow icon
+           =========================================================== -->
+      <!--
+      <a class="tile tile-concept tile-XX" href="#start" aria-label="BrandName — concept brand">
+        <div class="concept-art">
+          <img src="/art/phantoms/XX.svg" alt="BrandName — short visual description"/>
+        </div>
+        <div class="tile-meta">
+          <div class="kicker">Brand exploration</div>
+          <span class="brand-badge" style="background:#EEEEEE"><img src="/art/icons/XX-icon.svg" alt="BrandName mark" loading="lazy"></span>
+          <div class="name">BrandName</div>
+          <div class="desc">One or two short sentences. Auto-clamped to 3 lines on mobile.</div>
+          <p class="tagline">A short tagline in italic serif.</p>
+          <div class="palette-cta">
+            <div class="palette" aria-hidden="true">
+              <span style="background:#AABBCC"></span>
+              <span style="background:#DDEEFF"></span>
+              <span style="background:#112233"></span>
+              <span style="background:#998877"></span>
+            </div>
+            <span class="cta">See exploration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+      -->
+
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============== SERVICES ============== -->
+<div id="services"></div>
+
+<!-- 1. Brand Identity Origination (primary) -->
+<section class="serv-section">
+  <div class="wrap">
+    <div class="serv-row reveal">
+      <div class="serv-visual">
+        <div class="sv-rings" aria-hidden="true">
+          <span class="ring r1"></span>
+          <span class="ring r2"></span>
+          <span class="ring r3"></span>
+          <span class="ring r4"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="serv-content">
+        <span class="eyebrow">Brand Identity Origination &middot; Primary</span>
+        <h2 class="serv-h2">Originate the <em>whole identity</em> from scratch.</h2>
+        <p class="serv-body">
+          You know exactly what you're building. The world just hasn't seen it yet. Imprint originates full brand identities — name, mark, palette, voice, story, and the complete visual system — for founders ready to make it real. Entry starts at <span class="price">$500</span>.
+        </p>
+        <div class="serv-ctas">
+          <a href="#start" class="serv-cta">
+            Start an origination
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+          <button type="button" class="serv-cta-secondary" data-modal-open="modal-origination">View full breakdown</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Brand Book Callout (reframed — showcase of Book tier deliverable) -->
+<section class="serv-section alt">
+  <div class="wrap">
+    <div class="serv-row reverse reveal">
+      <div class="serv-visual">
+        <div class="sv-guide" aria-hidden="true">
+          <div class="book">
+            <img class="mono-mark" src="/art/imprint-mark.svg" alt="" />
+            <div class="title">Brand Book</div>
+            <div class="divider"></div>
+            <div class="sub">By Imprint</div>
+          </div>
+        </div>
+      </div>
+      <div class="serv-content">
+        <span class="eyebrow">The Brand Book &middot; Inside the Book tier</span>
+        <h2 class="serv-h2">What <em>Book</em> clients walk away with.</h2>
+        <p class="serv-body">
+          A printable, presentable 15–20 page guidebook that holds the whole identity — brand story, voice and tone, mark usage, color rules, typography hierarchy, do's and don'ts, real-world application mockups. The reference your team (or future collaborators) opens when they need to make something on-brand.
+        </p>
+        <div class="bb-reveal">
+          <div class="label">Your entire brand, made permanent.</div>
+          This is the full identity treatment. Your mark on the world, captured in pages. The bound, finished artifact of everything we build together.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Brand Website -->
+<section class="serv-section">
+  <div class="wrap">
+    <div class="serv-row reveal">
+      <div class="serv-visual">
+        <div class="sv-website" aria-hidden="true">
+          <div class="dotrow"><span></span><span></span><span></span></div>
+          <div class="h"></div>
+          <div class="h2"></div>
+          <div class="h3"></div>
+          <div class="pill"></div>
+          <div class="img"></div>
+        </div>
+      </div>
+      <div class="serv-content">
+        <span class="eyebrow">Brand Website &middot; Added value</span>
+        <h2 class="serv-h2">Built by the same hands that <em>built the brand</em>.</h2>
+        <p class="serv-body">
+          Most identities die at handoff. You finish the brand, then a developer who's never met your voice rebuilds it from a Figma file — and the site lands looking like someone else's. Imprint websites avoid that hand-off entirely. The look, the voice, and the code all come from the same place, so the site reads as a continuation of the brand, not a copy of it.
+        </p>
+        <p class="serv-body">
+          From a single landing page to a multi-page platform with custom backend — scoped to what your launch actually needs.
+        </p>
+        <div class="pwa-callout">
+          PWA included for System and Book clients when bundled with a website build. Home-screen icon, offline mode, splash screen, push-ready.
+        </div>
+        <div class="serv-ctas">
+          <a href="#start" class="serv-cta">
+            Start a brand website
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+          <button type="button" class="serv-cta-secondary" data-modal-open="modal-website">View full breakdown</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Value Bundle (replaces Asset Kit + Launch Support) -->
+<section class="vb-section">
+  <div class="wrap">
+    <div class="vb-header reveal">
+      <span class="eyebrow">The value bundle</span>
+      <h2>Built into <em>every engagement</em>.</h2>
+      <p class="vb-subhead">We equip you for confidence and success.</p>
+      <p class="lede">Every brand deserves an upper hand at launch. Imprint delivers that advantage. Here's what every origination client receives — regardless of which service they choose. The kind of resources most companies charge for. We include them because you're entitled to them.</p>
+    </div>
+    <div class="vb-grid">
+
+      <article class="vb-card reveal">
+        <span class="vb-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        </span>
+        <div class="vb-title">Name &amp; Domain Research</div>
+        <p class="vb-desc">Alan researches business name availability (by your state) and domain options before you commit. You choose, then we build.</p>
+      </article>
+
+      <article class="vb-card reveal">
+        <span class="vb-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </span>
+        <div class="vb-title">Brand Asset Kit</div>
+        <p class="vb-desc">Every file you'll actually use. Logo suite (SVG + PNG, all sizes), social profile pictures pre-sized for IG, FB, X, LinkedIn, YouTube, TikTok, banner templates, favicons, apple-touch-icon, OG share image. Zipped and delivered.</p>
+      </article>
+
+      <article class="vb-card reveal">
+        <span class="vb-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </span>
+        <div class="vb-title">Your Brand Document</div>
+        <p class="vb-desc">Brand Sheet, Brand Guide, or Brand Book — a polished, print-ready reference built for your tier. The thing that makes your brand portable.</p>
+      </article>
+
+      <article class="vb-card reveal">
+        <span class="vb-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+        </span>
+        <div class="vb-title">Business Registration Guide</div>
+        <p class="vb-desc">A step-by-step PDF for registering your business, so the legal side doesn't slow down the launch.</p>
+      </article>
+
+      <article class="vb-card reveal">
+        <span class="vb-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </span>
+        <div class="vb-title">Your New Brand Checklist</div>
+        <p class="vb-desc">Everything to do in the first week with your new identity — so nothing important gets forgotten.</p>
+      </article>
+
+      <article class="vb-card reveal">
+        <span class="vb-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
+        </span>
+        <div class="vb-title">Domain &amp; Email Setup</div>
+        <p class="vb-desc">How to connect your domain and set up a professional email — without paying someone to do the obvious.</p>
+      </article>
+
+      <article class="vb-card reveal">
+        <span class="vb-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+        </span>
+        <div class="vb-title">Launch Day Checklist</div>
+        <p class="vb-desc">What to do the day you go live. Nothing left undone, nothing forgotten.</p>
+      </article>
+
+      <article class="vb-card reveal">
+        <span class="vb-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </span>
+        <div class="vb-title">SEO + GEO Guides</div>
+        <p class="vb-desc">Be found by search engines and recommended by AI assistants. Two guides covering the visibility foundations every founder needs — plain-language, no consultant required.</p>
+      </article>
+
+      <article class="vb-card reveal">
+        <span class="vb-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </span>
+        <div class="vb-title">First 2 Weeks Social Schedule</div>
+        <p class="vb-desc">When to post, where to post, and what to say. Day-by-day guidance to build momentum without burning out. Keep your brand voice consistent across every platform with <a href="https://postvomit.com" target="_blank" rel="noopener">PostVomit</a>.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== KIND WORDS (Sanity social proof feed) ============== -->
+<section class="kw-section" id="kindwords" hidden>
+  <div class="wrap">
+    <div class="kw-header reveal">
+      <span class="eyebrow">Kind words</span>
+      <h2>What people are <em>saying</em>.</h2>
+      <p class="sub">Posts found in the wild. Lightly curated, never paid.</p>
+    </div>
+    <div class="kw-grid" id="kwGrid"></div>
+  </div>
+</section>
+
+<!-- ============== INTAKE FORM ============== -->
+<section class="form-section" id="start">
+  <div class="wrap">
+    <div class="form-header reveal">
+      <span class="eyebrow">Start a project</span>
+      <h2>Tell me what you're <em>building</em>.</h2>
+      <p class="sub">The more you share upfront, the sharper my first reply. No template responses — every project gets a real read.</p>
+    </div>
+
+    <form class="intake-form reveal" id="intakeForm" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="77296911-23be-4131-b216-50a4d0469535">
+      <input type="hidden" name="subject" value="New project inquiry — Imprint / byimprint.studio">
+      <input type="hidden" name="from_name" value="byimprint.studio intake">
+      <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
+
+      <div class="field">
+        <label for="building" class="field-label">What are you building?</label>
+        <textarea id="building" name="What are you building" class="textarea" rows="3" placeholder="A sentence or three is plenty. Working title, what it does, who it's for." required></textarea>
+      </div>
+
+      <div class="field">
+        <span class="field-label">What kind of help do you need? <span class="req">pick any</span></span>
+        <div class="options">
+          <label class="opt"><input type="checkbox" name="Help needed" value="Brand Identity Origination"><span class="pill">Brand Identity Origination</span></label>
+          <label class="opt"><input type="checkbox" name="Help needed" value="Brand Website"><span class="pill">Brand Website</span></label>
+          <label class="opt"><input type="checkbox" name="Help needed" value="PWA Conversion"><span class="pill">PWA Conversion</span></label>
+          <label class="opt"><input type="checkbox" name="Help needed" value="Founder Identity Kit"><span class="pill">Founder Identity Kit</span></label>
+          <label class="opt"><input type="checkbox" name="Help needed" value="Not sure yet"><span class="pill">Not sure yet</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">When are you looking to start?</span>
+        <div class="options">
+          <label class="opt"><input type="radio" name="Timing" value="ASAP"><span class="pill">ASAP</span></label>
+          <label class="opt"><input type="radio" name="Timing" value="Within the month"><span class="pill">Within the month</span></label>
+          <label class="opt"><input type="radio" name="Timing" value="1-3 months"><span class="pill">1-3 months</span></label>
+          <label class="opt"><input type="radio" name="Timing" value="Just exploring"><span class="pill">Just exploring</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Budget range?</span>
+        <div class="options">
+          <label class="opt"><input type="radio" name="Budget" value="Under $2K"><span class="pill">Under $2K</span></label>
+          <label class="opt"><input type="radio" name="Budget" value="$2K-$5K"><span class="pill">$2K-$5K</span></label>
+          <label class="opt"><input type="radio" name="Budget" value="$5K-$10K"><span class="pill">$5K-$10K</span></label>
+          <label class="opt"><input type="radio" name="Budget" value="$10K+"><span class="pill">$10K+</span></label>
+          <label class="opt"><input type="radio" name="Budget" value="Not sure"><span class="pill">Not sure</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email" class="field-label">Where can I reach you? <span class="req">required</span></label>
+        <input id="email" name="Email" type="email" class="input" placeholder="you@somewhere.com" required>
+      </div>
+
+      <div class="field">
+        <label for="extra" class="field-label">Anything else? <span class="req">optional</span></label>
+        <textarea id="extra" name="Anything else" class="textarea" rows="3" placeholder="Links, references, the feeling you want, what's stuck. Whatever helps."></textarea>
+      </div>
+
+      <div class="form-submit">
+        <button type="submit" class="send-btn">
+          Send it
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </button>
+        <span class="form-note">Replies within 24 hours</span>
+      </div>
+
+      <div class="form-err" id="formErr">Something went wrong sending that. Email me directly at alan.geleff@gmail.com.</div>
+    </form>
+
+    <div class="thank-you" id="thankYou" aria-live="polite">
+      <span class="ty-eyebrow">Sent</span>
+      <h3>Got it. I'll get back within <em>24 hours</em>.</h3>
+      <p>If anything urgent, I'm also at <a href="mailto:alan.geleff@gmail.com" style="color:var(--brown); border-bottom:1px solid rgba(140,115,85,0.4);">alan.geleff@gmail.com</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="wrap">
+    <img class="footer-mark" src="/art/imprint-mark.svg" alt="Imprint mark" />
+    <div class="footer-wordmark">Imprint</div>
+    <div class="footer-attr">by Alan Geleff</div>
+    <a href="https://alang.studio" class="back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      Back to alang.studio
+    </a>
+    <div class="meta">© <span id="yr">2026</span> Imprint Studio LLC. All rights reserved.</div>
+    <div class="legal-links">
+      <a href="https://alang.studio/privacy">Privacy Policy</a>
+      <span class="sep"></span>
+      <a href="https://alang.studio/terms">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============== MODALS ============== -->
+
+<div class="tier-modal" id="modal-origination" role="dialog" aria-modal="true" aria-labelledby="modal-origination-title" aria-hidden="true">
+  <div class="tier-modal-overlay" data-modal-close></div>
+  <div class="tier-modal-card">
+    <button type="button" class="tier-modal-close" data-modal-close aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+    </button>
+    <span class="tier-modal-eyebrow">Brand Identity Origination</span>
+    <h3 class="tier-modal-title" id="modal-origination-title">Full tier breakdown</h3>
+    <ul class="tier-list">
+      <li>
+        <h4 class="tier-name">Proof — $500</h4>
+        <div class="tier-desc">
+          <p class="tier-intro">A concept pass before you commit to the full identity.</p>
+          <ul class="tier-bullets">
+            <li>1 wordmark concept</li>
+            <li>1 color direction</li>
+            <li>1 look-and-feel comp</li>
+            <li>Offsets any upgrade — pay the remaining balance if you proceed</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <h4 class="tier-name">Core — $2,500</h4>
+        <div class="tier-desc">
+          <p class="tier-intro">A finished, usable identity for founders who need to ship.</p>
+          <ul class="tier-bullets">
+            <li><strong>Naming</strong> — business name research + recommendation</li>
+            <li><strong>Wordmark / logo</strong> (primary lockup)</li>
+            <li><strong>Color palette</strong> (HEX/RGB/CMYK codes)</li>
+            <li><strong>Typography stack</strong> (headline + body fonts, hierarchy + download links)</li>
+            <li><strong>Favicon + social avatar set</strong> (all major platforms pre-sized)</li>
+            <li><strong>Brand color + type reference card</strong> (1-page PDF — swatches, font names, download links)</li>
+            <li><strong>Brand Sheet</strong> (1 polished page: logo, palette, fonts, tagline)</li>
+            <li><strong>File delivery</strong> — SVG + PNG suite</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <h4 class="tier-name">System — $4,500 <span class="tier-tag">Most projects land here</span></h4>
+        <div class="tier-desc">
+          <p class="tier-intro">A complete brand system — usable, scalable, ready for a team.</p>
+          <p class="tier-plus">Everything in Core, plus:</p>
+          <ul class="tier-bullets">
+            <li><strong>Full logo suite</strong> (primary, alternate, horizontal, stacked, icon-only lockups)</li>
+            <li><strong>Extended color system</strong> (primary + secondary + neutrals)</li>
+            <li><strong>Typography hierarchy</strong> with real examples</li>
+            <li><strong>Competitor positioning snapshot</strong> (1-page: 2–3 competitor visual audits + how you stand apart)</li>
+            <li><strong>Email signature template</strong> (branded HTML)</li>
+            <li><strong>Business card mockup</strong> (1 rendered scene)</li>
+            <li><strong>PWA included</strong> when bundled with a website build</li>
+            <li><strong>Brand Guide</strong> (6–10 pages: full logo suite, colors, typography, positioning, usage do's/don'ts)</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <h4 class="tier-name">Book — $8,000</h4>
+        <div class="tier-desc">
+          <p class="tier-intro">The full identity treatment — voice, story, application, and a bound brand book.</p>
+          <p class="tier-plus">Everything in System, plus:</p>
+          <ul class="tier-bullets">
+            <li><strong>Brand voice + tone guidelines</strong> (written personality, tone, what the brand never says)</li>
+            <li><strong>Application mockups</strong> (4–8 real-world scenes: business card, phone, social header, website, merch, etc.)</li>
+            <li><strong>Animated logo</strong> (delivered as .svg, .gif, .mp4 — lives in asset kit, not the PDF)</li>
+            <li><strong>Custom icon set</strong> (5–8 brand-specific icons in the brand's visual language, SVG + PNG)</li>
+            <li><strong>PWA included</strong> when bundled with a website build</li>
+            <li><strong>Brand Book</strong> (15–20 pages: brand story, voice/tone, mockup scenes, full usage system)</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+    <p class="tier-note">Every tier includes name &amp; domain research — availability check by state plus domain options, presented for you to decide.</p>
+  </div>
+</div>
+
+<div class="tier-modal" id="modal-website" role="dialog" aria-modal="true" aria-labelledby="modal-website-title" aria-hidden="true">
+  <div class="tier-modal-overlay" data-modal-close></div>
+  <div class="tier-modal-card">
+    <button type="button" class="tier-modal-close" data-modal-close aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+    </button>
+    <span class="tier-modal-eyebrow">Brand Website</span>
+    <h3 class="tier-modal-title" id="modal-website-title">Full tier breakdown</h3>
+    <ul class="tier-list">
+      <li>
+        <h4 class="tier-name">Landing Page — $2,500</h4>
+        <p class="tier-desc">Single page. Copywriting, design, hand-coded build, deployed. <span class="tier-tag">+$1,500</span> when bundled with a System or Book brand.</p>
+      </li>
+      <li>
+        <h4 class="tier-name">Foundation — $5,000 <span class="tier-tag">3–5 pages</span></h4>
+        <p class="tier-desc">Home, About, Work, Contact + one more. Full responsive design, navigation, copywriting, deployment.</p>
+      </li>
+      <li>
+        <h4 class="tier-name">Platform — $8,500 <span class="tier-tag">5–10 pages</span></h4>
+        <p class="tier-desc">Everything in Foundation + case study system, deeper architecture, subpage structure.</p>
+      </li>
+      <li>
+        <h4 class="tier-name">Custom — From $12,000</h4>
+        <p class="tier-desc">Multilingual, complex catalogues, e-commerce (custom only), backend/database layer. Scoped together.</p>
+      </li>
+    </ul>
+    <p class="tier-note">2 rounds of refinements included. Refinement Pass ($500) available thereafter. <strong>PWA included</strong> for System and Book clients when bundled — home-screen icon, offline mode, splash, push-ready. Core clients can add it for +$1,500.</p>
+  </div>
+</div>
+
+<script>
+  // ----------------- marquee clone (showcase carousels) -----------------
+  // Duplicate each track's children so the translateX(-50%) loop is seamless.
+  // Runs before the reveal observer + peevy so cloned tiles are visible and
+  // the cloned PV canvas is picked up by the peevy initializer below.
+  (function () {
+    document.querySelectorAll('.marquee-track').forEach(track => {
+      const originals = Array.from(track.children);
+      originals.forEach(node => {
+        const clone = node.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        clone.setAttribute('tabindex', '-1');
+        clone.classList.remove('reveal', 'in');
+        if (clone.id) clone.removeAttribute('id');
+        clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+        clone.querySelectorAll('a, button').forEach(el => el.setAttribute('tabindex', '-1'));
+        track.appendChild(clone);
+      });
+    });
+  })();
+
+  // ----------------- marquee controller (auto-scroll + drag + arrows) -----------------
+  // JS-driven rAF auto-scroll replaces the CSS animation so drag, swipe,
+  // and arrow nudges integrate seamlessly. CSS keyframes remain as a
+  // no-JS fallback. Auto-scroll resumes ~2s after the last interaction.
+  (function () {
+    const RESUME_DELAY = 2000;
+    const NUDGE_MS = 420;
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.querySelectorAll('.marquee').forEach(marquee => {
+      const track = marquee.querySelector('.marquee-track');
+      if (!track) return;
+
+      // Disable CSS keyframe animation — JS now drives the transform.
+      track.style.animation = 'none';
+
+      const durationMs = marquee.classList.contains('marquee--concept') ? 130000 : 90000;
+      let position = 0;
+      let halfWidth = 0;
+      let lastTime = 0;
+      let paused = reduceMotion;
+      let resumeTimer = null;
+
+      function measure() {
+        // Track holds 2 identical sets; one set = scrollWidth / 2.
+        halfWidth = track.scrollWidth / 2;
+      }
+
+      function normalize() {
+        if (halfWidth <= 0) return;
+        while (position <= -halfWidth) position += halfWidth;
+        while (position > 0) position -= halfWidth;
+      }
+
+      function apply() {
+        track.style.transform = 'translateX(' + position + 'px)';
+      }
+
+      let isInteracting = false;
+
+      function pauseAuto() {
+        paused = true;
+        if (resumeTimer) { clearTimeout(resumeTimer); resumeTimer = null; }
+      }
+      function scheduleResume(delay) {
+        if (reduceMotion || isInteracting || isDragging) return;
+        if (resumeTimer) clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(() => { paused = false; resumeTimer = null; }, delay == null ? RESUME_DELAY : delay);
+      }
+
+      function tick(now) {
+        if (!lastTime) lastTime = now;
+        const dt = now - lastTime;
+        lastTime = now;
+        if (!paused && halfWidth > 0) {
+          const speed = halfWidth / durationMs;
+          position -= speed * dt;
+          normalize();
+          apply();
+        }
+        requestAnimationFrame(tick);
+      }
+
+      // Hover / focus pauses auto-scroll (the marquee section, so arrow
+      // hover counts too).
+      const section = marquee.closest('.marquee-section') || marquee;
+      section.addEventListener('mouseenter', () => { isInteracting = true;  pauseAuto(); });
+      section.addEventListener('mouseleave', () => { isInteracting = false; scheduleResume(); });
+      section.addEventListener('focusin',    () => { isInteracting = true;  pauseAuto(); });
+      section.addEventListener('focusout',   () => { isInteracting = false; scheduleResume(); });
+
+      // ----- Drag (mouse + touch) -----
+      let isDragging = false;
+      let startX = 0, startY = 0, startPos = 0;
+      let movedHoriz = false;
+      let axisLocked = null;
+
+      function getPoint(e) {
+        if (e.touches && e.touches.length) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        if (e.changedTouches && e.changedTouches.length) return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+        return { x: e.clientX, y: e.clientY };
+      }
+
+      function dragStart(e) {
+        if (e.type === 'mousedown' && e.button !== 0) return;
+        const p = getPoint(e);
+        isDragging = true;
+        movedHoriz = false;
+        axisLocked = null;
+        startX = p.x;
+        startY = p.y;
+        startPos = position;
+        pauseAuto();
+      }
+
+      function dragMove(e) {
+        if (!isDragging) return;
+        const p = getPoint(e);
+        const dx = p.x - startX;
+        const dy = p.y - startY;
+        if (e.touches && axisLocked === null) {
+          if (Math.abs(dx) > 8 || Math.abs(dy) > 8) {
+            axisLocked = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v';
+            if (axisLocked === 'v') {
+              // Let the page scroll vertically — release the drag.
+              isDragging = false;
+              scheduleResume();
+              return;
+            }
+          }
+        }
+        if (Math.abs(dx) > 4) {
+          movedHoriz = true;
+          if (!marquee.classList.contains('is-dragging')) marquee.classList.add('is-dragging');
+        }
+        position = startPos + dx;
+        normalize();
+        apply();
+        if (e.cancelable && (axisLocked === 'h' || !e.touches)) e.preventDefault();
+      }
+
+      function dragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        // Strip the drag class on the next tick so the synthetic click
+        // suppressor below can read movedHoriz first.
+        setTimeout(() => marquee.classList.remove('is-dragging'), 0);
+        scheduleResume();
+      }
+
+      track.addEventListener('mousedown', dragStart);
+      window.addEventListener('mousemove', dragMove);
+      window.addEventListener('mouseup', dragEnd);
+      track.addEventListener('touchstart', dragStart, { passive: true });
+      window.addEventListener('touchmove', dragMove, { passive: false });
+      window.addEventListener('touchend', dragEnd);
+      window.addEventListener('touchcancel', dragEnd);
+
+      // Block tile-link navigation when the mouseup follows a drag.
+      track.addEventListener('click', (e) => {
+        if (movedHoriz) {
+          e.preventDefault();
+          e.stopPropagation();
+          movedHoriz = false;
+        }
+      }, true);
+
+      // ----- Arrow nudges -----
+      function nudge(direction) {
+        pauseAuto();
+        const firstTile = track.querySelector('.tile, .tile-concept');
+        const tileWidth = firstTile ? firstTile.offsetWidth : 320;
+        const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 24;
+        const delta = direction * (tileWidth + gap);
+        const from = position;
+        const start = performance.now();
+        function step(now) {
+          const t = Math.min(1, (now - start) / NUDGE_MS);
+          const ease = 1 - Math.pow(1 - t, 3);
+          position = from + delta * ease;
+          normalize();
+          apply();
+          if (t < 1) requestAnimationFrame(step);
+          else scheduleResume();
+        }
+        requestAnimationFrame(step);
+      }
+
+      marquee.querySelectorAll('.marquee-arrow').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          nudge(btn.classList.contains('marquee-arrow--prev') ? 1 : -1);
+        });
+      });
+
+      // Recompute when fonts/images shift the track width.
+      window.addEventListener('resize', measure);
+      window.addEventListener('load', measure);
+
+      measure();
+      apply();
+      requestAnimationFrame(tick);
+    });
+  })();
+
+  // ----------------- reveal on scroll -----------------
+  (function () {
+    const els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(e => e.classList.add('in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -10% 0px' });
+    els.forEach(e => io.observe(e));
+  })();
+
+  // ----------------- hero rings canvas animation -----------------
+  // Concentric ink-colored rings radiate outward from a fixed center point
+  // in the hero. New rings start from the center as old ones fade. A very
+  // subtle slow rotation is layered on top. Pure JS + Canvas API, no deps.
+  (function () {
+    const canvas = document.getElementById('heroRingsCanvas');
+    if (!canvas) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Render one static set of rings so the hero isn't blank.
+      drawStatic();
+      return;
+    }
+
+    const ctx = canvas.getContext('2d');
+    let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    let W = 0, H = 0;
+
+    function fit() {
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      const rect = canvas.getBoundingClientRect();
+      W = Math.max(1, Math.round(rect.width));
+      H = Math.max(1, Math.round(rect.height));
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    fit();
+    window.addEventListener('resize', () => requestAnimationFrame(fit), { passive: true });
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(() => fit());
+      ro.observe(canvas);
+    }
+
+    // Ring parameters tuned for ambient texture, not loading-spinner energy.
+    const RING_COUNT     = 8;        // visible rings at any given time
+    const PERIOD_MS      = 11000;    // time for a single ring to expand fully
+    const ROTATION_MS    = 90000;    // full 360deg of subtle rotation
+    const INK_RGB        = '26, 23, 20'; // matches --ink
+    const MAX_OPACITY    = 0.05;     // brief mentions: 5% opacity
+
+    function drawStatic() {
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.round(rect.width), h = Math.round(rect.height);
+      const d = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      canvas.width = w * d; canvas.height = h * d;
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+      const cx = w / 2, cy = h * 0.5;
+      const maxR = Math.hypot(Math.max(cx, w - cx), Math.max(cy, h - cy));
+      for (let i = 0; i < RING_COUNT; i++) {
+        const t = i / RING_COUNT;
+        const r = t * maxR;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(${INK_RGB}, ${MAX_OPACITY * 0.6})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    function frame(ts) {
+      ctx.clearRect(0, 0, W, H);
+      const cx = W / 2;
+      const cy = H * 0.5;
+      // Max radius = distance from center to the farthest corner so the
+      // outermost ring always exits frame cleanly regardless of aspect ratio.
+      const maxR = Math.hypot(Math.max(cx, W - cx), Math.max(cy, H - cy)) * 1.1;
+
+      const rot = (ts % ROTATION_MS) / ROTATION_MS * Math.PI * 2;
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(rot);
+      ctx.translate(-cx, -cy);
+
+      for (let i = 0; i < RING_COUNT; i++) {
+        // Each ring is offset in phase by 1/RING_COUNT — so as one ring
+        // finishes (fades to 0 at the edge), the next is just starting
+        // from center. Continuous, looping, breathing.
+        const phase = ((ts + i * (PERIOD_MS / RING_COUNT)) % PERIOD_MS) / PERIOD_MS;
+        const r = phase * maxR;
+        // Fade in fast over the first 8% (rings appear, not blink in),
+        // then ease out to transparent over the rest.
+        let alpha;
+        if (phase < 0.08) {
+          alpha = (phase / 0.08) * MAX_OPACITY;
+        } else {
+          const k = (phase - 0.08) / 0.92;
+          alpha = MAX_OPACITY * (1 - k * k); // quadratic ease-out
+        }
+        if (alpha <= 0) continue;
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(${INK_RGB}, ${alpha})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      ctx.restore();
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  // ----------------- peevy blob (PostVomit tile canvas) -----------------
+  // Ported from work.html so the PV tile still animates inside the showcase.
+  (function () {
+    const canvases = document.querySelectorAll('canvas.peevy-canvas');
+    if (!canvases.length) return;
+
+    function startPeevy(canvas) {
+      const ctx = canvas.getContext('2d');
+      const isLocked = canvas.hasAttribute('width') && canvas.hasAttribute('height');
+
+      function fitCanvas() {
+        if (isLocked) return;
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width  = Math.max(1, Math.round(rect.width  * dpr));
+        canvas.height = Math.max(1, Math.round(rect.height * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      fitCanvas();
+
+      if (!isLocked) {
+        let resizeRaf = null;
+        const scheduleFit = () => {
+          if (resizeRaf) cancelAnimationFrame(resizeRaf);
+          resizeRaf = requestAnimationFrame(fitCanvas);
+        };
+        window.addEventListener('resize', scheduleFit);
+        if (typeof ResizeObserver !== 'undefined') {
+          const ro = new ResizeObserver(scheduleFit);
+          ro.observe(canvas);
+        }
+      }
+
+      const POINTS = 80;
+      function drawPeevy(ts) {
+        let W, H;
+        if (isLocked) {
+          W = canvas.width;
+          H = canvas.height;
+        } else {
+          const rect = canvas.getBoundingClientRect();
+          W = rect.width;
+          H = rect.height;
+        }
+        if (W < 4 || H < 4) { requestAnimationFrame(drawPeevy); return; }
+        const cx = W / 2, cy = H / 2;
+        const baseR = Math.min(W, H) * 0.28;
+        const scaleVal = 1 + Math.sin(ts * 0.001) * 0.03;
+
+        ctx.clearRect(0, 0, W, H);
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(scaleVal, scaleVal);
+        ctx.translate(-cx, -cy);
+
+        ctx.beginPath();
+        for (let i = 0; i <= POINTS; i++) {
+          const angle = (i / POINTS) * Math.PI * 2;
+          const r = baseR
+            + Math.sin(angle * 2 + ts * 0.0018) * (baseR * 0.32)
+            + Math.sin(angle * 3 - ts * 0.0024) * (baseR * 0.21)
+            + Math.sin(angle * 5 + ts * 0.0012) * (baseR * 0.11);
+          const x = cx + Math.cos(angle) * r;
+          const y = cy + Math.sin(angle) * r;
+          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.fillStyle = '#c8fb50';
+        ctx.fill();
+
+        ctx.beginPath();
+        for (let i = 0; i <= POINTS; i++) {
+          const angle = (i / POINTS) * Math.PI * 2;
+          const r = (baseR * 0.55)
+            + Math.sin(angle * 3 - ts * 0.002)  * (baseR * 0.18)
+            + Math.sin(angle * 2 + ts * 0.0015) * (baseR * 0.11);
+          const x = cx + Math.cos(angle) * r;
+          const y = cy + Math.sin(angle) * r;
+          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.fillStyle = '#1a1a2e';
+        ctx.fill();
+
+        ctx.restore();
+        requestAnimationFrame(drawPeevy);
+      }
+      requestAnimationFrame(drawPeevy);
+    }
+
+    canvases.forEach(startPeevy);
+  })();
+
+  // ----------------- form submit handler -----------------
+  (function () {
+    const form = document.getElementById('intakeForm');
+    const thankYou = document.getElementById('thankYou');
+    const err = document.getElementById('formErr');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.classList.remove('show');
+
+      const btn = form.querySelector('.send-btn');
+      const origBtn = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = 'Sending…';
+
+      const data = new FormData(form);
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (!res.ok) throw new Error('bad status');
+        form.classList.add('hidden');
+        thankYou.classList.add('show');
+        thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (_) {
+        btn.disabled = false;
+        btn.innerHTML = origBtn;
+        err.classList.add('show');
+      }
+    });
+  })();
+
+  // ----------------- tier breakdown modals -----------------
+  (function () {
+    const triggers = document.querySelectorAll('[data-modal-open]');
+    if (!triggers.length) return;
+
+    const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    let currentModal = null;
+    let lastFocused = null;
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      lastFocused = document.activeElement;
+      currentModal = modal;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      requestAnimationFrame(() => {
+        const focusables = modal.querySelectorAll(FOCUSABLE);
+        if (focusables.length) focusables[0].focus();
+      });
+    }
+
+    function closeModal() {
+      if (!currentModal) return;
+      currentModal.classList.remove('open');
+      currentModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+      }
+      currentModal = null;
+      lastFocused = null;
+    }
+
+    triggers.forEach(t => {
+      t.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal(t.getAttribute('data-modal-open'));
+      });
+    });
+
+    document.querySelectorAll('[data-modal-close]').forEach(el => {
+      el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!currentModal) return;
+      if (e.key === 'Escape') { closeModal(); return; }
+      if (e.key === 'Tab') {
+        const focusables = Array.from(currentModal.querySelectorAll(FOCUSABLE));
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && (active === first || !currentModal.contains(active))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  })();
+
+  // ----------------- kind words (Sanity social proof feed) -----------------
+  (function () {
+    const section = document.getElementById('kindwords');
+    const grid = document.getElementById('kwGrid');
+    if (!section || !grid) return;
+
+    const SANITY_PROJECT = '5itftb7u';
+    const SANITY_DATASET = 'production';
+    const QUERY = '*[_type=="socialPost"]|order(order asc){..., "pfpUrl": pfp.asset->url}';
+    const ENDPOINT = `https://${SANITY_PROJECT}.api.sanity.io/v2024-01-01/data/query/${SANITY_DATASET}?query=${encodeURIComponent(QUERY)}`;
+
+    const ICONS = {
+      x: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+      facebook: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>',
+      instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
+      threads: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.7 11.18a8.7 8.7 0 0 0-.32-.14c-.19-3.45-2.07-5.43-5.23-5.45h-.04c-1.89 0-3.46.81-4.43 2.28l1.74 1.19c.72-1.09 1.85-1.33 2.69-1.33h.03c1.06 0 1.85.31 2.36.92.37.44.61 1.05.74 1.83a13.6 13.6 0 0 0-3-.15c-3.02.17-4.96 1.93-4.83 4.37.07 1.24.68 2.3 1.74 3 .89.59 2.03.88 3.21.81 1.57-.09 2.8-.69 3.66-1.78.65-.83 1.07-1.9 1.25-3.25.74.45 1.29 1.04 1.6 1.74.51 1.2.55 3.17-1.06 4.78-1.4 1.4-3.09 2.01-5.65 2.03-2.84-.02-4.98-.93-6.37-2.7C3.49 17.78 2.79 15.54 2.76 12c.03-3.54.73-5.78 2.04-7.42 1.4-1.77 3.54-2.68 6.37-2.7 2.86.02 5.04.93 6.48 2.71.71.87 1.24 1.97 1.59 3.25l1.97-.53c-.43-1.58-1.1-2.95-2-4.07C17.43 1.07 14.75-.04 11.18 0c-3.56-.04-6.21 1.07-8.04 3.36C1.5 5.45.71 8.04.68 12v.01c.03 3.96.82 6.55 2.46 8.64 1.83 2.28 4.48 3.39 8.04 3.36 3.16-.02 5.38-.85 7.21-2.68 2.4-2.4 2.33-5.4 1.54-7.25-.57-1.32-1.65-2.41-3.12-3.13M11.92 16.5c-1.3.07-2.66-.52-2.73-1.78-.05-.94.66-1.99 2.81-2.11.25-.02.49-.02.73-.02.78 0 1.5.08 2.16.22-.25 3.06-1.7 3.6-2.97 3.69"/></svg>',
+      tiktok: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.6a8.16 8.16 0 0 0 4.77 1.52V6.69h-1.84z"/></svg>',
+      linkedin: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>',
+    };
+
+    const PLATFORM_LABEL = {
+      x: 'X',
+      facebook: 'Facebook',
+      instagram: 'Instagram',
+      threads: 'Threads',
+      tiktok: 'TikTok',
+      linkedin: 'LinkedIn',
+    };
+
+    function esc(s) {
+      return String(s ?? '').replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    function platformIcon(platform) {
+      const svg = ICONS[platform] || '';
+      const label = PLATFORM_LABEL[platform] || platform || '';
+      return `<span class="kw-platform-icon" role="img" aria-label="${esc(label)}">${svg}</span>`;
+    }
+
+    function formatDate(isoDate) {
+      if (!isoDate) return '';
+      const d = new Date(isoDate);
+      if (isNaN(d.getTime())) return '';
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function buildCardPost(post) {
+      const handleClean = post.handle ? String(post.handle).replace(/^@/, '') : '';
+      const initials = (post.name || handleClean || '?').trim().charAt(0).toUpperCase();
+      const pfp = post.pfpUrl
+        ? `<img class="kw-pfp" src="${esc(post.pfpUrl)}" alt="${esc(post.name || handleClean)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'kw-pfp-fallback',textContent:'${esc(initials)}'}))">`
+        : `<span class="kw-pfp-fallback">${esc(initials)}</span>`;
+      const nameLine = post.name ? `<div class="kw-name">${esc(post.name)}</div>` : '';
+      const handleLine = handleClean ? `<div class="kw-handle">@${esc(handleClean)}</div>` : '';
+      const body = post.body ? `<p class="kw-body">${esc(post.body)}</p>` : '';
+      const date = formatDate(post.date);
+      const link = post.postUrl
+        ? `<a class="kw-link" href="${esc(post.postUrl)}" target="_blank" rel="noopener noreferrer">View post →</a>`
+        : '';
+
+      return `
+        <article class="kw-card">
+          ${platformIcon(post.platform)}
+          <div class="kw-author">
+            ${pfp}
+            <div>${nameLine}${handleLine}</div>
+          </div>
+          ${body}
+          <div class="kw-footer">
+            <span class="kw-date">${esc(date)}</span>
+            ${link}
+          </div>
+        </article>
+      `;
+    }
+
+    function buildEmbedPost(post) {
+      const date = formatDate(post.date);
+      const link = post.postUrl
+        ? `<a class="kw-link" href="${esc(post.postUrl)}" target="_blank" rel="noopener noreferrer">View post →</a>`
+        : '';
+      const footer = (date || link)
+        ? `<div class="kw-footer"><span class="kw-date">${esc(date)}</span>${link}</div>`
+        : '';
+      return `
+        <article class="kw-card">
+          ${platformIcon(post.platform)}
+          <div class="kw-embed">${post.embedCode || ''}</div>
+          ${footer}
+        </article>
+      `;
+    }
+
+    function loadScriptOnce(id, src) {
+      if (document.getElementById(id)) return;
+      const s = document.createElement('script');
+      s.id = id;
+      s.src = src;
+      s.async = true;
+      s.charset = 'utf-8';
+      document.body.appendChild(s);
+    }
+
+    function activateEmbeds(posts) {
+      const hasTwitter = posts.some(p => p.type === 'embed' && p.platform === 'x');
+      const hasFacebook = posts.some(p => p.type === 'embed' && p.platform === 'facebook');
+      if (hasTwitter) {
+        loadScriptOnce('twitter-wjs', 'https://platform.twitter.com/widgets.js');
+        if (window.twttr && window.twttr.widgets) window.twttr.widgets.load(grid);
+      }
+      if (hasFacebook) {
+        loadScriptOnce('facebook-jssdk', 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0');
+        if (window.FB && window.FB.XFBML) window.FB.XFBML.parse(grid);
+      }
+    }
+
+    fetch(ENDPOINT, { mode: 'cors' })
+      .then(r => r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))
+      .then(json => {
+        const posts = Array.isArray(json && json.result) ? json.result : [];
+        if (!posts.length) return;
+        grid.innerHTML = posts.map(p => p.type === 'embed' ? buildEmbedPost(p) : buildCardPost(p)).join('');
+        section.hidden = false;
+        const header = section.querySelector('.reveal');
+        if (header && 'IntersectionObserver' in window) {
+          const io = new IntersectionObserver((entries, obs) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+          }, { threshold: 0.15 });
+          io.observe(header);
+        } else if (header) {
+          header.classList.add('in');
+        }
+        activateEmbeds(posts);
+      })
+      .catch(() => { /* leave the section hidden on any failure */ });
+  })();
+
+  // ----------------- year stamp -----------------
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

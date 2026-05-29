@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Tower silhouette — left-anchored stem + full-width masthead bar">
+  <!-- Full-width horizontal bar across the top (masthead / banner) -->
+  <rect x="0" y="14" width="100" height="18" fill="#A41B1B"/>
+  <!-- Left-anchored vertical stem (tower body) -->
+  <rect x="14" y="32" width="20" height="62" fill="#A41B1B"/>
+</svg>
