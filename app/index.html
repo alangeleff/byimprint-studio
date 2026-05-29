@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1A1714" />
+<title>Brand Codex</title>
+<meta name="description" content="Your brand assets, always in your pocket." />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Brand Codex" />
+<meta name="robots" content="noindex, nofollow" />
+
+<link rel="manifest" href="/app/manifest.json" />
+<link rel="apple-touch-icon" href="/app/icons/icon-192.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/app/icons/icon-192.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink: #1A1714;
+    --ink-lift: #211D18;
+    --ink-deep: #0F0C0A;
+    --cream: #F5F1EB;
+    --muted: rgba(245, 241, 235, 0.58);
+    --faint: rgba(245, 241, 235, 0.40);
+    --hair: rgba(245, 241, 235, 0.10);
+    --hair-2: rgba(245, 241, 235, 0.16);
+    --card: rgba(245, 241, 235, 0.045);
+    --card-2: rgba(245, 241, 235, 0.07);
+    /* accent set per-brand at runtime */
+    --accent: #8C7355;
+    --accent-soft: rgba(140, 115, 85, 0.12);
+    --accent-line: rgba(140, 115, 85, 0.30);
+    --serif: "Lora", "Times New Roman", serif;
+    --sans: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: var(--ink); }
+
+  .pad { padding-left: max(22px, env(safe-area-inset-left)); padding-right: max(22px, env(safe-area-inset-right)); }
+  .eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--accent); display: inline-flex; align-items: center; gap: 9px;
+  }
+  .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--accent); opacity: 0.7; }
+
+  /* ============ loading / states ============ */
+  #screen-loading, #screen-notfound, #screen-landing {
+    min-height: 100dvh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center; gap: 18px;
+    padding: 40px 24px;
+  }
+  .state-mark { width: 64px; height: 64px; opacity: 0.9; }
+  .spinner {
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 2px solid var(--hair); border-top-color: var(--accent);
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .state-title { font-family: var(--serif); font-size: 26px; font-weight: 500; margin: 4px 0 0; }
+  .state-sub { color: var(--muted); font-size: 14px; max-width: 320px; }
+
+  /* ============ access gate ============ */
+  #screen-gate {
+    min-height: 100dvh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 48px 24px calc(48px + env(safe-area-inset-bottom));
+    position: relative;
+  }
+  #screen-gate::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(120% 60% at 50% 0%, var(--accent-soft) 0%, transparent 60%);
+  }
+  .gate-inner { position: relative; width: 100%; max-width: 380px; animation: fadeUp 0.7s var(--ease) both; }
+  .gate-mark { width: 56px; height: 56px; margin: 0 auto 26px; display: block; }
+  .gate-eyebrow { margin-bottom: 22px; }
+  .gate-brand {
+    font-family: var(--serif); font-weight: 500; letter-spacing: -0.015em;
+    font-size: clamp(38px, 11vw, 56px); line-height: 1.04; margin: 0 0 10px;
+  }
+  .gate-prompt { color: var(--muted); font-size: 14.5px; margin: 0 0 32px; }
+  .gate-form { display: flex; flex-direction: column; gap: 14px; }
+  .gate-input {
+    width: 100%; padding: 16px 18px; font-size: 16px; font-family: var(--sans);
+    color: var(--cream); background: var(--card); border: 1px solid var(--hair-2);
+    border-radius: 14px; outline: none; text-align: center; letter-spacing: 0.02em;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .gate-input::placeholder { color: var(--faint); letter-spacing: normal; }
+  .gate-input:focus { border-color: var(--accent); background: var(--card-2); }
+  .gate-btn {
+    width: 100%; padding: 16px; font-size: 15px; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--ink); background: var(--accent); border-radius: 14px;
+    transition: transform 0.15s var(--ease), filter 0.2s var(--ease), opacity 0.2s;
+  }
+  .gate-btn:hover { filter: brightness(1.06); }
+  .gate-btn:active { transform: scale(0.985); }
+  .gate-btn:disabled { opacity: 0.55; cursor: progress; }
+  .gate-error {
+    min-height: 18px; font-size: 13px; font-weight: 600; color: #ff6b6b;
+    letter-spacing: 0.01em; opacity: 0; transition: opacity 0.2s;
+  }
+  .gate-error.show { opacity: 1; }
+  .gate-footer { margin-top: 38px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); }
+  .shake { animation: shake 0.42s cubic-bezier(.36,.07,.19,.97) both; }
+  @keyframes shake {
+    10%,90% { transform: translateX(-1px); } 20%,80% { transform: translateX(2px); }
+    30%,50%,70% { transform: translateX(-5px); } 40%,60% { transform: translateX(5px); }
+  }
+
+  /* ============ portal ============ */
+  #screen-portal { display: none; }
+  #screen-portal.visible { display: block; animation: fadeUp 0.6s var(--ease) both; }
+  .portal-wrap { max-width: 720px; margin: 0 auto; padding-top: max(20px, env(safe-area-inset-top)); }
+  .section { padding: 30px 0; border-top: 1px solid var(--hair); }
+  .section:first-of-type { border-top: none; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+  .section-title { font-family: var(--serif); font-size: 21px; font-weight: 500; margin: 0; }
+  .section-count { font-size: 12px; color: var(--faint); letter-spacing: 0.04em; }
+
+  /* header */
+  .brand-header {
+    position: relative; overflow: hidden; border-radius: 22px;
+    margin: 18px 0 8px; padding: 30px 24px;
+    background: linear-gradient(160deg, var(--accent-soft), transparent 70%), var(--card);
+    border: 1px solid var(--hair);
+  }
+  .brand-header .glow { position: absolute; inset: -40% 40% auto -10%; height: 200px;
+    background: radial-gradient(60% 100% at 30% 0%, var(--accent-soft), transparent 70%); pointer-events: none; }
+  .bh-logo { height: 40px; width: auto; max-width: 60%; margin-bottom: 18px; object-fit: contain; object-position: left center; }
+  .bh-name { font-family: var(--serif); font-size: clamp(30px, 8vw, 42px); font-weight: 500; line-height: 1.05; margin: 0 0 8px; letter-spacing: -0.015em; }
+  .bh-tagline { color: var(--muted); font-size: 15px; margin: 0; max-width: 90%; }
+  .bh-chip { position: relative; display: inline-flex; align-items: center; gap: 7px; margin-top: 16px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+  .bh-chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+
+  /* palette */
+  .swatch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (min-width: 560px) { .swatch-grid { grid-template-columns: repeat(3, 1fr); } }
+  .swatch {
+    text-align: left; border-radius: 16px; overflow: hidden; border: 1px solid var(--hair);
+    background: var(--card); transition: transform 0.15s var(--ease), border-color 0.2s; display: block; width: 100%;
+  }
+  .swatch:active { transform: scale(0.97); }
+  .swatch:hover { border-color: var(--hair-2); }
+  .swatch-chip { height: 78px; display: flex; align-items: flex-end; padding: 9px 11px; position: relative; }
+  .swatch-chip .hex { font-family: "DM Mono", monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.02em; opacity: 0.9; }
+  .swatch-chip .copy-ic { position: absolute; top: 9px; right: 10px; width: 15px; height: 15px; opacity: 0.55; }
+  .swatch-meta { padding: 11px 12px 13px; }
+  .swatch-meta .name { font-size: 13.5px; font-weight: 600; margin-bottom: 2px; }
+  .swatch-meta .use { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+
+  /* typography */
+  .type-row { padding: 16px 0; border-top: 1px solid var(--hair); }
+  .type-row:first-child { border-top: none; padding-top: 4px; }
+  .type-sample { font-size: 30px; line-height: 1.15; margin: 0 0 8px; color: var(--cream); word-break: break-word; }
+  .type-meta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; }
+  .type-role { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .type-spec { font-family: "DM Mono", monospace; font-size: 11.5px; color: var(--muted); }
+  .type-use { font-size: 12px; color: var(--faint); width: 100%; }
+
+  /* logos */
+  .logo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .logo-card { border-radius: 16px; overflow: hidden; border: 1px solid var(--hair); background: var(--card); display: flex; flex-direction: column; }
+  .logo-prev { min-height: 124px; display: flex; align-items: center; justify-content: center; padding: 18px 20px; }
+  .logo-prev.dark { background: linear-gradient(150deg, #15110d, #0c0a07); }
+  .logo-prev.light { background: #F5F1EB; }
+  .logo-prev img { width: 100%; height: 88px; object-fit: contain; }
+  .logo-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 11px 12px; border-top: 1px solid var(--hair); }
+  .logo-foot .nm { font-size: 12.5px; font-weight: 500; line-height: 1.25; }
+  .dl-btn { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px;
+    border-radius: 10px; background: var(--accent-soft); color: var(--accent); transition: background 0.2s, transform 0.15s; }
+  .dl-btn:hover { background: var(--accent-line); }
+  .dl-btn:active { transform: scale(0.9); }
+  .dl-btn svg { width: 17px; height: 17px; }
+
+  /* downloads */
+  .dl-list { display: flex; flex-direction: column; gap: 10px; }
+  .dl-row { display: flex; align-items: center; gap: 14px; padding: 15px 16px; border-radius: 14px;
+    background: var(--card); border: 1px solid var(--hair); transition: border-color 0.2s, background 0.2s; }
+  .dl-row:hover { border-color: var(--accent-line); background: var(--card-2); }
+  .dl-row .ftype { flex-shrink: 0; width: 42px; height: 42px; border-radius: 11px; background: var(--accent-soft);
+    color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; }
+  .dl-row .dl-info { flex: 1; min-width: 0; }
+  .dl-row .dl-info .nm { font-size: 14.5px; font-weight: 600; }
+  .dl-row .dl-info .sub { font-size: 12px; color: var(--muted); }
+  .dl-row .arrow { color: var(--faint); }
+  .dl-row .arrow svg { width: 18px; height: 18px; }
+
+  /* footer */
+  .portal-footer { border-top: 1px solid var(--hair); margin-top: 14px; padding: 30px 0 calc(40px + env(safe-area-inset-bottom));
+    display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+  .pf-brand { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+  .pf-brand img { height: 18px; opacity: 0.6; }
+  .pf-by { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint); }
+  .signout { display: inline-flex; align-items: center; gap: 9px; padding: 11px 18px; border-radius: 12px;
+    border: 1px solid var(--hair-2); font-size: 13px; font-weight: 500; color: var(--muted); transition: border-color 0.2s, color 0.2s; }
+  .signout:hover { border-color: var(--accent-line); color: var(--cream); }
+  .signout svg { width: 15px; height: 15px; }
+
+  /* toast */
+  #toast {
+    position: fixed; left: 50%; bottom: calc(26px + env(safe-area-inset-bottom));
+    transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+    background: var(--cream); color: var(--ink); font-size: 13.5px; font-weight: 600;
+    padding: 12px 18px; border-radius: 999px; z-index: 100; white-space: nowrap;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4); transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+    display: flex; align-items: center; gap: 8px;
+  }
+  #toast.show { opacity: 1; transform: translate(-50%, 0); }
+  #toast .sw { width: 13px; height: 13px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.15); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.001ms !important; } }
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="screen-loading">
+  <div class="spinner"></div>
+</div>
+
+<!-- LANDING (no slug) -->
+<div id="screen-landing" hidden>
+  <img class="state-mark" src="/app/imprint-mark.svg" alt="Imprint" />
+  <span class="eyebrow">Brand Codex</span>
+  <h1 class="state-title">Private brand portals</h1>
+  <p class="state-sub">Open your brand’s private link to view colors, type, logos and downloads.</p>
+</div>
+
+<!-- NOT FOUND -->
+<div id="screen-notfound" hidden>
+  <img class="state-mark" src="/app/imprint-mark.svg" alt="Imprint" />
+  <span class="eyebrow">Brand Codex</span>
+  <h1 class="state-title" id="nf-title">Codex not found</h1>
+  <p class="state-sub" id="nf-sub">We couldn’t find a Brand Codex at this link.</p>
+</div>
+
+<!-- ACCESS GATE -->
+<div id="screen-gate" hidden>
+  <div class="gate-inner pad">
+    <img class="gate-mark" src="/app/imprint-mark.svg" alt="Imprint" />
+    <div class="gate-eyebrow eyebrow">Brand Codex</div>
+    <h1 class="gate-brand" id="gate-brand">Brand</h1>
+    <p class="gate-prompt">Enter your access code to open the codex.</p>
+    <form class="gate-form" id="gate-form" autocomplete="off">
+      <input class="gate-input" id="gate-input" type="password" inputmode="text"
+             autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+             placeholder="Access code" aria-label="Access code" />
+      <button class="gate-btn" id="gate-btn" type="submit">Access</button>
+      <div class="gate-error" id="gate-error" role="alert">Invalid access code</div>
+    </form>
+    <div class="gate-footer">by Imprint</div>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div id="screen-portal">
+  <div class="portal-wrap pad">
+    <header class="brand-header" id="bh">
+      <div class="glow"></div>
+      <img class="bh-logo" id="bh-logo" alt="" hidden />
+      <h1 class="bh-name" id="bh-name"></h1>
+      <p class="bh-tagline" id="bh-tagline"></p>
+      <span class="bh-chip"><span class="dot"></span> Brand Codex</span>
+    </header>
+
+    <section class="section" id="sec-palette">
+      <div class="section-head">
+        <h2 class="section-title">Color Palette</h2>
+        <span class="section-count">Tap to copy</span>
+      </div>
+      <div class="swatch-grid" id="palette"></div>
+    </section>
+
+    <section class="section" id="sec-type">
+      <div class="section-head"><h2 class="section-title">Typography</h2></div>
+      <div id="typography"></div>
+    </section>
+
+    <section class="section" id="sec-logos">
+      <div class="section-head">
+        <h2 class="section-title">Logo Kit</h2>
+        <span class="section-count" id="logo-count"></span>
+      </div>
+      <div class="logo-grid" id="logos"></div>
+    </section>
+
+    <section class="section" id="sec-downloads" hidden>
+      <div class="section-head"><h2 class="section-title">Downloads</h2></div>
+      <div class="dl-list" id="downloads"></div>
+    </section>
+
+    <footer class="portal-footer">
+      <button class="signout" id="signout" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Sign out
+      </button>
+      <div class="pf-brand">
+        <img src="/app/imprint-wordmark.svg" alt="Imprint" />
+        <span class="pf-by">Brand Codex by Imprint</span>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<div id="toast"><span class="sw" id="toast-sw"></span><span id="toast-msg"></span></div>
+
+<script>
+(function () {
+  "use strict";
+  var APP_BASE = "/app";
+  var ACCESS_DAYS = 90;
+
+  // ---------- helpers ----------
+  function $(id) { return document.getElementById(id); }
+  function show(id) {
+    ["screen-loading","screen-landing","screen-notfound","screen-gate"].forEach(function (s) {
+      var el = $(s); if (el) el.hidden = (s !== id);
+    });
+    var portal = $("screen-portal");
+    if (id === "screen-portal") { portal.classList.add("visible"); }
+    else { portal.classList.remove("visible"); }
+  }
+
+  function getSlug() {
+    var parts = location.pathname.split("/").filter(Boolean);
+    var i = parts.indexOf("app");
+    var slug = i >= 0 ? parts[i + 1] : parts[0];
+    if (!slug || slug === "index.html") return "";
+    try { slug = decodeURIComponent(slug); } catch (e) {}
+    return slug.toLowerCase();
+  }
+
+  function titleize(slug) {
+    return slug.split(/[-_]/).filter(Boolean)
+      .map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(" ");
+  }
+
+  async function sha256Hex(text) {
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    var arr = Array.prototype.slice.call(new Uint8Array(buf));
+    return arr.map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+  }
+
+  function accessKey(slug) { return "brand_access_" + slug; }
+  function hasAccess(slug) {
+    try {
+      var raw = localStorage.getItem(accessKey(slug));
+      if (!raw) return false;
+      var o = JSON.parse(raw);
+      if (!o || typeof o.exp !== "number" || Date.now() > o.exp) {
+        localStorage.removeItem(accessKey(slug)); return false;
+      }
+      return true;
+    } catch (e) { return false; }
+  }
+  function grantAccess(slug) {
+    try { localStorage.setItem(accessKey(slug), JSON.stringify({ exp: Date.now() + ACCESS_DAYS * 864e5 })); } catch (e) {}
+  }
+  function revokeAccess(slug) { try { localStorage.removeItem(accessKey(slug)); } catch (e) {} }
+
+  function hexToRgb(hex) {
+    var h = (hex || "").replace("#", "");
+    if (h.length === 3) h = h.split("").map(function (c) { return c + c; }).join("");
+    var n = parseInt(h, 16);
+    return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+  }
+  function rgba(hex, a) { var c = hexToRgb(hex); return "rgba(" + c.r + "," + c.g + "," + c.b + "," + a + ")"; }
+  function isLight(hex) { var c = hexToRgb(hex); return (0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b) > 150; }
+
+  function fontStack(family) {
+    if (/mono/i.test(family)) return "'" + family + "', ui-monospace, monospace";
+    if (/lora/i.test(family)) return "'" + family + "', Georgia, serif";
+    return "'" + family + "', -apple-system, sans-serif";
+  }
+
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; }
+    catch (e) {
+      try {
+        var ta = document.createElement("textarea");
+        ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        var ok = document.execCommand("copy"); document.body.removeChild(ta); return ok;
+      } catch (e2) { return false; }
+    }
+  }
+
+  var toastTimer;
+  function toast(msg, color) {
+    var t = $("toast"), sw = $("toast-sw");
+    $("toast-msg").textContent = msg;
+    if (color) { sw.style.display = "inline-block"; sw.style.background = color; }
+    else { sw.style.display = "none"; }
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove("show"); }, 1700);
+  }
+
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+
+  // ---------- theme ----------
+  function applyAccent(hex) {
+    var root = document.documentElement.style;
+    root.setProperty("--accent", hex);
+    root.setProperty("--accent-soft", rgba(hex, 0.12));
+    root.setProperty("--accent-line", rgba(hex, 0.30));
+  }
+
+  // ---------- render portal ----------
+  function assetUrl(slug, file) { return APP_BASE + "/brands/" + slug + "/" + file; }
+
+  function renderPortal(brand) {
+    document.title = brand.name + " — Brand Codex";
+
+    // header
+    $("bh-name").textContent = brand.name;
+    $("bh-tagline").textContent = brand.tagline || "";
+    var hdrLogo = (brand.logos || []).filter(function (l) { return l.bg === "dark"; })[0] || (brand.logos || [])[0];
+    if (hdrLogo) {
+      var li = $("bh-logo"); li.src = assetUrl(brand.slug, hdrLogo.file); li.alt = brand.name + " logo"; li.hidden = false;
+    }
+
+    // palette
+    var pal = $("palette"); pal.innerHTML = "";
+    (brand.palette || []).forEach(function (c) {
+      var btn = el("button", "swatch"); btn.type = "button";
+      var chip = el("div", "swatch-chip");
+      chip.style.background = c.hex;
+      var tcol = isLight(c.hex) ? "rgba(26,23,20,0.85)" : "rgba(245,241,235,0.92)";
+      var hex = el("span", "hex", c.hex.toUpperCase()); hex.style.color = tcol;
+      chip.appendChild(hex);
+      chip.insertAdjacentHTML("beforeend",
+        '<svg class="copy-ic" viewBox="0 0 24 24" fill="none" stroke="' + tcol + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>');
+      var meta = el("div", "swatch-meta");
+      meta.appendChild(el("div", "name", c.name || ""));
+      if (c.usage) meta.appendChild(el("div", "use", c.usage));
+      btn.appendChild(chip); btn.appendChild(meta);
+      btn.addEventListener("click", async function () {
+        var ok = await copyText(c.hex.toUpperCase());
+        toast(ok ? "Copied " + c.hex.toUpperCase() + "  ✓" : "Copy failed", c.hex);
+      });
+      pal.appendChild(btn);
+    });
+
+    // typography
+    var ty = $("typography"); ty.innerHTML = "";
+    (brand.typography || []).forEach(function (t) {
+      var row = el("div", "type-row");
+      var sample = el("div", "type-sample", t.family);
+      sample.style.fontFamily = fontStack(t.family);
+      sample.style.fontWeight = t.weight || "400";
+      var meta = el("div", "type-meta");
+      meta.appendChild(el("span", "type-role", t.role || ""));
+      meta.appendChild(el("span", "type-spec", t.family + " · " + (t.weight || "400")));
+      if (t.usage) meta.appendChild(el("span", "type-use", t.usage));
+      row.appendChild(sample); row.appendChild(meta);
+      ty.appendChild(row);
+    });
+
+    // logos
+    var lg = $("logos"); lg.innerHTML = "";
+    var logos = brand.logos || [];
+    $("logo-count").textContent = logos.length + " files";
+    logos.forEach(function (l) {
+      var card = el("div", "logo-card");
+      var prev = el("div", "logo-prev " + (l.bg === "light" ? "light" : "dark"));
+      var img = el("img"); img.src = assetUrl(brand.slug, l.file); img.alt = l.name || ""; img.loading = "lazy";
+      prev.appendChild(img);
+      var foot = el("div", "logo-foot");
+      foot.appendChild(el("span", "nm", l.name || ""));
+      var a = document.createElement("a");
+      a.className = "dl-btn"; a.href = assetUrl(brand.slug, l.file);
+      a.setAttribute("download", ""); a.setAttribute("aria-label", "Download " + (l.name || "logo"));
+      a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>';
+      foot.appendChild(a);
+      card.appendChild(prev); card.appendChild(foot);
+      lg.appendChild(card);
+    });
+
+    // downloads
+    var dls = brand.downloads || [];
+    var secDl = $("sec-downloads"), dlBox = $("downloads"); dlBox.innerHTML = "";
+    if (dls.length) {
+      secDl.hidden = false;
+      dls.forEach(function (d) {
+        var a = document.createElement("a");
+        a.className = "dl-row"; a.href = assetUrl(brand.slug, d.file);
+        a.target = "_blank"; a.rel = "noopener";
+        var type = (d.type || (d.file.split(".").pop())).toUpperCase();
+        a.innerHTML =
+          '<span class="ftype">' + type + '</span>' +
+          '<span class="dl-info"><span class="nm">' + (d.name || "Download") + '</span>' +
+          '<span class="sub">Open ' + type + ' · opens in new tab</span></span>' +
+          '<span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>';
+        dlBox.appendChild(a);
+      });
+    } else {
+      secDl.hidden = true;
+    }
+
+    show("screen-portal");
+  }
+
+  // ---------- gate ----------
+  function setupGate(brand) {
+    $("gate-brand").textContent = brand.name;
+    var form = $("gate-form"), input = $("gate-input"), btn = $("gate-btn"),
+        err = $("gate-error"), inner = document.querySelector(".gate-inner");
+    err.classList.remove("show");
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var code = input.value.trim();
+      if (!code) return;
+      btn.disabled = true; err.classList.remove("show");
+      var hash = await sha256Hex(code);
+      if (hash === brand.accessCodeHash) {
+        grantAccess(brand.slug);
+        renderPortal(brand);
+      } else {
+        btn.disabled = false;
+        err.classList.add("show");
+        inner.classList.remove("shake"); void inner.offsetWidth; inner.classList.add("shake");
+        input.value = ""; input.focus();
+      }
+    });
+    show("screen-gate");
+    setTimeout(function () { input.focus(); }, 350);
+  }
+
+  // ---------- boot ----------
+  async function boot() {
+    var slug = getSlug();
+    if (!slug) { show("screen-landing"); return; }
+
+    var brand;
+    try {
+      var res = await fetch(APP_BASE + "/brands/" + slug + "/brand.json", { cache: "no-cache" });
+      if (!res.ok) throw new Error("not found");
+      brand = await res.json();
+      brand.slug = brand.slug || slug;
+    } catch (e) {
+      $("nf-title").textContent = titleize(slug) + " not found";
+      $("nf-sub").textContent = "We couldn’t find a Brand Codex at this link. Double-check the address with your studio.";
+      show("screen-notfound");
+      return;
+    }
+
+    applyAccent(brand.accentColor || "#8C7355");
+
+    $("signout").addEventListener("click", function () {
+      revokeAccess(brand.slug);
+      $("screen-portal").classList.remove("visible");
+      $("gate-input").value = "";
+      setupGate(brand);
+    });
+
+    if (hasAccess(brand.slug)) { renderPortal(brand); }
+    else { setupGate(brand); }
+  }
+
+  // ---------- PWA ----------
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("/app/sw.js", { scope: "/app/" }).catch(function () {});
+    });
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>

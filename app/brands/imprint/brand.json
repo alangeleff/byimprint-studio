@@ -1,0 +1,33 @@
+{
+  "name": "Imprint",
+  "slug": "imprint",
+  "accessCodeHash": "e7444343ba0a70a28c7a45b966fb60ed19b0d8805367384c227a3f65cdba819e",
+  "tagline": "Your vision. Made visible.",
+  "accentColor": "#8C7355",
+  "palette": [
+    { "name": "Cream", "hex": "#F5F1EB", "usage": "Primary background" },
+    { "name": "Cream 2", "hex": "#EDE7DD", "usage": "Alternate sections" },
+    { "name": "Warm Gray", "hex": "#D6CFC6", "usage": "Card surfaces, dividers" },
+    { "name": "Warm Brown", "hex": "#8C7355", "usage": "Primary accent" },
+    { "name": "Ink", "hex": "#1A1714", "usage": "Headlines, primary text" },
+    { "name": "Ink 2", "hex": "#3D3833", "usage": "Body text" }
+  ],
+  "typography": [
+    { "role": "Display / Headings", "family": "Lora", "weight": "500", "usage": "Headlines · serif · -1% tracking" },
+    { "role": "Body", "family": "Poppins", "weight": "400", "usage": "Paragraphs, UI · sans" },
+    { "role": "Eyebrow / Label", "family": "Poppins", "weight": "600", "usage": "Uppercase eyebrows · +22% tracking" }
+  ],
+  "logos": [
+    { "name": "Primary Lockup", "file": "assets/imprint-lockup-primary.svg", "bg": "light" },
+    { "name": "Inverted Lockup", "file": "assets/imprint-lockup-inverted.svg", "bg": "dark" },
+    { "name": "Mark", "file": "assets/imprint-mark-primary.svg", "bg": "light" },
+    { "name": "Mark — Inverted", "file": "assets/imprint-mark-inverted.svg", "bg": "dark" },
+    { "name": "Stacked", "file": "assets/imprint-stacked-primary.svg", "bg": "light" },
+    { "name": "Stacked — Inverted", "file": "assets/imprint-stacked-inverted.svg", "bg": "dark" },
+    { "name": "Wordmark", "file": "assets/imprint-wordmark-primary.svg", "bg": "light" },
+    { "name": "Wordmark — Inverted", "file": "assets/imprint-wordmark-inverted.svg", "bg": "dark" }
+  ],
+  "downloads": [
+    { "name": "Brand Guide", "file": "assets/imprint-brand-guide.pdf", "type": "pdf" }
+  ]
+}

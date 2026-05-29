@@ -1,0 +1,35 @@
+{
+  "name": "PostVomit",
+  "slug": "postvomit",
+  "accessCodeHash": "56b2c52c4a4b6538c71ce3fa1942f08878d0d664362c3b2fb88cca42941520d5",
+  "tagline": "Write once. Vomit everywhere.",
+  "accentColor": "#C8F000",
+  "palette": [
+    { "name": "Deep Navy", "hex": "#150B2C", "usage": "Primary background" },
+    { "name": "Navy (UI)", "hex": "#1A1A2E", "usage": "Website background, cards" },
+    { "name": "Lime Green", "hex": "#C8F000", "usage": "Primary accent, CTA buttons" },
+    { "name": "Hot Pink", "hex": "#FF3CAC", "usage": "Accent, highlights, energy" },
+    { "name": "White", "hex": "#FFFFFF", "usage": "Primary text, wordmark" }
+  ],
+  "typography": [
+    { "role": "Display", "family": "Nunito", "weight": "900", "usage": "Hero headlines · -2% tracking" },
+    { "role": "Heading", "family": "Nunito", "weight": "800", "usage": "Section headings" },
+    { "role": "Subheading", "family": "Nunito", "weight": "700", "usage": "Supporting headlines" },
+    { "role": "Body", "family": "Nunito", "weight": "400", "usage": "Paragraphs, long-form" },
+    { "role": "Label / Caption", "family": "Nunito", "weight": "600", "usage": "Eyebrows, captions · +12% tracking" }
+  ],
+  "logos": [
+    { "name": "Primary Logo", "file": "assets/01_logo_dark.png", "bg": "dark" },
+    { "name": "Logo on White", "file": "assets/03_logo_white.png", "bg": "light" },
+    { "name": "Logo — Transparent", "file": "assets/02_logo_transparent.png", "bg": "dark" },
+    { "name": "Icon — Dark", "file": "assets/04_icon_dark.png", "bg": "dark" },
+    { "name": "Icon — White", "file": "assets/06_icon_white.png", "bg": "light" },
+    { "name": "Icon — Transparent", "file": "assets/05_icon_transparent.png", "bg": "dark" },
+    { "name": "Wordmark", "file": "assets/10_wordmark_transparent.png", "bg": "dark" },
+    { "name": "Social Profile (400×400)", "file": "assets/08_social_pfp_400x400.png", "bg": "dark" },
+    { "name": "Social Banner (1500×500)", "file": "assets/12_x_banner_1500x500.png", "bg": "dark" }
+  ],
+  "downloads": [
+    { "name": "Brand Guide", "file": "assets/PostVomit_Brand_Guide.html", "type": "html" }
+  ]
+}

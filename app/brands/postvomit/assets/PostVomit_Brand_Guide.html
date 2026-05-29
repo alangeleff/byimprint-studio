@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PostVomit — Brand Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #150b2c;
+    --lime:   #c8f000;
+    --pink:   #ff3cac;
+    --white:  #ffffff;
+    --muted:  rgba(255,255,255,0.45);
+    --border: rgba(255,255,255,0.08);
+    --surface:#1e1535;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(21,11,44,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+  }
+  nav .brand { font-size: 15px; font-weight: 800; letter-spacing: 0.05em; color: var(--lime); }
+  nav .links { display: flex; gap: 32px; }
+  nav .links a { color: var(--muted); font-size: 13px; font-weight: 600; text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color .2s; }
+  nav .links a:hover { color: #fff; }
+
+  /* SECTIONS */
+  section { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
+  section + section { border-top: 1px solid var(--border); }
+
+  .section-label {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--lime);
+    margin-bottom: 12px;
+  }
+  h2 { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
+  .sub { color: var(--muted); font-size: 15px; margin-bottom: 48px; }
+
+  /* HERO */
+  .hero {
+    min-height: 420px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 48px 80px;
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(ellipse at 50% 0%, rgba(200,240,0,0.06) 0%, transparent 70%);
+  }
+  .hero img { height: 80px; margin-bottom: 40px; }
+  .hero h1 { font-size: 52px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .hero h1 span { color: var(--lime); }
+  .hero p { color: var(--muted); font-size: 17px; max-width: 460px; }
+
+  /* LOGO GRID */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .logo-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .logo-card .preview {
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 32px;
+    min-height: 160px;
+  }
+  .logo-card .preview img { max-height: 80px; max-width: 100%; object-fit: contain; }
+  .logo-card .preview.white-bg { background: #fff; }
+  .logo-card .preview.dark-bg  { background: var(--navy); }
+  .logo-card .preview.mid-bg   { background: #2a2040; }
+  .logo-card .meta {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .logo-card .meta strong { display: block; font-size: 14px; font-weight: 700; }
+  .logo-card .meta span   { font-size: 12px; color: var(--muted); }
+
+  /* COLOR PALETTE */
+  .color-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .color-card {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .color-swatch { height: 120px; }
+  .color-info {
+    padding: 18px 20px;
+    background: var(--surface);
+  }
+  .color-info .name   { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .color-info .values { font-size: 12px; color: var(--muted); line-height: 1.8; font-family: monospace; }
+
+  /* TYPOGRAPHY */
+  .type-row { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
+  .type-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    background: var(--surface);
+    display: flex; align-items: center; gap: 32px;
+  }
+  .type-card .label { min-width: 140px; }
+  .type-card .label strong { display: block; font-size: 13px; font-weight: 700; color: var(--lime); margin-bottom: 4px; }
+  .type-card .label span   { font-size: 12px; color: var(--muted); }
+  .type-card .sample { font-family: 'Nunito', sans-serif; }
+  .type-display  { font-size: 48px; font-weight: 900; letter-spacing: -0.02em; }
+  .type-heading  { font-size: 28px; font-weight: 800; }
+  .type-subhead  { font-size: 18px; font-weight: 700; }
+  .type-body     { font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.7); max-width: 400px; }
+  .type-caption  { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  /* VOICE */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+  .voice-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    background: var(--surface);
+  }
+  .voice-card h4 { font-size: 14px; font-weight: 800; color: var(--lime); margin-bottom: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .voice-card p  { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* USAGE */
+  .usage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+  .usage-card {
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--border);
+  }
+  .usage-card.do   { border-color: rgba(200,240,0,0.3); background: rgba(200,240,0,0.04); }
+  .usage-card.dont { border-color: rgba(255,60,172,0.3); background: rgba(255,60,172,0.04); }
+  .usage-card h4   { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+  .usage-card.do   h4 { color: var(--lime); }
+  .usage-card.dont h4 { color: var(--pink); }
+  .usage-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .usage-card ul li { font-size: 13px; color: var(--muted); padding-left: 18px; position: relative; }
+  .usage-card ul li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; }
+  .usage-card.do   ul li::before { background: var(--lime); }
+  .usage-card.dont ul li::before { background: var(--pink); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 48px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer strong { color: var(--lime); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">PostVomit</div>
+  <div class="links">
+    <a href="#logos">Logos</a>
+    <a href="#colors">Colors</a>
+    <a href="#type">Typography</a>
+    <a href="#voice">Voice</a>
+    <a href="#usage">Usage</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="01_logo_dark.png" alt="PostVomit logo">
+  <h1>Brand <span>Guide</span></h1>
+  <p>Everything you need to represent PostVomit consistently across every surface.</p>
+</div>
+
+<!-- LOGOS -->
+<section id="logos">
+  <div class="section-label">01 — Logo System</div>
+  <h2>Logo Variants</h2>
+  <p class="sub">Use the appropriate variant based on background context. Always maintain clear space around the logo equal to the height of the "P" icon.</p>
+
+  <div class="logo-grid">
+    <div class="logo-card">
+      <div class="preview dark-bg">
+        <img src="01_logo_dark.png" alt="Logo on dark">
+      </div>
+      <div class="meta">
+        <strong>Primary Logo</strong>
+        <span>01_logo_dark.png — Use on dark/navy backgrounds</span>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="preview white-bg">
+        <img src="03_logo_white.png" alt="Logo on white">
+      </div>
+      <div class="meta">
+        <strong>Logo on White</strong>
+        <span>03_logo_white.png — Use on light backgrounds</span>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="preview" style="background:#2a2040; background-image: repeating-conic-gradient(#2e1f4a 0% 25%, transparent 0% 50%) 0 0 / 20px 20px;">
+        <img src="02_logo_transparent.png" alt="Logo transparent">
+      </div>
+      <div class="meta">
+        <strong>Logo — Transparent</strong>
+        <span>02_logo_transparent.png — Tight crop, no padding</span>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="preview dark-bg">
+        <img src="04_icon_dark.png" alt="Icon dark">
+      </div>
+      <div class="meta">
+        <strong>Icon — Dark Background</strong>
+        <span>04_icon_dark.png — App icons, avatars, stamps</span>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="preview white-bg">
+        <img src="06_icon_white.png" alt="Icon white">
+      </div>
+      <div class="meta">
+        <strong>Icon — White Background</strong>
+        <span>06_icon_white.png — Light UI contexts</span>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="preview" style="background:#2a2040; background-image: repeating-conic-gradient(#2e1f4a 0% 25%, transparent 0% 50%) 0 0 / 20px 20px;">
+        <img src="05_icon_transparent.png" alt="Icon transparent">
+      </div>
+      <div class="meta">
+        <strong>Icon — Transparent</strong>
+        <span>05_icon_transparent.png — Overlay on any surface</span>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="preview dark-bg">
+        <img src="10_wordmark_transparent.png" alt="Wordmark" style="max-height:50px;">
+      </div>
+      <div class="meta">
+        <strong>Wordmark Only</strong>
+        <span>10_wordmark_transparent.png — When icon is established</span>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="preview dark-bg">
+        <img src="07_favicon_64.png" alt="Favicon" style="max-height:64px; image-rendering: pixelated;">
+      </div>
+      <div class="meta">
+        <strong>Favicon — 64×64</strong>
+        <span>07_favicon_64.png — Browser tabs, app icons</span>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="preview dark-bg">
+        <img src="08_social_pfp_400x400.png" alt="Social PFP" style="max-height:120px; border-radius:50%;">
+      </div>
+      <div class="meta">
+        <strong>Social Profile Picture — 400×400</strong>
+        <span>08_social_pfp_400x400.png — X, Instagram, LinkedIn, TikTok</span>
+      </div>
+    </div>
+
+    <div class="logo-card" style="grid-column: span 2;">
+      <div class="preview dark-bg" style="padding: 24px 32px;">
+        <img src="12_x_banner_1500x500.png" alt="X Banner" style="max-height:120px; max-width:100%; border-radius:8px;">
+      </div>
+      <div class="meta">
+        <strong>Social Banner — 1500×500</strong>
+        <span>12_x_banner_1500x500.png — Sized for X/Twitter. Other platforms may require cropping: LinkedIn (1584×396), Facebook (820×312), YouTube (2560×1440 with safe zone).</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLORS -->
+<section id="colors">
+  <div class="section-label">02 — Color Palette</div>
+  <h2>Brand Colors</h2>
+  <p class="sub">Three colors do all the work. Navy grounds everything. Lime is the hero. Pink is reserved for moments that need edge.</p>
+
+  <div class="color-row">
+    <div class="color-card">
+      <div class="color-swatch" style="background:#150b2c;"></div>
+      <div class="color-info">
+        <div class="name">Deep Navy</div>
+        <div class="values">
+          HEX &nbsp; #150b2c<br>
+          RGB &nbsp; 21, 11, 44<br>
+          Role &nbsp; Primary background
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-swatch" style="background:#1a1a2e;"></div>
+      <div class="color-info">
+        <div class="name">Navy (UI)</div>
+        <div class="values">
+          HEX &nbsp; #1a1a2e<br>
+          RGB &nbsp; 26, 26, 46<br>
+          Role &nbsp; Website background, cards
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-swatch" style="background:#c8f000;"></div>
+      <div class="color-info">
+        <div class="name">Lime Green</div>
+        <div class="values">
+          HEX &nbsp; #c8f000<br>
+          RGB &nbsp; 200, 240, 0<br>
+          Role &nbsp; Primary accent, CTA buttons
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-swatch" style="background:#ff3cac;"></div>
+      <div class="color-info">
+        <div class="name">Hot Pink</div>
+        <div class="values">
+          HEX &nbsp; #ff3cac<br>
+          RGB &nbsp; 255, 60, 172<br>
+          Role &nbsp; Accent, highlights, energy
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-swatch" style="background:#ffffff; border-bottom:1px solid #eee;"></div>
+      <div class="color-info">
+        <div class="name">White</div>
+        <div class="values">
+          HEX &nbsp; #ffffff<br>
+          RGB &nbsp; 255, 255, 255<br>
+          Role &nbsp; Primary text, wordmark
+        </div>
+      </div>
+    </div>
+
+    <div class="color-card">
+      <div class="color-swatch" style="background:rgba(255,255,255,0.45);"></div>
+      <div class="color-info">
+        <div class="name">Muted White</div>
+        <div class="values">
+          HEX &nbsp; #ffffff @ 45%<br>
+          RGB &nbsp; —<br>
+          Role &nbsp; Body text, captions
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section id="type">
+  <div class="section-label">03 — Typography</div>
+  <h2>Type System</h2>
+  <p class="sub">Nunito is the primary typeface — rounded, friendly, and confident. Available free via Google Fonts.</p>
+
+  <div class="type-row">
+    <div class="type-card">
+      <div class="label">
+        <strong>Display</strong>
+        <span>Nunito 900 · -2% tracking</span>
+      </div>
+      <div class="sample type-display">Write once.</div>
+    </div>
+    <div class="type-card">
+      <div class="label">
+        <strong>Heading</strong>
+        <span>Nunito 800</span>
+      </div>
+      <div class="sample type-heading">Content repurposed at scale</div>
+    </div>
+    <div class="type-card">
+      <div class="label">
+        <strong>Subheading</strong>
+        <span>Nunito 700</span>
+      </div>
+      <div class="sample type-subhead">Platform-ready in seconds</div>
+    </div>
+    <div class="type-card">
+      <div class="label">
+        <strong>Body</strong>
+        <span>Nunito 400</span>
+      </div>
+      <div class="sample type-body">Paste your long-form content and PostVomit breaks it into scroll-stopping posts optimized for X, Threads, Instagram, and LinkedIn.</div>
+    </div>
+    <div class="type-card">
+      <div class="label">
+        <strong>Label / Caption</strong>
+        <span>Nunito 600 · +12% tracking</span>
+      </div>
+      <div class="sample type-caption">Free plan · Creator · Producer</div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section id="voice">
+  <div class="section-label">04 — Brand Voice</div>
+  <h2>Tone & Voice</h2>
+  <p class="sub">PostVomit doesn't take itself too seriously — and that's the point. Irreverent but smart. Direct but never cold.</p>
+
+  <div class="voice-grid">
+    <div class="voice-card">
+      <h4>Confident</h4>
+      <p>PostVomit knows what it does and doesn't hedge. Short sentences. Active verbs. No filler. "Write once. Vomit everywhere." Not "PostVomit helps you create content more efficiently."</p>
+    </div>
+    <div class="voice-card">
+      <h4>Irreverent</h4>
+      <p>The name is PostVomit. Lean into it. The brand has permission to be funny, blunt, and a little gross — in a way that makes creators feel seen, not alienated.</p>
+    </div>
+    <div class="voice-card">
+      <h4>Practical</h4>
+      <p>Creators don't have time for fluff. Get to the point. Lead with what the product does. Benefits first, features second. "4 platforms. One paste." not "Our AI-powered multi-platform distribution engine..."</p>
+    </div>
+    <div class="voice-card">
+      <h4>Inclusive</h4>
+      <p>Anyone who creates content is a creator — writers, coaches, founders, podcasters, chefs. The voice is broad enough to speak to all of them without being watered down.</p>
+    </div>
+  </div>
+</section>
+
+<!-- USAGE -->
+<section id="usage">
+  <div class="section-label">05 — Usage Guidelines</div>
+  <h2>Do's & Don'ts</h2>
+  <p class="sub">Keep the brand clean and consistent across every touchpoint.</p>
+
+  <div class="usage-grid">
+    <div class="usage-card do">
+      <h4>✓ Do</h4>
+      <ul>
+        <li>Use the logo on navy, dark, or white backgrounds</li>
+        <li>Maintain clear space equal to the P icon height on all sides</li>
+        <li>Use lime green for primary CTAs and key UI actions</li>
+        <li>Use the icon mark alone when the brand is already established in context</li>
+        <li>Keep the wordmark in white or on white — never in grey or muted tones</li>
+        <li>Use Nunito for all brand communications</li>
+      </ul>
+    </div>
+    <div class="usage-card dont">
+      <h4>✗ Don't</h4>
+      <ul>
+        <li>Stretch, skew, or rotate the logo</li>
+        <li>Place the logo on busy photos or gradients without a backing</li>
+        <li>Change the logo colors or recolor individual elements</li>
+        <li>Use the pink as a primary color — it's an accent only</li>
+        <li>Add drop shadows or effects to the logo</li>
+        <li>Use the wordmark below 120px wide in digital contexts</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>PostVomit</strong> — Brand Guide v1.0 &nbsp;·&nbsp; Internal use only &nbsp;·&nbsp; postvomit.com
+</footer>
+
+</body>
+</html>

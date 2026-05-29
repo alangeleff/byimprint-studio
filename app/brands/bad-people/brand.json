@@ -1,0 +1,31 @@
+{
+  "name": "Bad People",
+  "slug": "bad-people",
+  "accessCodeHash": "7da936034d8193acf350269b88b096ede4cd94275d605e2a6ca0f88f22e9eeee",
+  "tagline": "The card game where the worst answer wins.",
+  "accentColor": "#F4C95D",
+  "palette": [
+    { "name": "BG Deep", "hex": "#060A14", "usage": "Deepest background" },
+    { "name": "Surface", "hex": "#0A1220", "usage": "Cards, panels" },
+    { "name": "Gold", "hex": "#F4C95D", "usage": "Primary brand pop, CTA glow" },
+    { "name": "Crimson", "hex": "#DC2626", "usage": "Winner phrase, badges, errors" },
+    { "name": "Mint", "hex": "#5EFC8D", "usage": "Imp card neon accent" },
+    { "name": "Off-White", "hex": "#F0F1F4", "usage": "Primary text" }
+  ],
+  "typography": [
+    { "role": "Display", "family": "Syne", "weight": "800", "usage": "Headlines, logo voice" },
+    { "role": "Heading", "family": "Syne", "weight": "700", "usage": "Section headings" },
+    { "role": "Body", "family": "Syne", "weight": "400", "usage": "UI, paragraphs" },
+    { "role": "Mono / Label", "family": "DM Mono", "weight": "500", "usage": "Codes, metadata, labels" }
+  ],
+  "logos": [
+    { "name": "Logo", "file": "assets/logo.png", "bg": "dark" },
+    { "name": "Title", "file": "assets/title.png", "bg": "dark" },
+    { "name": "Horns Mark", "file": "assets/horns.png", "bg": "dark" },
+    { "name": "Wordmark — Standard", "file": "assets/wordmark-standard.png", "bg": "dark" },
+    { "name": "Wordmark — Standard + Horns", "file": "assets/wordmark-standard-horns.png", "bg": "dark" },
+    { "name": "Wordmark — Stacked", "file": "assets/wordmark-stacked.png", "bg": "dark" },
+    { "name": "App Icon (512×512)", "file": "assets/icon-512.png", "bg": "dark" }
+  ],
+  "downloads": []
+}
