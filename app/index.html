@@ -109,7 +109,8 @@
     padding: 48px 24px calc(48px + env(safe-area-inset-bottom));
     position: relative;
   }
-  #screen-gate::before {
+  #screen-landing { position: relative; }
+  #screen-gate::before, #screen-landing::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
     background: radial-gradient(120% 60% at 50% 0%, var(--accent-soft) 0%, transparent 60%);
   }
@@ -263,12 +264,22 @@
   <div class="spinner"></div>
 </div>
 
-<!-- LANDING (no slug) -->
+<!-- LANDING — universal access (no slug, i.e. /app) -->
 <div id="screen-landing" hidden>
-  <img class="state-mark" src="/app/imprint-mark.svg" alt="Imprint" />
-  <span class="eyebrow">Brand Codex</span>
-  <h1 class="state-title">Private brand portals</h1>
-  <p class="state-sub">Open your brand’s private link to view colors, type, logos and downloads.</p>
+  <div class="gate-inner pad">
+    <img class="gate-mark" src="/app/imprint-mark.svg" alt="Imprint" />
+    <div class="gate-eyebrow eyebrow">Brand Codex</div>
+    <h1 class="gate-brand">Access your codex</h1>
+    <p class="gate-prompt">Enter the access code from your studio to open your brand portal.</p>
+    <form class="gate-form" id="ua-form" autocomplete="off">
+      <input class="gate-input" id="ua-input" type="password" inputmode="text"
+             autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+             placeholder="Access code" aria-label="Access code" />
+      <button class="gate-btn" id="ua-btn" type="submit">Access</button>
+      <div class="gate-error" id="ua-error" role="alert">Code not recognized</div>
+    </form>
+    <div class="gate-footer">by Imprint</div>
+  </div>
 </div>
 
 <!-- NOT FOUND -->
@@ -723,10 +734,84 @@
     setTimeout(function () { $("gate-input").focus(); }, 350);
   }
 
+  // ---------- universal access (the /app landing) ----------
+  // Hash the entered code, then find which brand it belongs to by comparing
+  // against each brand's accessCodeHash. Returns the matching slug, or null.
+  async function resolveCode(code) {
+    var hash = await sha256Hex(code);
+    if (!hash) return null;
+
+    var slugs;
+    try {
+      var ir = await fetchWithTimeout(APP_BASE + "/brands/index.json", { cache: "no-cache" }, 8000);
+      var idx = ir.ok ? await ir.json() : null;
+      slugs = (idx && idx.brands) || [];
+    } catch (e) { slugs = []; }
+    // Fallback so a missing/broken index can't lock everyone out.
+    if (!slugs.length) slugs = ["postvomit", "imprint", "badpeople"];
+
+    for (var i = 0; i < slugs.length; i++) {
+      try {
+        var r = await fetchWithTimeout(APP_BASE + "/brands/" + slugs[i] + "/brand.json", { cache: "no-cache" }, 8000);
+        if (!r.ok) continue;
+        var ct = (r.headers.get("content-type") || "").toLowerCase();
+        var body = await r.text();
+        if (ct.indexOf("json") === -1 || body.charAt(0) !== "{") continue;
+        var b = JSON.parse(body);
+        if (b && b.accessCodeHash === hash) return b.slug || slugs[i];
+      } catch (e) { /* skip this brand, keep checking */ }
+    }
+    return null;
+  }
+
+  function landingError(msg) {
+    var input = $("ua-input"), err = $("ua-error");
+    var inner = $("screen-landing").querySelector(".gate-inner");
+    err.textContent = msg; err.classList.add("show");
+    inner.classList.remove("shake"); void inner.offsetWidth; inner.classList.add("shake");
+    input.value = ""; input.focus();
+  }
+
+  var landingBound = false;
+  function bindLanding() {
+    if (landingBound) return;
+    landingBound = true;
+    var form = $("ua-form"), input = $("ua-input"), btn = $("ua-btn"), err = $("ua-error");
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var code = input.value.trim();
+      if (!code) return;
+      btn.disabled = true; btn.textContent = "Checking…"; err.classList.remove("show");
+      var navigating = false;
+      try {
+        var slug = await resolveCode(code);
+        if (slug) {
+          grantAccess(slug);                 // same brand_access_<slug> key the portal reads
+          navigating = true;
+          window.location.href = APP_BASE + "/" + slug;
+          return;
+        }
+        landingError("Code not recognized");
+      } catch (ex) {
+        console.error("[codex] universal access failed:", ex);
+        landingError("Something went wrong — please try again");
+      } finally {
+        if (!navigating) { btn.disabled = false; btn.textContent = "Access"; }
+      }
+    });
+  }
+
+  function setupLanding() {
+    applyAccent("#8C7355");   // Imprint brown — no brand context yet
+    bindLanding();
+    show("screen-landing");
+    setTimeout(function () { var i = $("ua-input"); if (i) i.focus(); }, 350);
+  }
+
   // ---------- boot ----------
   async function boot() {
     var slug = getSlug();
-    if (!slug) { show("screen-landing"); return; }
+    if (!slug) { setupLanding(); return; }
 
     // Never let the loading spinner hang forever — if we're still on it after
     // 12s, offer recovery (e.g. user stuck behind a broken cached worker).
