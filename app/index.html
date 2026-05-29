@@ -131,6 +131,23 @@
   }
   .gate-input::placeholder { color: var(--faint); letter-spacing: normal; }
   .gate-input:focus { border-color: var(--accent); background: var(--card-2); }
+  /* Symmetric horizontal padding keeps the centered placeholder visually
+     centered now that the eye button occupies the right edge. */
+  .gate-input-wrap { position: relative; width: 100%; }
+  .gate-input-wrap .gate-input { padding-left: 48px; padding-right: 48px; }
+  .gate-toggle {
+    position: absolute; top: 50%; right: 6px; transform: translateY(-50%);
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; border-radius: 10px;
+    color: var(--cream); opacity: 0.45;
+    transition: opacity 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .gate-toggle:hover { opacity: 0.85; background: var(--hair); }
+  .gate-toggle:focus-visible { opacity: 0.85; outline: 1px solid var(--accent-line); outline-offset: 2px; }
+  .gate-toggle svg { width: 18px; height: 18px; }
+  .gate-toggle .eye-on { display: none; }
+  .gate-toggle.is-visible .eye-off { display: none; }
+  .gate-toggle.is-visible .eye-on { display: block; }
   .gate-btn {
     width: 100%; padding: 16px; font-size: 15px; font-weight: 700; letter-spacing: 0.02em;
     color: var(--ink); background: var(--accent); border-radius: 14px;
@@ -272,9 +289,15 @@
     <h1 class="gate-brand">Access your codex</h1>
     <p class="gate-prompt">Enter the access code from your studio to open your brand portal.</p>
     <form class="gate-form" id="ua-form" autocomplete="off">
-      <input class="gate-input" id="ua-input" type="password" inputmode="text"
-             autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
-             placeholder="Access code" aria-label="Access code" />
+      <div class="gate-input-wrap">
+        <input class="gate-input" id="ua-input" type="password" inputmode="text"
+               autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+               placeholder="Access code" aria-label="Access code" />
+        <button class="gate-toggle" type="button" aria-label="Show access code" aria-pressed="false" data-toggle-for="ua-input">
+          <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+          <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
       <button class="gate-btn" id="ua-btn" type="submit">Access</button>
       <div class="gate-error" id="ua-error" role="alert">Code not recognized</div>
     </form>
@@ -302,9 +325,15 @@
     <h1 class="gate-brand" id="gate-brand">Brand</h1>
     <p class="gate-prompt">Enter your access code to open the codex.</p>
     <form class="gate-form" id="gate-form" autocomplete="off">
-      <input class="gate-input" id="gate-input" type="password" inputmode="text"
-             autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
-             placeholder="Access code" aria-label="Access code" />
+      <div class="gate-input-wrap">
+        <input class="gate-input" id="gate-input" type="password" inputmode="text"
+               autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+               placeholder="Access code" aria-label="Access code" />
+        <button class="gate-toggle" type="button" aria-label="Show access code" aria-pressed="false" data-toggle-for="gate-input">
+          <svg class="eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+          <svg class="eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
       <button class="gate-btn" id="gate-btn" type="submit">Access</button>
       <div class="gate-error" id="gate-error" role="alert">Invalid access code</div>
     </form>
@@ -710,6 +739,31 @@
     show("screen-portal");
   }
 
+  // ---------- show/hide access code ----------
+  // Wires every .gate-toggle on the page once, so both the universal-landing
+  // and per-brand inputs work without per-screen setup.
+  var togglesBound = false;
+  function bindToggles() {
+    if (togglesBound) return;
+    togglesBound = true;
+    var btns = document.querySelectorAll(".gate-toggle");
+    for (var i = 0; i < btns.length; i++) {
+      (function (btn) {
+        btn.addEventListener("click", function () {
+          var wrap = btn.parentNode;
+          var input = wrap && wrap.querySelector(".gate-input");
+          if (!input) return;
+          var nowVisible = input.type === "password";
+          input.type = nowVisible ? "text" : "password";
+          btn.classList.toggle("is-visible", nowVisible);
+          btn.setAttribute("aria-pressed", nowVisible ? "true" : "false");
+          btn.setAttribute("aria-label", nowVisible ? "Hide access code" : "Show access code");
+          input.focus();
+        });
+      })(btns[i]);
+    }
+  }
+
   // ---------- gate ----------
   function gateError(msg, clear) {
     var input = $("gate-input"), err = $("gate-error"), inner = document.querySelector(".gate-inner");
@@ -754,6 +808,7 @@
     $("gate-brand").textContent = brand.name;
     $("gate-error").classList.remove("show");
     bindGate();
+    bindToggles();
     show("screen-gate");
     setTimeout(function () { $("gate-input").focus(); }, 350);
   }
@@ -830,6 +885,7 @@
   function setupLanding() {
     applyAccent("#8C7355");   // Imprint brown — no brand context yet
     bindLanding();
+    bindToggles();
     show("screen-landing");
     setTimeout(function () { var i = $("ua-input"); if (i) i.focus(); }, 350);
   }
