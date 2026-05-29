@@ -81,6 +81,20 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   .state-title { font-family: var(--serif); font-size: 26px; font-weight: 500; margin: 4px 0 0; }
   .state-sub { color: var(--muted); font-size: 14px; max-width: 320px; }
+  .state-actions { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 6px; }
+  .state-btn {
+    padding: 14px 28px; font-size: 15px; font-weight: 700; letter-spacing: 0.02em;
+    color: var(--ink); background: var(--accent); border-radius: 13px;
+    transition: filter 0.2s var(--ease), transform 0.15s var(--ease);
+  }
+  .state-btn:hover { filter: brightness(1.06); }
+  .state-btn:active { transform: scale(0.985); }
+  .state-reset {
+    font-size: 12.5px; font-weight: 500; color: var(--faint);
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .state-reset:hover { color: var(--muted); }
+  .state-reset:disabled { opacity: 0.5; cursor: progress; }
 
   /* ============ access gate ============ */
   #screen-gate {
@@ -257,6 +271,10 @@
   <span class="eyebrow">Brand Codex</span>
   <h1 class="state-title" id="nf-title">Codex not found</h1>
   <p class="state-sub" id="nf-sub">We couldn’t find a Brand Codex at this link.</p>
+  <div class="state-actions" id="nf-actions" hidden>
+    <button class="state-btn" id="nf-retry" type="button" hidden>Try again</button>
+    <button class="state-reset" id="nf-reset" type="button" hidden>Reset app</button>
+  </div>
 </div>
 
 <!-- ACCESS GATE -->
@@ -336,14 +354,41 @@
   var ACCESS_DAYS = 90;
 
   // ---------- helpers ----------
+  var currentBrand = null;
+  var loadWatchdog = null;
+
   function $(id) { return document.getElementById(id); }
   function show(id) {
+    if (id !== "screen-loading" && loadWatchdog) { clearTimeout(loadWatchdog); loadWatchdog = null; }
     ["screen-loading","screen-landing","screen-notfound","screen-gate"].forEach(function (s) {
       var el = $(s); if (el) el.hidden = (s !== id);
     });
     var portal = $("screen-portal");
     if (id === "screen-portal") { portal.classList.add("visible"); }
     else { portal.classList.remove("visible"); }
+  }
+
+  // Generic recoverable error screen (reuses the not-found screen markup).
+  function showError(title, sub, opts) {
+    opts = opts || {};
+    $("nf-title").textContent = title;
+    $("nf-sub").textContent = sub;
+    var actions = $("nf-actions");
+    if (actions) {
+      actions.hidden = false;
+      var retry = $("nf-retry");
+      retry.hidden = !opts.retry;
+      retry.onclick = function () { location.reload(); };
+      var reset = $("nf-reset");
+      reset.hidden = !opts.reset;
+      reset.onclick = async function () {
+        reset.disabled = true; reset.textContent = "Resetting…";
+        await clearSiteData();
+        location.reload();
+      };
+      if (!opts.retry && !opts.reset) actions.hidden = true;
+    }
+    show("screen-notfound");
   }
 
   function getSlug() {
@@ -360,10 +405,103 @@
       .map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(" ");
   }
 
+  // SHA-256 via Web Crypto when available, with a pure-JS fallback so the
+  // access check can never hard-fail on contexts where crypto.subtle is
+  // missing or throws (older webviews, non-secure embeddings, etc.).
   async function sha256Hex(text) {
-    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-    var arr = Array.prototype.slice.call(new Uint8Array(buf));
-    return arr.map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+    if (window.crypto && window.crypto.subtle) {
+      try {
+        var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+        var arr = Array.prototype.slice.call(new Uint8Array(buf));
+        return arr.map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+      } catch (e) { /* fall through to JS implementation */ }
+    }
+    return sha256Fallback(text);
+  }
+
+  // Compact, well-known public-domain SHA-256 (geraintluff). UTF-8 safe.
+  function sha256Fallback(asciiInput) {
+    function rr(value, amount) { return (value >>> amount) | (value << (32 - amount)); }
+    var mathPow = Math.pow, maxWord = mathPow(2, 32), result = "", words = [], i, j;
+    var ascii = unescape(encodeURIComponent(asciiInput));
+    var asciiBitLength = ascii.length * 8;
+    var hash = sha256Fallback.h = sha256Fallback.h || [];
+    var k = sha256Fallback.k = sha256Fallback.k || [];
+    var primeCounter = k.length;
+    var isComposite = {};
+    for (var candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (i = 0; i < 313; i += candidate) { isComposite[i] = candidate; }
+        hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+    ascii += "\x80";
+    while (ascii.length % 64 - 56) ascii += "\x00";
+    for (i = 0; i < ascii.length; i++) {
+      j = ascii.charCodeAt(i);
+      if (j >> 8) return "";
+      words[i >> 2] |= j << ((3 - i) % 4) * 8;
+    }
+    words[words.length] = (asciiBitLength / maxWord) | 0;
+    words[words.length] = asciiBitLength;
+    for (j = 0; j < words.length;) {
+      var w = words.slice(j, j += 16);
+      var oldHash = hash;
+      hash = hash.slice(0, 8);
+      for (i = 0; i < 64; i++) {
+        var w15 = w[i - 15], w2 = w[i - 2];
+        var a = hash[0], e = hash[4];
+        var temp1 = hash[7]
+          + (rr(e, 6) ^ rr(e, 11) ^ rr(e, 25))
+          + ((e & hash[5]) ^ ((~e) & hash[6]))
+          + k[i]
+          + (w[i] = (i < 16) ? w[i] : (
+              w[i - 16]
+              + (rr(w15, 7) ^ rr(w15, 18) ^ (w15 >>> 3))
+              + w[i - 7]
+              + (rr(w2, 17) ^ rr(w2, 19) ^ (w2 >>> 10))
+            ) | 0);
+        var temp2 = (rr(a, 2) ^ rr(a, 13) ^ rr(a, 22))
+          + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash = [(temp1 + temp2) | 0].concat(hash);
+        hash[4] = (hash[4] + temp1) | 0;
+      }
+      for (i = 0; i < 8; i++) { hash[i] = (hash[i] + oldHash[i]) | 0; }
+    }
+    for (i = 0; i < 8; i++) {
+      for (j = 3; j + 1; j--) {
+        var b = (hash[i] >> (j * 8)) & 255;
+        result += ((b < 16) ? 0 : "") + b.toString(16);
+      }
+    }
+    return result;
+  }
+
+  // fetch that can't hang forever — aborts after `ms` and rejects.
+  async function fetchWithTimeout(url, opts, ms) {
+    var ac = (typeof AbortController !== "undefined") ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ac) ac.abort(); }, ms || 8000);
+    try {
+      return await fetch(url, Object.assign({}, opts || {}, ac ? { signal: ac.signal } : {}));
+    } finally { clearTimeout(timer); }
+  }
+
+  // Self-heal: drop any service worker + caches (recovers users stuck behind
+  // a stale/broken SW from an earlier deploy).
+  async function clearSiteData() {
+    try {
+      if ("serviceWorker" in navigator) {
+        var regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map(function (r) { return r.unregister(); }));
+      }
+    } catch (e) {}
+    try {
+      if (window.caches) {
+        var keys = await caches.keys();
+        await Promise.all(keys.map(function (k) { return caches.delete(k); }));
+      }
+    } catch (e) {}
   }
 
   function accessKey(slug) { return "brand_access_" + slug; }
@@ -532,29 +670,51 @@
   }
 
   // ---------- gate ----------
-  function setupGate(brand) {
-    $("gate-brand").textContent = brand.name;
-    var form = $("gate-form"), input = $("gate-input"), btn = $("gate-btn"),
-        err = $("gate-error"), inner = document.querySelector(".gate-inner");
-    err.classList.remove("show");
+  function gateError(msg, clear) {
+    var input = $("gate-input"), err = $("gate-error"), inner = document.querySelector(".gate-inner");
+    err.textContent = msg; err.classList.add("show");
+    inner.classList.remove("shake"); void inner.offsetWidth; inner.classList.add("shake");
+    if (clear) input.value = "";
+    input.focus();
+  }
+
+  var gateBound = false;
+  function bindGate() {
+    if (gateBound) return;
+    gateBound = true;
+    var form = $("gate-form"), input = $("gate-input"), btn = $("gate-btn"), err = $("gate-error");
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
+      if (!currentBrand) return;
       var code = input.value.trim();
       if (!code) return;
       btn.disabled = true; err.classList.remove("show");
-      var hash = await sha256Hex(code);
-      if (hash === brand.accessCodeHash) {
-        grantAccess(brand.slug);
-        renderPortal(brand);
-      } else {
+      try {
+        var hash = await sha256Hex(code);
+        if (!hash) throw new Error("hash unavailable");
+        if (hash === currentBrand.accessCodeHash) {
+          grantAccess(currentBrand.slug);
+          try { renderPortal(currentBrand); }
+          catch (re) { revokeAccess(currentBrand.slug); throw re; }
+        } else {
+          gateError("Invalid access code", true);
+        }
+      } catch (ex) {
+        console.error("[codex] access check failed:", ex);
+        gateError("Something went wrong — please try again", true);
+      } finally {
         btn.disabled = false;
-        err.classList.add("show");
-        inner.classList.remove("shake"); void inner.offsetWidth; inner.classList.add("shake");
-        input.value = ""; input.focus();
       }
     });
+  }
+
+  function setupGate(brand) {
+    currentBrand = brand;
+    $("gate-brand").textContent = brand.name;
+    $("gate-error").classList.remove("show");
+    bindGate();
     show("screen-gate");
-    setTimeout(function () { input.focus(); }, 350);
+    setTimeout(function () { $("gate-input").focus(); }, 350);
   }
 
   // ---------- boot ----------
@@ -562,20 +722,41 @@
     var slug = getSlug();
     if (!slug) { show("screen-landing"); return; }
 
-    var brand;
+    // Never let the loading spinner hang forever — if we're still on it after
+    // 12s, offer recovery (e.g. user stuck behind a broken cached worker).
+    loadWatchdog = setTimeout(function () {
+      var ld = $("screen-loading");
+      if (ld && !ld.hidden) {
+        showError("Still loading…", "This is taking longer than expected. Try again, or reset the app if it persists.", { retry: true, reset: true });
+      }
+    }, 12000);
+
+    var brand, notFound = false;
     try {
-      var res = await fetch(APP_BASE + "/brands/" + slug + "/brand.json", { cache: "no-cache" });
-      if (!res.ok) throw new Error("not found");
-      brand = await res.json();
+      var res = await fetchWithTimeout(APP_BASE + "/brands/" + slug + "/brand.json", { cache: "no-cache" }, 8000);
+      if (res.status === 404) { notFound = true; throw new Error("404"); }
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      // Unknown slugs fall through Vercel's SPA rewrite and return the shell
+      // HTML (200) instead of JSON — treat that as "not found", not an error.
+      var ct = (res.headers.get("content-type") || "").toLowerCase();
+      var body = await res.text();
+      if (ct.indexOf("json") === -1 || body.charAt(0) !== "{") { notFound = true; throw new Error("not-json"); }
+      brand = JSON.parse(body);
       brand.slug = brand.slug || slug;
     } catch (e) {
-      $("nf-title").textContent = titleize(slug) + " not found";
-      $("nf-sub").textContent = "We couldn’t find a Brand Codex at this link. Double-check the address with your studio.";
-      show("screen-notfound");
+      if (notFound) {
+        showError(titleize(slug) + " not found", "We couldn’t find a Brand Codex at this link. Double-check the address with your studio.", {});
+      } else {
+        console.error("[codex] failed to load brand.json:", e);
+        showError("Couldn’t load this Codex",
+          navigator.onLine ? "Something went wrong loading your brand. Please try again." : "You appear to be offline. Reconnect and try again.",
+          { retry: true, reset: true });
+      }
       return;
     }
 
     applyAccent(brand.accentColor || "#8C7355");
+    currentBrand = brand;
 
     $("signout").addEventListener("click", function () {
       revokeAccess(brand.slug);
@@ -584,8 +765,15 @@
       setupGate(brand);
     });
 
-    if (hasAccess(brand.slug)) { renderPortal(brand); }
-    else { setupGate(brand); }
+    if (hasAccess(brand.slug)) {
+      try { renderPortal(brand); }
+      catch (e) {
+        console.error("[codex] renderPortal failed:", e);
+        showError("Couldn’t open this Codex", "Something went wrong displaying your brand. Try again, or reset the app.", { retry: true, reset: true });
+      }
+    } else {
+      setupGate(brand);
+    }
   }
 
   // ---------- PWA ----------
@@ -595,7 +783,11 @@
     });
   }
 
-  boot();
+  // Top-level guard: surface anything unexpected instead of a silent spinner.
+  Promise.resolve().then(boot).catch(function (e) {
+    console.error("[codex] boot crashed:", e);
+    showError("Something went wrong", "The app failed to start. Try again, or reset the app.", { retry: true, reset: true });
+  });
 })();
 </script>
 </body>
