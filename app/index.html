@@ -533,8 +533,32 @@
       return true;
     } catch (e) { return false; }
   }
-  function grantAccess(slug) {
-    try { localStorage.setItem(accessKey(slug), JSON.stringify({ exp: Date.now() + ACCESS_DAYS * 864e5 })); } catch (e) {}
+  // Only accept return URLs that point back into this app — guards against a
+  // future code path passing through user-controlled input.
+  function safeReturnUrl(url, slug) {
+    var fallback = APP_BASE + "/" + slug;
+    if (typeof url !== "string") return fallback;
+    return url.indexOf(APP_BASE) === 0 ? url : fallback;
+  }
+  function grantAccess(slug, returnUrl) {
+    try {
+      localStorage.setItem(accessKey(slug), JSON.stringify({
+        exp: Date.now() + ACCESS_DAYS * 864e5,
+        returnUrl: safeReturnUrl(returnUrl, slug)
+      }));
+    } catch (e) {}
+  }
+  // Where to send the user on sign-out. Falls back to the per-brand page for
+  // legacy auth entries written before returnUrl existed.
+  function getReturnUrl(slug) {
+    try {
+      var raw = localStorage.getItem(accessKey(slug));
+      if (raw) {
+        var o = JSON.parse(raw);
+        if (o) return safeReturnUrl(o.returnUrl, slug);
+      }
+    } catch (e) {}
+    return APP_BASE + "/" + slug;
   }
   function revokeAccess(slug) { try { localStorage.removeItem(accessKey(slug)); } catch (e) {} }
 
@@ -710,7 +734,7 @@
         var hash = await sha256Hex(code);
         if (!hash) throw new Error("hash unavailable");
         if (hash === currentBrand.accessCodeHash) {
-          grantAccess(currentBrand.slug);
+          grantAccess(currentBrand.slug, APP_BASE + "/" + currentBrand.slug);
           try { renderPortal(currentBrand); }
           catch (re) { revokeAccess(currentBrand.slug); throw re; }
         } else {
@@ -786,7 +810,9 @@
       try {
         var slug = await resolveCode(code);
         if (slug) {
-          grantAccess(slug);                 // same brand_access_<slug> key the portal reads
+          // Same brand_access_<slug> key the per-brand boot reads. Tag the
+          // entry with returnUrl=/app so sign-out returns to the universal hub.
+          grantAccess(slug, APP_BASE);
           navigating = true;
           window.location.href = APP_BASE + "/" + slug;
           return;
@@ -850,10 +876,11 @@
     currentBrand = brand;
 
     $("signout").addEventListener("click", function () {
+      // Read where to return BEFORE revoking — universal-hub auth lands at /app,
+      // direct per-brand auth lands back on /app/<slug>.
+      var returnUrl = getReturnUrl(brand.slug);
       revokeAccess(brand.slug);
-      $("screen-portal").classList.remove("visible");
-      $("gate-input").value = "";
-      setupGate(brand);
+      window.location.href = returnUrl;
     });
 
     if (hasAccess(brand.slug)) {
