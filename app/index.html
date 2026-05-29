@@ -59,6 +59,12 @@
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--accent); color: var(--ink); }
 
+  /* The `hidden` attribute must always win. Screen containers below set their
+     display via #id rules (specificity 1,0,0), which beats the UA's
+     [hidden]{display:none} (0,1,0) — without this, every screen renders at
+     once. show() toggles `hidden`, so this is what actually hides screens. */
+  [hidden] { display: none !important; }
+
   .pad { padding-left: max(22px, env(safe-area-inset-left)); padding-right: max(22px, env(safe-area-inset-right)); }
   .eyebrow {
     font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
