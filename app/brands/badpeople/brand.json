@@ -19,13 +19,13 @@
     { "role": "Mono / Label", "family": "DM Mono", "weight": "500", "usage": "Codes, metadata, labels" }
   ],
   "logos": [
-    { "name": "Logo", "file": "assets/logo.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Title", "file": "assets/title.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Horns Mark", "file": "assets/horns.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Wordmark — Standard", "file": "assets/wordmark-standard.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Wordmark — Standard + Horns", "file": "assets/wordmark-standard-horns.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Wordmark — Stacked", "file": "assets/wordmark-stacked.png", "pngUrl": null, "bg": "dark" },
-    { "name": "App Icon (512×512)", "file": "assets/icon-512.png", "pngUrl": null, "bg": "dark" }
+    { "name": "Logo", "svgUrl": null, "pngUrl": "assets/logo.png", "bg": "dark" },
+    { "name": "Title", "svgUrl": null, "pngUrl": "assets/title.png", "bg": "dark" },
+    { "name": "Horns Mark", "svgUrl": null, "pngUrl": "assets/horns.png", "bg": "dark" },
+    { "name": "Wordmark — Standard", "svgUrl": null, "pngUrl": "assets/wordmark-standard.png", "bg": "dark" },
+    { "name": "Wordmark — Standard + Horns", "svgUrl": null, "pngUrl": "assets/wordmark-standard-horns.png", "bg": "dark" },
+    { "name": "Wordmark — Stacked", "svgUrl": null, "pngUrl": "assets/wordmark-stacked.png", "bg": "dark" },
+    { "name": "App Icon (512×512)", "svgUrl": null, "pngUrl": "assets/icon-512.png", "bg": "dark" }
   ],
   "downloads": []
 }

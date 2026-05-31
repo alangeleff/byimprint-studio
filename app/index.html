@@ -730,19 +730,18 @@
     pal.appendChild(sg);
   }
 
-  // Returns the asset path for the current logoMode, or null if a PNG is
-  // requested but the logo has no pngUrl (drives the "not available" state).
+  // Returns the asset path for the current logoMode, or null if the logo
+  // doesn't have a file in that format (drives the "not available" state).
   function currentLogoSrc(brand, logo) {
-    if (logoMode === "png") {
-      return logo.pngUrl ? assetUrl(brand.slug, logo.pngUrl) : null;
-    }
-    return assetUrl(brand.slug, logo.file);
+    var path = logoMode === "png" ? logo.pngUrl : logo.svgUrl;
+    return path ? assetUrl(brand.slug, path) : null;
   }
 
   function renderLogos(brand) {
     var lg = $("logos"); lg.innerHTML = "";
     var logos = brand.logos || [];
     $("logo-count").textContent = logos.length + " files";
+    var missingLabel = (logoMode === "png" ? "PNG" : "SVG") + " coming soon";
     logos.forEach(function (l) {
       var card = el("div", "logo-card");
       var prev = el("div", "logo-prev " + (l.bg === "light" ? "light" : "dark"));
@@ -759,7 +758,7 @@
         foot.appendChild(a);
       } else {
         card.classList.add("is-unavailable");
-        prev.appendChild(el("div", "logo-soon", "PNG coming soon"));
+        prev.appendChild(el("div", "logo-soon", missingLabel));
         var dis = el("span", "dl-btn is-disabled");
         dis.setAttribute("aria-label", "Not available");
         dis.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>';
@@ -770,12 +769,20 @@
     });
   }
 
+  // Pick the tab that actually has content. SVG when any logo has an svgUrl;
+  // otherwise PNG. Prevents PNG-only brands from opening to an all-grey grid.
+  function defaultLogoMode(brand) {
+    var logos = brand.logos || [];
+    var hasSvg = logos.some(function (l) { return !!l.svgUrl; });
+    return hasSvg ? "svg" : "png";
+  }
+
   function setupLogoTabs(brand) {
     var tabs = $("logo-tabs");
     if (!tabs) return;
     var btns = tabs.querySelectorAll(".logo-tab");
     Array.prototype.forEach.call(btns, function (b) {
-      var active = b.getAttribute("data-mode") === "svg";
+      var active = b.getAttribute("data-mode") === logoMode;
       b.classList.toggle("active", active);
       b.setAttribute("aria-selected", active ? "true" : "false");
     });
@@ -803,8 +810,9 @@
     $("bh-name").textContent = brand.name;
     $("bh-tagline").textContent = brand.tagline || "";
     var hdrLogo = (brand.logos || []).filter(function (l) { return l.bg === "dark"; })[0] || (brand.logos || [])[0];
-    if (hdrLogo) {
-      var li = $("bh-logo"); li.src = assetUrl(brand.slug, hdrLogo.file); li.alt = brand.name + " logo"; li.hidden = false;
+    var hdrSrc = hdrLogo && (hdrLogo.svgUrl || hdrLogo.pngUrl);
+    if (hdrSrc) {
+      var li = $("bh-logo"); li.src = assetUrl(brand.slug, hdrSrc); li.alt = brand.name + " logo"; li.hidden = false;
     }
 
     renderPalette(brand);
@@ -824,8 +832,10 @@
       ty.appendChild(row);
     });
 
-    // logos — reset to SVG every portal entry, then render
-    logoMode = "svg";
+    // logos — pick the tab with content on every portal entry. Each brand
+    // navigation is a full page load so logoMode is fresh anyway, but the
+    // reset here also covers any future intra-page brand swaps.
+    logoMode = defaultLogoMode(brand);
     setupLogoTabs(brand);
     renderLogos(brand);
 

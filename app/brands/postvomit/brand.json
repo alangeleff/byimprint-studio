@@ -19,15 +19,15 @@
     { "role": "Label / Caption", "family": "Nunito", "weight": "600", "usage": "Eyebrows, captions · +12% tracking" }
   ],
   "logos": [
-    { "name": "Primary Logo", "file": "assets/01_logo_dark.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Logo on White", "file": "assets/03_logo_white.png", "pngUrl": null, "bg": "light" },
-    { "name": "Logo — Transparent", "file": "assets/02_logo_transparent.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Icon — Dark", "file": "assets/04_icon_dark.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Icon — White", "file": "assets/06_icon_white.png", "pngUrl": null, "bg": "light" },
-    { "name": "Icon — Transparent", "file": "assets/05_icon_transparent.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Wordmark", "file": "assets/10_wordmark_transparent.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Social Profile (400×400)", "file": "assets/08_social_pfp_400x400.png", "pngUrl": null, "bg": "dark" },
-    { "name": "Social Banner (1500×500)", "file": "assets/12_x_banner_1500x500.png", "pngUrl": null, "bg": "dark" }
+    { "name": "Primary Logo", "svgUrl": null, "pngUrl": "assets/01_logo_dark.png", "bg": "dark" },
+    { "name": "Logo on White", "svgUrl": null, "pngUrl": "assets/03_logo_white.png", "bg": "light" },
+    { "name": "Logo — Transparent", "svgUrl": null, "pngUrl": "assets/02_logo_transparent.png", "bg": "dark" },
+    { "name": "Icon — Dark", "svgUrl": null, "pngUrl": "assets/04_icon_dark.png", "bg": "dark" },
+    { "name": "Icon — White", "svgUrl": null, "pngUrl": "assets/06_icon_white.png", "bg": "light" },
+    { "name": "Icon — Transparent", "svgUrl": null, "pngUrl": "assets/05_icon_transparent.png", "bg": "dark" },
+    { "name": "Wordmark", "svgUrl": null, "pngUrl": "assets/10_wordmark_transparent.png", "bg": "dark" },
+    { "name": "Social Profile (400×400)", "svgUrl": null, "pngUrl": "assets/08_social_pfp_400x400.png", "bg": "dark" },
+    { "name": "Social Banner (1500×500)", "svgUrl": null, "pngUrl": "assets/12_x_banner_1500x500.png", "bg": "dark" }
   ],
   "downloads": [
     { "name": "Brand Guide", "file": "assets/PostVomit_Brand_Guide.html", "type": "html" }

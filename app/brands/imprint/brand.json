@@ -18,14 +18,14 @@
     { "role": "Eyebrow / Label", "family": "Poppins", "weight": "600", "usage": "Uppercase eyebrows · +22% tracking" }
   ],
   "logos": [
-    { "name": "Primary Lockup", "file": "assets/imprint-lockup-primary.svg", "pngUrl": "assets/png/imprint-lockup-primary.png", "bg": "light" },
-    { "name": "Inverted Lockup", "file": "assets/imprint-lockup-inverted.svg", "pngUrl": "assets/png/imprint-lockup-inverted.png", "bg": "dark" },
-    { "name": "Mark", "file": "assets/imprint-mark-primary.svg", "pngUrl": "assets/png/imprint-mark-primary.png", "bg": "light" },
-    { "name": "Mark — Inverted", "file": "assets/imprint-mark-inverted.svg", "pngUrl": "assets/png/imprint-mark-inverted.png", "bg": "dark" },
-    { "name": "Stacked", "file": "assets/imprint-stacked-primary.svg", "pngUrl": "assets/png/imprint-stacked-primary.png", "bg": "light" },
-    { "name": "Stacked — Inverted", "file": "assets/imprint-stacked-inverted.svg", "pngUrl": "assets/png/imprint-stacked-inverted.png", "bg": "dark" },
-    { "name": "Wordmark", "file": "assets/imprint-wordmark-primary.svg", "pngUrl": "assets/png/imprint-wordmark-primary.png", "bg": "light" },
-    { "name": "Wordmark — Inverted", "file": "assets/imprint-wordmark-inverted.svg", "pngUrl": "assets/png/imprint-wordmark-inverted.png", "bg": "dark" }
+    { "name": "Primary Lockup", "svgUrl": "assets/imprint-lockup-primary.svg", "pngUrl": "assets/png/imprint-lockup-primary.png", "bg": "light" },
+    { "name": "Inverted Lockup", "svgUrl": "assets/imprint-lockup-inverted.svg", "pngUrl": "assets/png/imprint-lockup-inverted.png", "bg": "dark" },
+    { "name": "Mark", "svgUrl": "assets/imprint-mark-primary.svg", "pngUrl": "assets/png/imprint-mark-primary.png", "bg": "light" },
+    { "name": "Mark — Inverted", "svgUrl": "assets/imprint-mark-inverted.svg", "pngUrl": "assets/png/imprint-mark-inverted.png", "bg": "dark" },
+    { "name": "Stacked", "svgUrl": "assets/imprint-stacked-primary.svg", "pngUrl": "assets/png/imprint-stacked-primary.png", "bg": "light" },
+    { "name": "Stacked — Inverted", "svgUrl": "assets/imprint-stacked-inverted.svg", "pngUrl": "assets/png/imprint-stacked-inverted.png", "bg": "dark" },
+    { "name": "Wordmark", "svgUrl": "assets/imprint-wordmark-primary.svg", "pngUrl": "assets/png/imprint-wordmark-primary.png", "bg": "light" },
+    { "name": "Wordmark — Inverted", "svgUrl": "assets/imprint-wordmark-inverted.svg", "pngUrl": "assets/png/imprint-wordmark-inverted.png", "bg": "dark" }
   ],
   "downloads": [
     { "name": "Brand Guide", "file": "assets/imprint-brand-guide.pdf", "type": "pdf" }
