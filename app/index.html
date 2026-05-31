@@ -209,6 +209,16 @@
   .swatch-meta { padding: 11px 12px 13px; }
   .swatch-meta .name { font-size: 13.5px; font-weight: 600; margin-bottom: 2px; }
   .swatch-meta .use { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+  .palette-group + .palette-group { margin-top: 24px; }
+  .tier-label {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 12px;
+  }
+  .swatch-grid.supporting { gap: 10px; }
+  .swatch-grid.supporting .swatch-chip { height: 56px; }
+  .swatch-grid.supporting .swatch-meta { padding: 9px 11px 11px; }
+  .swatch-grid.supporting .swatch-meta .name { font-size: 12.5px; }
+  .swatch-grid.supporting .swatch-meta .use { font-size: 11px; }
 
   /* typography */
   .type-row { padding: 16px 0; border-top: 1px solid var(--hair); }
@@ -220,12 +230,28 @@
   .type-use { font-size: 12px; color: var(--faint); width: 100%; }
 
   /* logos */
+  .logo-tabs {
+    display: inline-flex; padding: 4px; border-radius: 12px;
+    background: var(--card); border: 1px solid var(--hair); gap: 2px;
+    margin-bottom: 14px;
+  }
+  .logo-tab {
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.10em;
+    padding: 7px 16px; border-radius: 9px; color: var(--muted);
+    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .logo-tab.active { background: var(--accent-soft); color: var(--accent); }
+  .logo-tab:not(.active):hover { color: var(--cream); }
   .logo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .logo-card { border-radius: 16px; overflow: hidden; border: 1px solid var(--hair); background: var(--card); display: flex; flex-direction: column; }
+  .logo-card.is-unavailable { opacity: 0.5; }
+  .logo-card.is-unavailable .logo-prev { background: var(--card-2); }
   .logo-prev { min-height: 124px; display: flex; align-items: center; justify-content: center; padding: 18px 20px; }
   .logo-prev.dark { background: linear-gradient(150deg, #15110d, #0c0a07); }
   .logo-prev.light { background: #F5F1EB; }
   .logo-prev img { width: 100%; height: 88px; object-fit: contain; }
+  .logo-soon { font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--faint); text-align: center; padding: 18px 6px; }
   .logo-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 11px 12px; border-top: 1px solid var(--hair); }
   .logo-foot .nm { font-size: 12.5px; font-weight: 500; line-height: 1.25; }
   .dl-btn { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px;
@@ -233,6 +259,7 @@
   .dl-btn:hover { background: var(--accent-line); }
   .dl-btn:active { transform: scale(0.9); }
   .dl-btn svg { width: 17px; height: 17px; }
+  .dl-btn.is-disabled { background: var(--card-2); color: var(--faint); cursor: not-allowed; pointer-events: none; }
 
   /* downloads */
   .dl-list { display: flex; flex-direction: column; gap: 10px; }
@@ -357,7 +384,7 @@
         <h2 class="section-title">Color Palette</h2>
         <span class="section-count">Tap to copy</span>
       </div>
-      <div class="swatch-grid" id="palette"></div>
+      <div id="palette"></div>
     </section>
 
     <section class="section" id="sec-type">
@@ -369,6 +396,10 @@
       <div class="section-head">
         <h2 class="section-title">Logo Kit</h2>
         <span class="section-count" id="logo-count"></span>
+      </div>
+      <div class="logo-tabs" id="logo-tabs" role="tablist">
+        <button class="logo-tab active" type="button" data-mode="svg" role="tab" aria-selected="true">SVG</button>
+        <button class="logo-tab" type="button" data-mode="png" role="tab" aria-selected="false">PNG</button>
       </div>
       <div class="logo-grid" id="logos"></div>
     </section>
@@ -647,6 +678,124 @@
   // ---------- render portal ----------
   function assetUrl(slug, file) { return APP_BASE + "/brands/" + slug + "/" + file; }
 
+  // Per-portal logo asset mode. Resets to "svg" on every renderPortal — that
+  // is what makes the tab state per-portal rather than global: each brand
+  // navigation is a full page load, but even within one page lifetime the
+  // reset guarantees a fresh start.
+  var logoMode = "svg";
+
+  function buildSwatch(c) {
+    var btn = el("button", "swatch"); btn.type = "button";
+    var chip = el("div", "swatch-chip");
+    chip.style.background = c.hex;
+    var tcol = isLight(c.hex) ? "rgba(26,23,20,0.85)" : "rgba(245,241,235,0.92)";
+    var hex = el("span", "hex", c.hex.toUpperCase()); hex.style.color = tcol;
+    chip.appendChild(hex);
+    chip.insertAdjacentHTML("beforeend",
+      '<svg class="copy-ic" viewBox="0 0 24 24" fill="none" stroke="' + tcol + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>');
+    var meta = el("div", "swatch-meta");
+    meta.appendChild(el("div", "name", c.name || ""));
+    if (c.usage) meta.appendChild(el("div", "use", c.usage));
+    btn.appendChild(chip); btn.appendChild(meta);
+    btn.addEventListener("click", async function () {
+      var ok = await copyText(c.hex.toUpperCase());
+      toast(ok ? "Copied " + c.hex.toUpperCase() + "  ✓" : "Copy failed", c.hex);
+    });
+    return btn;
+  }
+
+  function renderPalette(brand) {
+    var pal = $("palette"); pal.innerHTML = ""; pal.className = "";
+    var palette = brand.palette || [];
+    var primary = palette.filter(function (c) { return c.tier !== "supporting"; });
+    var supporting = palette.filter(function (c) { return c.tier === "supporting"; });
+    if (!supporting.length) {
+      // Flat list when there's nothing to demote — no tier labels.
+      pal.className = "swatch-grid";
+      primary.forEach(function (c) { pal.appendChild(buildSwatch(c)); });
+      return;
+    }
+    var pg = el("div", "palette-group");
+    pg.appendChild(el("div", "tier-label", "Primary"));
+    var pgGrid = el("div", "swatch-grid");
+    primary.forEach(function (c) { pgGrid.appendChild(buildSwatch(c)); });
+    pg.appendChild(pgGrid);
+    pal.appendChild(pg);
+
+    var sg = el("div", "palette-group");
+    sg.appendChild(el("div", "tier-label", "Supporting"));
+    var sgGrid = el("div", "swatch-grid supporting");
+    supporting.forEach(function (c) { sgGrid.appendChild(buildSwatch(c)); });
+    sg.appendChild(sgGrid);
+    pal.appendChild(sg);
+  }
+
+  // Returns the asset path for the current logoMode, or null if a PNG is
+  // requested but the logo has no pngUrl (drives the "not available" state).
+  function currentLogoSrc(brand, logo) {
+    if (logoMode === "png") {
+      return logo.pngUrl ? assetUrl(brand.slug, logo.pngUrl) : null;
+    }
+    return assetUrl(brand.slug, logo.file);
+  }
+
+  function renderLogos(brand) {
+    var lg = $("logos"); lg.innerHTML = "";
+    var logos = brand.logos || [];
+    $("logo-count").textContent = logos.length + " files";
+    logos.forEach(function (l) {
+      var card = el("div", "logo-card");
+      var prev = el("div", "logo-prev " + (l.bg === "light" ? "light" : "dark"));
+      var src = currentLogoSrc(brand, l);
+      var foot = el("div", "logo-foot");
+      foot.appendChild(el("span", "nm", l.name || ""));
+      if (src) {
+        var img = el("img"); img.src = src; img.alt = l.name || ""; img.loading = "lazy";
+        prev.appendChild(img);
+        var a = document.createElement("a");
+        a.className = "dl-btn"; a.href = src;
+        a.setAttribute("download", ""); a.setAttribute("aria-label", "Download " + (l.name || "logo"));
+        a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>';
+        foot.appendChild(a);
+      } else {
+        card.classList.add("is-unavailable");
+        prev.appendChild(el("div", "logo-soon", "PNG coming soon"));
+        var dis = el("span", "dl-btn is-disabled");
+        dis.setAttribute("aria-label", "Not available");
+        dis.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>';
+        foot.appendChild(dis);
+      }
+      card.appendChild(prev); card.appendChild(foot);
+      lg.appendChild(card);
+    });
+  }
+
+  function setupLogoTabs(brand) {
+    var tabs = $("logo-tabs");
+    if (!tabs) return;
+    var btns = tabs.querySelectorAll(".logo-tab");
+    Array.prototype.forEach.call(btns, function (b) {
+      var active = b.getAttribute("data-mode") === "svg";
+      b.classList.toggle("active", active);
+      b.setAttribute("aria-selected", active ? "true" : "false");
+    });
+    // Reassign onclick (idempotent) — replaces any handler bound on a prior
+    // render so we never double-fire.
+    tabs.onclick = function (e) {
+      var t = e.target && e.target.closest && e.target.closest(".logo-tab");
+      if (!t || !tabs.contains(t)) return;
+      var mode = t.getAttribute("data-mode");
+      if (!mode || mode === logoMode) return;
+      logoMode = mode;
+      Array.prototype.forEach.call(tabs.querySelectorAll(".logo-tab"), function (b) {
+        var active = b.getAttribute("data-mode") === mode;
+        b.classList.toggle("active", active);
+        b.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      renderLogos(brand);
+    };
+  }
+
   function renderPortal(brand) {
     document.title = brand.name + " — Brand Codex";
 
@@ -658,27 +807,7 @@
       var li = $("bh-logo"); li.src = assetUrl(brand.slug, hdrLogo.file); li.alt = brand.name + " logo"; li.hidden = false;
     }
 
-    // palette
-    var pal = $("palette"); pal.innerHTML = "";
-    (brand.palette || []).forEach(function (c) {
-      var btn = el("button", "swatch"); btn.type = "button";
-      var chip = el("div", "swatch-chip");
-      chip.style.background = c.hex;
-      var tcol = isLight(c.hex) ? "rgba(26,23,20,0.85)" : "rgba(245,241,235,0.92)";
-      var hex = el("span", "hex", c.hex.toUpperCase()); hex.style.color = tcol;
-      chip.appendChild(hex);
-      chip.insertAdjacentHTML("beforeend",
-        '<svg class="copy-ic" viewBox="0 0 24 24" fill="none" stroke="' + tcol + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>');
-      var meta = el("div", "swatch-meta");
-      meta.appendChild(el("div", "name", c.name || ""));
-      if (c.usage) meta.appendChild(el("div", "use", c.usage));
-      btn.appendChild(chip); btn.appendChild(meta);
-      btn.addEventListener("click", async function () {
-        var ok = await copyText(c.hex.toUpperCase());
-        toast(ok ? "Copied " + c.hex.toUpperCase() + "  ✓" : "Copy failed", c.hex);
-      });
-      pal.appendChild(btn);
-    });
+    renderPalette(brand);
 
     // typography
     var ty = $("typography"); ty.innerHTML = "";
@@ -695,25 +824,10 @@
       ty.appendChild(row);
     });
 
-    // logos
-    var lg = $("logos"); lg.innerHTML = "";
-    var logos = brand.logos || [];
-    $("logo-count").textContent = logos.length + " files";
-    logos.forEach(function (l) {
-      var card = el("div", "logo-card");
-      var prev = el("div", "logo-prev " + (l.bg === "light" ? "light" : "dark"));
-      var img = el("img"); img.src = assetUrl(brand.slug, l.file); img.alt = l.name || ""; img.loading = "lazy";
-      prev.appendChild(img);
-      var foot = el("div", "logo-foot");
-      foot.appendChild(el("span", "nm", l.name || ""));
-      var a = document.createElement("a");
-      a.className = "dl-btn"; a.href = assetUrl(brand.slug, l.file);
-      a.setAttribute("download", ""); a.setAttribute("aria-label", "Download " + (l.name || "logo"));
-      a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>';
-      foot.appendChild(a);
-      card.appendChild(prev); card.appendChild(foot);
-      lg.appendChild(card);
-    });
+    // logos — reset to SVG every portal entry, then render
+    logoMode = "svg";
+    setupLogoTabs(brand);
+    renderLogos(brand);
 
     // downloads
     var dls = brand.downloads || [];

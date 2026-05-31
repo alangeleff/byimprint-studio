@@ -5,12 +5,12 @@
   "tagline": "The card game where the worst answer wins.",
   "accentColor": "#F4C95D",
   "palette": [
-    { "name": "BG Deep", "hex": "#060A14", "usage": "Deepest background" },
-    { "name": "Surface", "hex": "#0A1220", "usage": "Cards, panels" },
-    { "name": "Gold", "hex": "#F4C95D", "usage": "Primary brand pop, CTA glow" },
-    { "name": "Crimson", "hex": "#DC2626", "usage": "Winner phrase, badges, errors" },
-    { "name": "Mint", "hex": "#5EFC8D", "usage": "Imp card neon accent" },
-    { "name": "Off-White", "hex": "#F0F1F4", "usage": "Primary text" }
+    { "name": "BG Deep", "hex": "#060A14", "usage": "Deepest background", "tier": "primary" },
+    { "name": "Gold", "hex": "#F4C95D", "usage": "Primary brand pop, CTA glow", "tier": "primary" },
+    { "name": "Crimson", "hex": "#DC2626", "usage": "Winner phrase, badges, errors", "tier": "primary" },
+    { "name": "Off-White", "hex": "#F0F1F4", "usage": "Primary text", "tier": "primary" },
+    { "name": "Surface", "hex": "#0A1220", "usage": "Cards, panels", "tier": "supporting" },
+    { "name": "Mint", "hex": "#5EFC8D", "usage": "Imp card neon accent", "tier": "supporting" }
   ],
   "typography": [
     { "role": "Display", "family": "Syne", "weight": "800", "usage": "Headlines, logo voice" },
@@ -19,13 +19,13 @@
     { "role": "Mono / Label", "family": "DM Mono", "weight": "500", "usage": "Codes, metadata, labels" }
   ],
   "logos": [
-    { "name": "Logo", "file": "assets/logo.png", "bg": "dark" },
-    { "name": "Title", "file": "assets/title.png", "bg": "dark" },
-    { "name": "Horns Mark", "file": "assets/horns.png", "bg": "dark" },
-    { "name": "Wordmark — Standard", "file": "assets/wordmark-standard.png", "bg": "dark" },
-    { "name": "Wordmark — Standard + Horns", "file": "assets/wordmark-standard-horns.png", "bg": "dark" },
-    { "name": "Wordmark — Stacked", "file": "assets/wordmark-stacked.png", "bg": "dark" },
-    { "name": "App Icon (512×512)", "file": "assets/icon-512.png", "bg": "dark" }
+    { "name": "Logo", "file": "assets/logo.png", "pngUrl": null, "bg": "dark" },
+    { "name": "Title", "file": "assets/title.png", "pngUrl": null, "bg": "dark" },
+    { "name": "Horns Mark", "file": "assets/horns.png", "pngUrl": null, "bg": "dark" },
+    { "name": "Wordmark — Standard", "file": "assets/wordmark-standard.png", "pngUrl": null, "bg": "dark" },
+    { "name": "Wordmark — Standard + Horns", "file": "assets/wordmark-standard-horns.png", "pngUrl": null, "bg": "dark" },
+    { "name": "Wordmark — Stacked", "file": "assets/wordmark-stacked.png", "pngUrl": null, "bg": "dark" },
+    { "name": "App Icon (512×512)", "file": "assets/icon-512.png", "pngUrl": null, "bg": "dark" }
   ],
   "downloads": []
 }
