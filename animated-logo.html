@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Imprint — Animated Mark</title>
+<title>Imprint — The Origin</title>
 <style>
 * { box-sizing:border-box; margin:0; padding:0; }
 body {
@@ -18,42 +18,39 @@ body {
 }
 .stage {
   display:flex; flex-direction:column;
-  align-items:center; gap:22px;
+  align-items:center; gap:20px;
   padding:50px 30px;
 }
-.mark-wrap {
+.canvas-wrap {
   position:relative;
-  width:220px; height:220px;
+  width:260px; height:260px;
 }
-.mark-svg {
-  width:220px; height:220px;
-  display:block; overflow:visible;
-}
-.mark-svg #outer-ring { stroke:#f3f2e7; fill:none; }
-.mark-svg #spiral-fill { fill:#f3f2e7; stroke:none; }
-.mark-svg #spiral-stroke { stroke:#f3f2e7; fill:none; }
-/* pen-tip glow overlay */
-#pen-glow {
+#particle-canvas {
   position:absolute; top:0; left:0;
-  width:220px; height:220px;
-  pointer-events:none;
+  width:260px; height:260px;
 }
-
+.mark-svg-over {
+  position:absolute; top:0; left:0;
+  width:260px; height:260px;
+  opacity:0; pointer-events:none;
+}
+.mark-svg-over #over-ring   { stroke:#f3f2e7; fill:none; }
+.mark-svg-over #over-fill   { fill:#f3f2e7; stroke:none; }
+.mark-svg-over #over-stroke { stroke:#f3f2e7; fill:none; }
 .wm-svg {
-  width:190px; height:auto; display:block;
-  opacity:0; transform:translateY(8px);
-  will-change:opacity,transform;
+  width:200px; height:auto; display:block;
+  opacity:0; transform:translateY(10px);
 }
 .meta {
   display:flex; flex-direction:column;
   align-items:center; gap:4px;
 }
 .vname {
-  font-size:11px; letter-spacing:0.18em;
+  font-size:11px; letter-spacing:0.16em;
   text-transform:uppercase;
   color:rgba(243,242,231,0.28);
-  text-align:center; max-width:280px;
-  line-height:1.5;
+  text-align:center; max-width:300px;
+  line-height:1.6;
 }
 .replay-btn {
   background:none; border:none;
@@ -64,7 +61,7 @@ body {
   transition:color 0.2s;
   -webkit-tap-highlight-color:transparent;
 }
-.replay-btn:hover { color:rgba(243,242,231,.75); }
+.replay-btn:hover { color:rgba(243,242,231,.7); }
 .controls {
   display:flex; flex-wrap:wrap;
   gap:10px; justify-content:center;
@@ -75,8 +72,7 @@ body {
   color:rgba(243,242,231,0.7);
   padding:10px 20px; border-radius:100px;
   font-family:Georgia,serif; font-size:13px;
-  cursor:pointer; letter-spacing:0.03em;
-  transition:all 0.18s;
+  cursor:pointer; transition:all 0.18s;
   -webkit-tap-highlight-color:transparent;
 }
 .btn.active { background:#f3f2e7; color:#1a1714; border-color:#f3f2e7; }
@@ -84,38 +80,19 @@ body {
 </head>
 <body>
 <div class="stage">
-  <div class="mark-wrap">
-    <svg class="mark-svg" viewBox="0 0 2048 2048" xmlns="http://www.w3.org/2000/svg"
+  <div class="canvas-wrap">
+    <canvas id="particle-canvas" width="520" height="520" style="width:260px;height:260px;"></canvas>
+    <!-- SVG mark overlaid at the end for crisp final state -->
+    <svg class="mark-svg-over" id="mark-over" viewBox="0 0 2048 2048" xmlns="http://www.w3.org/2000/svg"
          style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
-      <defs>
-        <!-- Radial glow filter for ink tip -->
-        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="18" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <!-- Soft glow for the ring pulse -->
-        <filter id="soft-glow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="12" result="b"/>
-          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <g id="mark-group">
+      <g>
         <g transform="matrix(0.961325,0,0,0.963646,35.497437,41.579727)">
-          <circle id="outer-ring" cx="1028.968" cy="1020.878" r="388.175" style="fill:none;stroke-width:40.52px;"/>
+          <circle id="over-ring" cx="1028.968" cy="1020.878" r="388.175" style="fill:none;stroke-width:40.52px;"/>
         </g>
-        <path id="spiral-fill" d="M1030.97,1382.109C1040.518,1385.678 1045.372,1396.328 1041.803,1405.876C1038.233,1415.424 1027.584,1420.278 1018.036,1416.708C991.014,1406.607 940.334,1400.038 899.093,1379.252C861.859,1360.486 843.969,1345.574 818.292,1317.678C743.653,1236.589 705.798,1113.569 734.458,996.399C767.675,860.601 860.976,790.945 961.26,766.957C1052.79,745.063 1154.659,766.618 1232.08,840.174C1300.31,904.998 1334.033,1011.213 1307.562,1103.43C1283.227,1188.208 1182.756,1274.208 1072.088,1257.498C1010.386,1248.181 966.91,1220.903 946.923,1186.151C923.92,1146.156 923.465,1106.125 939.413,1073.997C956.28,1040.017 990.129,1019.391 1025.57,1015.74C1026.854,1015.608 1044.041,1014.45 1034.26,1016.69C1026.282,1018.517 1028.126,1017.076 1015.818,1022.213C981.508,1036.532 968.109,1060.872 961.853,1081.773C954.794,1105.354 955.371,1138.484 975.473,1167.133C993.223,1192.431 1030.038,1213.792 1077.603,1220.974C1169.102,1234.789 1251.938,1163.332 1272.058,1093.239C1294.826,1013.922 1265.323,922.708 1206.638,866.953C1138.943,802.637 1049.885,783.738 969.853,802.882C881.533,824.008 799.592,885.579 770.338,1005.176C744.69,1110.032 778.674,1220.095 845.47,1292.662C867.805,1316.927 883.33,1329.944 915.717,1346.267C955.635,1366.385 1004.816,1372.332 1030.97,1382.109Z" style="stroke-width:1px;stroke-linecap:butt;stroke-miterlimit:2;"/>
-        <path id="spiral-stroke" d="M1316.587,1257.305C1286.184,1300.278 1188.995,1380.877 1075.239,1372.373C994.313,1366.323 932.403,1327.042 885.209,1259.56C841.205,1196.638 824.032,1091.978 861.047,1016.69C904.037,929.246 982.359,895.09 1058.591,909.575C1144.51,925.9 1202.638,1001.898 1198.805,1088.348C1196.705,1135.712 1162.276,1192.981 1118.596,1213.038C1060.383,1239.769 1009.302,1224.083 995.069,1210.437" style="fill:none;stroke-width:36.9px;"/>
-        <!-- Ink tip: a glowing dot that travels along the spiral stroke path -->
-        <circle id="ink-tip" cx="1316" cy="1257" r="28" fill="rgba(255,255,248,0.95)" filter="url(#glow)" opacity="0"/>
-        <!-- Signal rings (for Signal variant) -->
-        <g id="signal-rings" opacity="0">
-          <circle class="sig-ring" cx="1024" cy="1024" r="388" fill="none" stroke="#f3f2e7" stroke-width="18" opacity="0"/>
-          <circle class="sig-ring" cx="1024" cy="1024" r="388" fill="none" stroke="#f3f2e7" stroke-width="12" opacity="0"/>
-          <circle class="sig-ring" cx="1024" cy="1024" r="388" fill="none" stroke="#f3f2e7" stroke-width="6" opacity="0"/>
-        </g>
+        <path id="over-fill" d="M1030.97,1382.109C1040.518,1385.678 1045.372,1396.328 1041.803,1405.876C1038.233,1415.424 1027.584,1420.278 1018.036,1416.708C991.014,1406.607 940.334,1400.038 899.093,1379.252C861.859,1360.486 843.969,1345.574 818.292,1317.678C743.653,1236.589 705.798,1113.569 734.458,996.399C767.675,860.601 860.976,790.945 961.26,766.957C1052.79,745.063 1154.659,766.618 1232.08,840.174C1300.31,904.998 1334.033,1011.213 1307.562,1103.43C1283.227,1188.208 1182.756,1274.208 1072.088,1257.498C1010.386,1248.181 966.91,1220.903 946.923,1186.151C923.92,1146.156 923.465,1106.125 939.413,1073.997C956.28,1040.017 990.129,1019.391 1025.57,1015.74C1026.854,1015.608 1044.041,1014.45 1034.26,1016.69C1026.282,1018.517 1028.126,1017.076 1015.818,1022.213C981.508,1036.532 968.109,1060.872 961.853,1081.773C954.794,1105.354 955.371,1138.484 975.473,1167.133C993.223,1192.431 1030.038,1213.792 1077.603,1220.974C1169.102,1234.789 1251.938,1163.332 1272.058,1093.239C1294.826,1013.922 1265.323,922.708 1206.638,866.953C1138.943,802.637 1049.885,783.738 969.853,802.882C881.533,824.008 799.592,885.579 770.338,1005.176C744.69,1110.032 778.674,1220.095 845.47,1292.662C867.805,1316.927 883.33,1329.944 915.717,1346.267C955.635,1366.385 1004.816,1372.332 1030.97,1382.109Z" style="stroke-width:1px;"/>
+        <path id="over-stroke" d="M1316.587,1257.305C1286.184,1300.278 1188.995,1380.877 1075.239,1372.373C994.313,1366.323 932.403,1327.042 885.209,1259.56C841.205,1196.638 824.032,1091.978 861.047,1016.69C904.037,929.246 982.359,895.09 1058.591,909.575C1144.51,925.9 1202.638,1001.898 1198.805,1088.348C1196.705,1135.712 1162.276,1192.981 1118.596,1213.038C1060.383,1239.769 1009.302,1224.083 995.069,1210.437" style="fill:none;stroke-width:36.9px;"/>
       </g>
     </svg>
-    <canvas id="pen-glow" width="220" height="220"></canvas>
   </div>
 
   <svg class="wm-svg" width="476.00" height="168.00" viewBox="539.00 306.00 476.00 168.00" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -135,338 +112,387 @@ body {
                                                                  
 
   <div class="meta">
-    <div class="vname" id="vname">The Impression</div>
+    <div class="vname" id="vname">The Origin — an idea bursts, then forms into the mark</div>
     <button class="replay-btn" id="replayBtn">&#8635; replay</button>
   </div>
   <div class="controls">
-    <button class="btn active" data-v="impression">The Impression</button>
-    <button class="btn" data-v="inkdraw">Ink Draw</button>
+    <button class="btn active" data-v="origin">The Origin</button>
+    <button class="btn" data-v="impression">The Impression</button>
     <button class="btn" data-v="signal">Signal</button>
-    <button class="btn" data-v="unfurl">Unfurl</button>
     <button class="btn" data-v="breathe">Breathe</button>
   </div>
 </div>
 
 <script>
-(function() {
-  var ring     = document.getElementById("outer-ring");
-  var sfill    = document.getElementById("spiral-fill");
-  var sstroke  = document.getElementById("spiral-stroke");
-  var inkTip   = document.getElementById("ink-tip");
-  var sigRings = document.querySelectorAll(".sig-ring");
-  var wm       = document.querySelector(".wm-svg");
-  var vname    = document.getElementById("vname");
-  var group    = document.getElementById("mark-group");
-  var canvas   = document.getElementById("pen-glow");
-  var ctx      = canvas.getContext("2d");
-  var raf      = null;
-  var current  = "impression";
+(function(){
+  var canvas  = document.getElementById("particle-canvas");
+  var ctx     = canvas.getContext("2d");
+  var markOver= document.getElementById("mark-over");
+  var overRing= document.getElementById("over-ring");
+  var overStroke = document.getElementById("over-stroke");
+  var wm      = document.querySelector(".wm-svg");
+  var vname   = document.getElementById("vname");
+  var raf     = null, current = "origin";
 
-  // SVG viewBox to canvas coordinate scale
-  var VB = 2048, CANVAS = 220;
-  var scale = CANVAS / VB;
+  // Canvas is 520px (retina 2x for 260px CSS)
+  var C = 520, VB = 2048, scale = C / VB;
+  var cx = 1024 * scale, cy = 1025 * scale; // center in canvas coords
 
   var LABELS = {
-    impression: "The Impression — ink tip races the spiral, ring seals it shut",
-    inkdraw:    "Ink Draw — spiral & ring draw on together",
-    signal:     "Signal — pulse rings broadcast outward, mark materializes",
-    unfurl:     "Unfurl — springs from a point, elastic overshoot",
-    breathe:    "Breathe — living loop"
+    origin:     "The Origin — an idea bursts, then forms into the mark",
+    impression: "The Impression — ink tip races the spiral, ring seals shut",
+    signal:     "Signal — pulse rings broadcast, mark materializes",
+    breathe:    "Breathe — living pulse loop"
   };
 
-  var ringLen, spiralLen;
-  function init() {
-    ringLen    = ring.getTotalLength();
-    spiralLen  = sstroke.getTotalLength();
-    ring.style.strokeDasharray   = ringLen;
-    ring.style.strokeDashoffset  = ringLen;
-    sstroke.style.strokeDasharray  = spiralLen;
-    sstroke.style.strokeDashoffset = spiralLen;
-    setTimeout(function() { play("impression"); }, 500);
+  // --- Particle target positions ---
+  var targets = []; // {x, y} in canvas coords
+
+  function samplePath(pathEl, n) {
+    var len = pathEl.getTotalLength();
+    var pts = [];
+    for (var i = 0; i < n; i++) {
+      var d = (i / (n-1)) * len;
+      var pt = pathEl.getPointAtLength(d);
+      pts.push({ x: pt.x * scale, y: pt.y * scale });
+    }
+    return pts;
   }
 
-  function ease(t)        { return t<.5?2*t*t:-1+(4-2*t)*t; }
-  function easeOut3(t)    { return 1-Math.pow(1-t,3); }
-  function easeOutQuart(t){ return 1-Math.pow(1-t,4); }
-  function spring(t) {
-    if (t>=1) return 1;
-    return 1+Math.pow(2,-9*t)*Math.sin((t*9-.6)*(2*Math.PI/2.8));
+  function sampleRing(n) {
+    // Sample the transformed ring circle
+    // Transformed: cx=1028.968*0.961325+35.497=1024, cy~=1025 (approx), r=388.175*0.961325~=373
+    var RCX = (1028.968 * 0.961325 + 35.497437) * scale;
+    var RCY = (1020.878 * 0.963646 + 41.579727) * scale;
+    var RR  = 388.175 * 0.961325 * scale;
+    var pts = [];
+    for (var i = 0; i < n; i++) {
+      var angle = (i / n) * Math.PI * 2 - Math.PI/2;
+      pts.push({ x: RCX + RR * Math.cos(angle), y: RCY + RR * Math.sin(angle) });
+    }
+    return pts;
   }
 
-  function cancel() { if (raf) { cancelAnimationFrame(raf); raf=null; } }
+  function buildTargets() {
+    var spiralStrokePts = samplePath(overStroke, 200);
+    var spiralFillPts   = samplePath(document.getElementById("over-fill"), 80);
+    var ringPts         = sampleRing(80);
+    targets = spiralStrokePts.concat(spiralFillPts).concat(ringPts);
+    // Shuffle targets so particles don't all land in order
+    for (var i = targets.length-1; i>0; i--) {
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp = targets[i]; targets[i]=targets[j]; targets[j]=tmp;
+    }
+  }
+
+  // --- Particle system ---
+  var N = 360;
+  var particles = [];
+
+  function initParticles() {
+    particles = [];
+    for (var i = 0; i < N; i++) {
+      var angle = Math.random() * Math.PI * 2;
+      var speed = 80 + Math.random() * 180; // canvas px
+      var target = targets[i % targets.length];
+      particles.push({
+        // Start at center
+        x: cx, y: cy,
+        // Explosion velocity
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        // Target
+        tx: target.x, ty: target.y,
+        // Appearance
+        r: 1.2 + Math.random() * 1.8,
+        alpha: 0.6 + Math.random() * 0.4,
+        // Timing: slight stagger on when particle starts homing
+        delay: Math.random() * 0.15
+      });
+    }
+  }
+
+  function easeOut3(t)   { return 1-Math.pow(1-t,3); }
+  function easeInOut(t)  { return t<.5?2*t*t:-1+(4-2*t)*t; }
+  function spring(t)     { if(t>=1)return 1; return 1+Math.pow(2,-9*t)*Math.sin((t*9-.6)*(2*Math.PI/2.8)); }
+  function lerp(a,b,t)   { return a+(b-a)*t; }
+
+  function cancel() { if (raf){cancelAnimationFrame(raf);raf=null;} }
 
   function resetAll() {
     cancel();
-    ctx.clearRect(0,0,220,220);
-    ring.style.strokeDashoffset  = ringLen;
-    ring.style.opacity = "1";
-    sfill.style.opacity = "0";
-    sfill.style.transform = "";
-    sstroke.style.strokeDashoffset = spiralLen;
-    sstroke.style.opacity = "1";
-    inkTip.setAttribute("opacity","0");
-    sigRings.forEach(function(r){ r.setAttribute("opacity","0"); r.setAttribute("r","388"); });
-    group.style.transform = "";
-    group.style.opacity = "1";
+    ctx.clearRect(0,0,C,C);
+    markOver.style.opacity = "0";
+    overRing.style.strokeDasharray  = "";
+    overRing.style.strokeDashoffset = "";
+    overStroke.style.strokeDasharray  = "";
+    overStroke.style.strokeDashoffset = "";
     wm.style.opacity = "0";
-    wm.style.transform = "translateY(8px)";
+    wm.style.transform = "translateY(10px)";
     wm.style.transition = "none";
   }
 
   function showWM(delay) {
-    setTimeout(function() {
-      wm.style.transition="opacity .6s ease,transform .6s ease";
-      wm.style.opacity="1";
-      wm.style.transform="translateY(0)";
-    }, delay||0);
+    setTimeout(function(){
+      wm.style.transition = "opacity .7s ease, transform .7s ease";
+      wm.style.opacity = "1";
+      wm.style.transform = "translateY(0)";
+    }, delay);
   }
 
-  // ── THE IMPRESSION ────────────────────────────────────────────────────────
-  // A glowing ink tip races along the spiral path leaving a hot trail,
-  // then flies off and the ring seals shut clockwise.
-  function playImpression() {
+  // ── THE ORIGIN ─────────────────────────────────────────────────────────────
+  //  Phase 1 (0-.25s):  Flash at center — bright starburst
+  //  Phase 2 (.1-.9s):  Particles explode outward
+  //  Phase 3 (.8-1.6s): Pause / float
+  //  Phase 4 (1.5-3.2s):Particles home to spiral positions
+  //  Phase 5 (3.0-3.5s):SVG mark crossfades in cleanly
+  //  Phase 6 (3.5s+):   Wordmark reveals
+  var PHASES = { flash:[0,.25], explode:[.1,.9], pause:[.8,1.6], home:[1.5,3.2], reveal:[3.0,3.6] };
+  var TOTAL = 3800; // ms
+
+  function playOrigin() {
     resetAll();
-    sfill.style.opacity = "0.08"; // ghost of the mark underneath
+    buildTargets();
+    initParticles();
 
-    var SPIRAL_DUR = 2000;
-    var RING_DUR   = 700;
-    var spiralStart = null, ringStart = null, ringStarted = false;
-
-    // Glow trail on canvas
-    function drawTrail(progress) {
-      ctx.clearRect(0,0,220,220);
-      if (progress <= 0) return;
-      // Draw the trail as a series of diminishing circles
-      var steps = Math.floor(progress * spiralLen);
-      var TRAIL = 180; // trail length in SVG units
-      var startDist = Math.max(0, steps - TRAIL);
-      for (var d = startDist; d <= steps; d += 6) {
-        var pt = sstroke.getPointAtLength(d);
-        var x = pt.x * scale, y = pt.y * scale;
-        var trailT = (d - startDist) / TRAIL;
-        var alpha = trailT * 0.35;
-        var r = 3 + trailT * 5;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI*2);
-        ctx.fillStyle = "rgba(255,255,245,"+alpha+")";
-        ctx.fill();
-      }
-      // Bright tip
-      if (steps < spiralLen) {
-        var tipPt = sstroke.getPointAtLength(steps);
-        var tx = tipPt.x * scale, ty = tipPt.y * scale;
-        var grd = ctx.createRadialGradient(tx,ty,0,tx,ty,20);
-        grd.addColorStop(0,"rgba(255,255,252,0.95)");
-        grd.addColorStop(0.3,"rgba(243,242,231,0.5)");
-        grd.addColorStop(1,"rgba(243,242,231,0)");
-        ctx.beginPath();
-        ctx.arc(tx,ty,20,0,Math.PI*2);
-        ctx.fillStyle=grd;
-        ctx.fill();
-        // Tight hot dot
-        ctx.beginPath();
-        ctx.arc(tx,ty,5,0,Math.PI*2);
-        ctx.fillStyle="rgba(255,255,252,1)";
-        ctx.fill();
-      }
-    }
-
+    var start = null;
     function frame(ts) {
-      // Spiral phase
-      if (!spiralStart) spiralStart = ts;
-      var sRaw = Math.min((ts-spiralStart)/SPIRAL_DUR, 1);
-      var sT   = ease(sRaw);
-      var dist = sT * spiralLen;
-      sstroke.style.strokeDashoffset = spiralLen - dist;
-      drawTrail(sT);
-      // Also fade in the fill as spiral traces
-      sfill.style.opacity = Math.max(0.08, sT * 0.7);
+      if (!start) start = ts;
+      var elapsed = ts - start;
+      var T = Math.min(elapsed / TOTAL, 1);
 
-      // Ring seals when spiral is 60% done
-      if (sRaw >= 0.6 && !ringStarted) {
-        ringStarted = true;
-        ringStart = ts;
-      }
-      if (ringStarted) {
-        var rRaw = Math.min((ts-ringStart)/RING_DUR, 1);
-        var rT   = easeOutQuart(rRaw);
-        ring.style.strokeDashoffset = ringLen * (1-rT);
+      ctx.clearRect(0,0,C,C);
+
+      // ── Flash ──
+      var flashT = Math.min(elapsed / (PHASES.flash[1]*TOTAL), 1);
+      if (flashT < 1) {
+        var flashAlpha = Math.sin(flashT * Math.PI) * 0.85;
+        var gr = ctx.createRadialGradient(cx,cy,0,cx,cy,60+flashT*80);
+        gr.addColorStop(0, "rgba(255,255,248,"+flashAlpha+")");
+        gr.addColorStop(0.4, "rgba(243,242,231,"+(flashAlpha*0.4)+")");
+        gr.addColorStop(1, "rgba(243,242,231,0)");
+        ctx.beginPath(); ctx.arc(cx,cy,140,0,Math.PI*2);
+        ctx.fillStyle = gr; ctx.fill();
       }
 
-      if (sRaw < 1 || (ringStarted && (ts-ringStart)/RING_DUR < 1)) {
+      // ── Particles ──
+      for (var i = 0; i < N; i++) {
+        var p = particles[i];
+
+        // Explosion phase progress (each particle has same timing here)
+        var expStart = PHASES.explode[0] * TOTAL;
+        var expEnd   = PHASES.explode[1] * TOTAL;
+        var expT = Math.max(0, Math.min((elapsed - expStart)/(expEnd - expStart), 1));
+
+        // Home phase progress (staggered per particle)
+        var homeStart = (PHASES.home[0] + p.delay) * TOTAL;
+        var homeEnd   = PHASES.reveal[0] * TOTAL;
+        var homeT = Math.max(0, Math.min((elapsed - homeStart)/(homeEnd - homeStart), 1));
+        var homeEased = easeInOut(homeT);
+
+        var px, py;
+        if (homeT > 0) {
+          // Homing: blend from explosion position toward target
+          var expPos = {
+            x: cx + p.vx * easeOut3(1), // final explosion position
+            y: cy + p.vy * easeOut3(1)
+          };
+          px = lerp(expPos.x, p.tx, homeEased);
+          py = lerp(expPos.y, p.ty, homeEased);
+        } else {
+          // Pure explosion
+          var expEased = easeOut3(expT);
+          px = cx + p.vx * expEased;
+          py = cy + p.vy * expEased;
+        }
+
+        // Fade in during explosion, stay visible, fade out at very end
+        var baseAlpha = p.alpha;
+        if (expT < 0.2) baseAlpha *= (expT / 0.2);
+        // Brighten as particle arrives at target
+        var brightness = 1 + homeEased * 0.5;
+        // Fade out as SVG takes over
+        var revealStart = PHASES.reveal[0] * TOTAL;
+        var revealT = Math.max(0, (elapsed - revealStart)/((PHASES.reveal[1]-PHASES.reveal[0])*TOTAL));
+        var particleAlpha = baseAlpha * brightness * (1 - easeOut3(revealT));
+
+        if (particleAlpha > 0.01) {
+          ctx.beginPath();
+          ctx.arc(px, py, p.r * (0.8 + homeEased * 0.4), 0, Math.PI*2);
+          ctx.fillStyle = "rgba(243,242,231,"+particleAlpha+")";
+          ctx.fill();
+        }
+      }
+
+      // ── SVG crossfade in ──
+      var revStart = PHASES.reveal[0] * TOTAL;
+      var revEnd   = PHASES.reveal[1] * TOTAL;
+      if (elapsed >= revStart) {
+        var revT = Math.min((elapsed-revStart)/(revEnd-revStart), 1);
+        markOver.style.opacity = easeOut3(revT).toString();
+      }
+
+      if (T < 1) {
         raf = requestAnimationFrame(frame);
       } else {
-        // Finalize
-        ctx.clearRect(0,0,220,220);
-        sstroke.style.strokeDashoffset = "0";
-        ring.style.strokeDashoffset = "0";
-        sfill.style.opacity = "1";
-        // Brief stamp/settle
-        var sttStart = null;
-        function settle(ts2) {
-          if (!sttStart) sttStart = ts2;
-          var st = Math.min((ts2-sttStart)/400, 1);
-          var s = 1 + spring(st)*0.035 - 0.035;
-          group.style.transformOrigin="1024px 1025px";
-          group.style.transform="scale("+s+")";
-          if (st<1) raf=requestAnimationFrame(settle);
-          else { group.style.transform=""; showWM(100); }
-        }
-        raf=requestAnimationFrame(settle);
+        ctx.clearRect(0,0,C,C);
+        markOver.style.opacity = "1";
+        showWM(200);
       }
     }
     raf = requestAnimationFrame(frame);
   }
 
-  // ── INK DRAW ─────────────────────────────────────────────────────────────
-  function playInkDraw() {
+  // ── THE IMPRESSION ─────────────────────────────────────────────────────────
+  function playImpression() {
     resetAll();
-    var DUR = 2000, start = null;
+    var ringLen   = overRing.getTotalLength();
+    var spiralLen = overStroke.getTotalLength();
+    overRing.style.strokeDasharray   = ringLen;
+    overRing.style.strokeDashoffset  = ringLen;
+    overStroke.style.strokeDasharray  = spiralLen;
+    overStroke.style.strokeDashoffset = spiralLen;
+    document.getElementById("over-fill").style.opacity = "0";
+    markOver.style.opacity = "1";
+
+    var DUR = 2200, RING_DUR = 700;
+    var start = null, ringStart = null, ringStarted = false;
+
+    function drawTip(dist) {
+      ctx.clearRect(0,0,C,C);
+      var pt = overStroke.getPointAtLength(dist);
+      var tx = pt.x*scale, ty = pt.y*scale;
+      var TRAIL = 160;
+      var s0 = Math.max(0, dist-TRAIL);
+      for (var d=s0; d<=dist; d+=5) {
+        var tpt = overStroke.getPointAtLength(d);
+        var trailT = (d-s0)/TRAIL;
+        var alpha = trailT * 0.4;
+        var r = 2+trailT*5;
+        ctx.beginPath(); ctx.arc(tpt.x*scale,tpt.y*scale,r,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,255,245,"+alpha+")"; ctx.fill();
+      }
+      var grd=ctx.createRadialGradient(tx,ty,0,tx,ty,18);
+      grd.addColorStop(0,"rgba(255,255,252,.95)");
+      grd.addColorStop(.3,"rgba(243,242,231,.5)");
+      grd.addColorStop(1,"rgba(243,242,231,0)");
+      ctx.beginPath(); ctx.arc(tx,ty,18,0,Math.PI*2);
+      ctx.fillStyle=grd; ctx.fill();
+      ctx.beginPath(); ctx.arc(tx,ty,4,0,Math.PI*2);
+      ctx.fillStyle="rgba(255,255,252,1)"; ctx.fill();
+    }
+
     function frame(ts) {
-      if (!start) start = ts;
-      var raw = Math.min((ts-start)/DUR, 1);
-      var t = ease(raw);
-      sstroke.style.strokeDashoffset = spiralLen*(1-t);
-      var ringT = Math.max(0,(t-.1)/.9);
-      ring.style.strokeDashoffset = ringLen*(1-ease(ringT));
-      sfill.style.opacity = Math.max(0,(t-.4)/.6);
-      if (raw<1) {
-        raf=requestAnimationFrame(frame);
-      } else {
-        sstroke.style.strokeDashoffset="0";
-        ring.style.strokeDashoffset="0";
-        sfill.style.opacity="1";
+      if (!start) start=ts;
+      var sRaw=Math.min((ts-start)/DUR,1), sT=easeInOut(sRaw);
+      overStroke.style.strokeDashoffset=spiralLen*(1-sT);
+      drawTip(sT*spiralLen);
+      document.getElementById("over-fill").style.opacity=Math.max(0,(sT-.4)/.6).toString();
+      if (sRaw>=.6&&!ringStarted){ringStarted=true;ringStart=ts;}
+      if (ringStarted){
+        var rRaw=Math.min((ts-ringStart)/RING_DUR,1);
+        overRing.style.strokeDashoffset=ringLen*(1-Math.pow(rRaw,0.25));
+      }
+      if (sRaw<1||(ringStarted&&(ts-ringStart)/RING_DUR<1)) raf=requestAnimationFrame(frame);
+      else {
+        ctx.clearRect(0,0,C,C);
+        overStroke.style.strokeDashoffset="0";
+        overRing.style.strokeDashoffset="0";
+        document.getElementById("over-fill").style.opacity="1";
         showWM(100);
       }
     }
     raf=requestAnimationFrame(frame);
   }
 
-  // ── SIGNAL ───────────────────────────────────────────────────────────────
-  // Concentric rings pulse outward like a broadcast, then the mark materializes
+  // ── SIGNAL ─────────────────────────────────────────────────────────────────
   function playSignal() {
     resetAll();
-    sfill.style.opacity="0";
-    var delays = [0, 280, 560];
-    var ringAnimStates = [{t:0,active:false},{t:0,active:false},{t:0,active:false}];
-    var pulseStart = null;
-    var PULSE_DUR = 900;
-    var materialStart = null, materialStarted = false;
+    markOver.style.opacity="1";
+    var ringLen   = overRing.getTotalLength();
+    var spiralLen = overStroke.getTotalLength();
+    overRing.style.strokeDasharray=ringLen; overRing.style.strokeDashoffset=ringLen;
+    overStroke.style.strokeDasharray=spiralLen; overStroke.style.strokeDashoffset=spiralLen;
+    document.getElementById("over-fill").style.opacity="0";
 
-    // Start each ring at staggered times
-    var ringTimers = delays.map(function(d, i) {
-      return setTimeout(function() {
-        ringAnimStates[i].active = true;
-        ringAnimStates[i].start = null;
-      }, d);
-    });
+    var PULSE_DUR=900, MAT_DELAY=800, MAT_DUR=1400;
+    var start=null;
+    var pulses=[{delay:0},{delay:280},{delay:560}];
 
-    var allPulsed = false;
-    var materialTimer = setTimeout(function() {
-      materialStarted = true;
-      materialStart = null;
-    }, 900);
+    function frame(ts){
+      if(!start)start=ts;
+      var el=ts-start;
+      ctx.clearRect(0,0,C,C);
 
-    function frame(ts) {
-      var stillGoing = false;
-
-      // Animate pulse rings
-      sigRings.forEach(function(sr, i) {
-        var s = ringAnimStates[i];
-        if (!s.active) return;
-        if (!s.start) s.start = ts;
-        var raw = Math.min((ts-s.start)/PULSE_DUR, 1);
-        var t = easeOut3(raw);
-        // scale radius outward, fade out
-        var r = 388 + t * 320;
-        var op = (1-t) * 0.55;
-        sr.setAttribute("r", r);
-        sr.setAttribute("opacity", op);
-        if (raw < 1) stillGoing = true;
+      // Pulse rings on canvas
+      pulses.forEach(function(p){
+        var pEl=el-p.delay;
+        if(pEl<0)return;
+        var t=Math.min(pEl/PULSE_DUR,1);
+        var r=(100+t*200)*scale; // in canvas px, starting small
+        var alpha=(1-Math.pow(t,0.5))*0.5;
+        if(alpha<0.005)return;
+        ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
+        ctx.strokeStyle="rgba(243,242,231,"+alpha+")";
+        ctx.lineWidth=14*scale*(1-t*0.5);
+        ctx.stroke();
       });
 
-      // After pulses, materialize the mark
-      if (materialStarted) {
-        if (!materialStart) materialStart = ts;
-        var MAT_DUR = 1500;
-        var mRaw = Math.min((ts-materialStart)/MAT_DUR, 1);
-        var mT = ease(mRaw);
-        // Ring closes
-        ring.style.strokeDashoffset = ringLen*(1-easeOut3(mRaw));
-        // Spiral draws
-        sstroke.style.strokeDashoffset = spiralLen*(1-mT);
-        sfill.style.opacity = Math.max(0,(mT-.3)/.7);
-        if (mRaw < 1) stillGoing = true;
-        else {
-          ring.style.strokeDashoffset="0";
-          sstroke.style.strokeDashoffset="0";
-          sfill.style.opacity="1";
-          showWM(100);
-        }
-      } else { stillGoing = true; }
+      // Materialize
+      var matEl=el-MAT_DELAY;
+      if(matEl>0){
+        var mT=Math.min(matEl/MAT_DUR,1);
+        overStroke.style.strokeDashoffset=spiralLen*(1-easeInOut(mT));
+        overRing.style.strokeDashoffset=ringLen*(1-easeOut3(mT));
+        document.getElementById("over-fill").style.opacity=Math.max(0,(mT-.3)/.7).toString();
+        if(mT>=1){ctx.clearRect(0,0,C,C);showWM(100);}
+      }
 
-      if (stillGoing) raf=requestAnimationFrame(frame);
+      var last=pulses[pulses.length-1];
+      var allDone=(el-last.delay)>=PULSE_DUR && (matEl>=MAT_DUR);
+      if(!allDone) raf=requestAnimationFrame(frame);
     }
     raf=requestAnimationFrame(frame);
   }
 
-  // ── UNFURL ───────────────────────────────────────────────────────────────
-  function playUnfurl() {
-    resetAll();
-    sfill.style.opacity="1";
-    ring.style.strokeDashoffset="0";
-    sstroke.style.strokeDashoffset="0";
-    group.style.opacity="0";
-    group.style.transform="scale(0.04)";
-    var DUR=1100, start=null;
-    function frame(ts) {
-      if (!start) start=ts;
-      var t=Math.min((ts-start)/DUR,1);
-      var s=0.04+spring(t)*0.96;
-      group.style.transformOrigin="1024px 1025px";
-      group.style.transform="scale("+s+")";
-      group.style.opacity=Math.min(t*6,1).toString();
-      if (t<1) raf=requestAnimationFrame(frame);
-      else { group.style.transform=""; group.style.opacity="1"; showWM(100); }
-    }
-    raf=requestAnimationFrame(frame);
-  }
-
-  // ── BREATHE ──────────────────────────────────────────────────────────────
+  // ── BREATHE ────────────────────────────────────────────────────────────────
   function playBreathe() {
     resetAll();
-    sfill.style.opacity="1";
-    ring.style.strokeDashoffset="0";
-    sstroke.style.strokeDashoffset="0";
+    markOver.style.opacity="1";
+    document.getElementById("over-fill").style.opacity="1";
     wm.style.transition="opacity .6s ease,transform .6s ease";
-    wm.style.opacity="1";
-    wm.style.transform="translateY(0)";
+    wm.style.opacity="1"; wm.style.transform="translateY(0)";
     var PERIOD=3400,start=null;
-    function frame(ts) {
-      if (!start) start=ts;
+    function frame(ts){
+      if(!start)start=ts;
       var t=((ts-start)%PERIOD)/PERIOD;
       var sine=Math.sin(t*Math.PI*2);
-      group.style.transformOrigin="1024px 1025px";
-      group.style.transform="scale("+(1+sine*.022)+")";
-      group.style.opacity=(0.9+sine*.1).toString();
+      markOver.style.transform="scale("+(1+sine*.022)+")";
+      markOver.style.transformOrigin="50% 50%";
+      markOver.style.opacity=(0.9+sine*.1).toString();
       raf=requestAnimationFrame(frame);
     }
     raf=requestAnimationFrame(frame);
   }
 
-  var variants={impression:playImpression,inkdraw:playInkDraw,signal:playSignal,unfurl:playUnfurl,breathe:playBreathe};
+  var variants={origin:playOrigin,impression:playImpression,signal:playSignal,breathe:playBreathe};
 
-  function play(v) {
+  function play(v){
     current=v;
     vname.textContent=LABELS[v];
     document.querySelectorAll(".btn").forEach(function(b){b.classList.toggle("active",b.dataset.v===v);});
+    markOver.style.transform=""; markOver.style.transformOrigin="";
     variants[v]();
   }
 
   document.querySelectorAll(".btn").forEach(function(b){b.addEventListener("click",function(){play(b.dataset.v);});});
   document.getElementById("replayBtn").addEventListener("click",function(){play(current);});
 
-  if (document.readyState==="complete") init();
+  function init(){
+    buildTargets();
+    setTimeout(function(){play("origin");},400);
+  }
+  if(document.readyState==="complete") init();
   else window.addEventListener("load",init);
 })();
 </script>
